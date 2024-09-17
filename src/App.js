@@ -1,15 +1,14 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Pages/Common/Login/login';
+import Login from './Pages/Common/Login/Login';
+import HomePage from './Pages/Users/HomePage';
 import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Route path="/" component={Home} /> */}
-      <Routes>
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-      </Routes>
+      {/* <Routes>
+        <Route path="/login" element={<Login />} />
+      </Routes> */}
     </BrowserRouter>
   )
 }
