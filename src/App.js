@@ -1,13 +1,12 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Pages/Common/Login/login';
+import Login from './Pages/Common/Login/Login';
 
 function App() {
   return (
     <BrowserRouter>
-      {/* <Routes>
+      <Routes>
         <Route path="/login" element={<Login />} />
-      </Routes> */}
+      </Routes>
     </BrowserRouter>
   )
 }
