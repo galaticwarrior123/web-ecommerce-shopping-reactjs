@@ -2,28 +2,43 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 import './Login.css';
 import AuthAPI from '../../../API/AuthAPI';
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleClickLogin = async () => {
+    if (!email || !password) {
+      toast.error("Vui lòng nhập đầy đủ thông tin");
+      return;
+    }
+
     try {
       const response = await AuthAPI.login({ email, password });
-      console.log(response);
+      if (response.status === 200) {
+        localStorage.setItem('token', response.data.token);
+        navigate('/');
+      }
+      else {
+        toast.error("Đăng nhập thất bại");
+      }
     } catch (error) {
-      console.log(error);
+      toast.error("Đăng nhập thất bại");
     }
   }
 
   return (
     <div className="login-background">
-      <Container className="d-flex justify-content-center align-items-center min-vh-100">
+      <ToastContainer />
+      <Container className="d-flex justify-content-center align-items-center min-vh-100 ">
         <Row className="w-100 justify-content-center">
           <Col md={6} lg={4}>
-            <Card className="p-4 shadow-lg">
+            <Card className="p-2 shadow-lg">
               <Card.Body>
                 <h3 className="text-center mb-4">Đăng nhập</h3>
                 <Form>
@@ -42,7 +57,7 @@ const Login = () => {
                   </Button>
 
                   <div className="d-flex justify-content-between">
-                    <a href="/" className="text-muted">Quên mật khẩu?</a>
+                    <a href="/forgot-password" className="text-muted">Quên mật khẩu?</a>
                     <a href="/register" className="text-primary">Đăng ký</a>
                   </div>
                 </Form>

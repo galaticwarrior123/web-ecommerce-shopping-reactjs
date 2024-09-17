@@ -1,12 +1,14 @@
 .login-background {
-   
-    background-size: cover;
+    background-image: url('../../../../public/Images/picLogin.png');
+    background-size: contain;
     background-position: center;
     height: 100vh;
   }
   
+  
   .card {
     border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
   }
   
   h3 {
