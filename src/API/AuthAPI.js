@@ -2,34 +2,25 @@ import axiosClient, { axiosPrivate } from "./AxiosClient";
 
 class AuthAPI {
     static async login(data) {
-        const url = '/auth/login';
+        const url = '/user/login';
         return axiosClient.post(url, data);
     }
 
-    static async register(data) {
-        const url = '/auth/register';
+    static async signup(data) {
+        const url = '/user/signup';
         return axiosClient.post(url, data);
     }
 
-    static async confirmUser(data) {
-        const url = '/auth/verify';
+    static async sendOTP(data) {
+        const url = '/user/send-otp';
         return axiosClient.post(url, data);
     }
 
-    static async forgotPassword(data) {
-        const url = '/auth/forgot-password';
+    static async verified(data) {
+        const url = '/user/verified';
         return axiosClient.post(url, data);
     }
 
-    static async resetPassword(data) {
-        const url = '/auth/reset-password';
-        return axiosClient.post(url, data);
-    }
-    
-    static async getProfile() {
-        const url = '/auth/profile';
-        return axiosPrivate.get(url);
-    }
 }
 
 export default AuthAPI;
