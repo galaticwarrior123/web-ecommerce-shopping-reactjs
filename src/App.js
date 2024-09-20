@@ -1,10 +1,12 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Pages/Common/Login/Login';
-import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
+import Login from './Pages/Common/Login/login';
 import HomePage from './Pages/Users/HomePage';
 
 import Register from './Pages/Common/Register/Register';
 import Verify from './Pages/Common/Register/Verify';
+
+import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
+import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
 function App() {
   return (
     <BrowserRouter>
@@ -13,7 +15,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/" element={<HomePage />} />
+
+
         <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
       </Routes>
     </BrowserRouter>
   )

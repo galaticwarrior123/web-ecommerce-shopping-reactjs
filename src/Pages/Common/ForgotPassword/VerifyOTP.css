@@ -1,0 +1,66 @@
+/* Container styles */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #e0e7ff, #c3cffe);
+}
+
+.otp-card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+.text-center {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.otp-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.otp-field {
+    width: 45px;
+    height: 50px;
+    font-size: 24px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0 5px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.otp-field:focus {
+    border-color: #6c63ff;
+}
+
+.btn-submit {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s;
+}
+
+.btn-submit:hover {
+    background-color: #5750d3;
+}
+
+.message {
+    margin-top: 20px;
+    color: #333;
+}
