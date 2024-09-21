@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import './VerifyOTP.css';
+import { useNavigate } from 'react-router-dom';
+import AuthAPI from '../../../API/AuthAPI';
+
 
 const OTPInput = () => {
     const [otp, setOtp] = useState(new Array(6).fill(''));
     const [message, setMessage] = useState('');
+    const navigate = useNavigate();
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return; // Chỉ cho phép nhập số
@@ -16,42 +20,91 @@ const OTPInput = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
-        const otpValue = otp.join(''); // Kết hợp các ký tự OTP thành một chuỗi
-        const token = localStorage.getItem("jwtToken"); // Lấy token từ localStorage
+        const otpValue = otp.join(''); // Combine OTP characters into a string
+        const token = localStorage.getItem("token"); // Get token from localStorage
 
         if (!token) {
-            setMessage("Token is missing. Please try the process again.");//kiểm tra xem có lấy được token chưa
+            setMessage(
+                <>
+                    Token is missing.<br />
+                    Please try the process again.
+                </>
+            );
             return;
         }
 
         if (otpValue.length === 6) {
-            const data = { otp: otpValue, token }; // Tạo dữ liệu gửi
+            const data = { otp: otpValue, token }; // Create data to send
 
-            fetch('http://localhost:3000/api/v1/user/verify-otp_forgotpassword', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data), // Gửi OTP và token
-            })
-                .then(response => response.json().then(data => ({ status: response.status, body: data })))
-                .then(({ status, body }) => {
-                    if (status === 200) {
-                        setMessage('OTP verified successfully!');
-                        localStorage.removeItem('jwtToken'); // Xóa token khỏi localStorage sau khi xác minh thành công
-                    } else {
-                        setMessage(body.error || 'Invalid OTP. Please try again.');
-                    }
-                })
-                .catch((error) => {
-                    console.error('Error verifying OTP:', error);
-                    setMessage('Error verifying OTP. Please try again later.');
-                });
+            try {
+                // Call the verify OTP API
+                const response = await AuthAPI.verifyOTPForgotPassword(data);
+                const body = response.data;
+
+                // Handle success response
+                setMessage(body.message);
+
+                setTimeout(() => {
+                    navigate("/reset-password");
+                }, 2000);
+            } catch (error) {
+                const body = error.response?.data;
+                setMessage(body.error || 'Invalid OTP. Please try again.');
+            }
         } else {
             setMessage('Please enter a valid 6-digit OTP.');
         }
     };
+
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
+        
+    //     const otpValue = otp.join(''); // Kết hợp các ký tự OTP thành một chuỗi
+    //     const token = localStorage.getItem("jwtToken"); // Lấy token từ localStorage
+
+    //     if (!token) {
+    //         setMessage(
+    //             <>
+    //                 Token is missing.<br />
+    //                 Please try the process again.
+    //             </>
+    //         );//kiểm tra xem có lấy được token chưa
+    //         return;
+    //     }
+
+    //     if (otpValue.length === 6) {
+    //         const data = { otp: otpValue, token }; // Tạo dữ liệu gửi
+
+    //         fetch('http://localhost:3000/api/v1/user/verify-otp_forgotpassword', {
+    //             method: 'POST',
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify(data), // Gửi OTP và token
+    //         })
+    //             .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    //             .then(({ status, body }) => {
+    //                 if (status === 200) {
+    //                     setMessage('OTP verified successfully!');
+                        
+    //                     setTimeout(() => {
+    //                         navigate("/reset-password");
+    //                     }, 2000);
+
+    //                     //localStorage.removeItem('jwtToken'); // Xóa token khỏi localStorage sau khi xác minh thành công
+    //                 } else {
+    //                     setMessage(body.error || 'Invalid OTP. Please try again.');
+    //                 }
+    //             })
+    //             .catch((error) => {
+    //                 console.error('Error verifying OTP:', error);
+    //                 setMessage('Error verifying OTP. Please try again later.');
+    //             });
+    //     } else {
+    //         setMessage('Please enter a valid 6-digit OTP.');
+    //     }
+    // };
 
     return (
         <div className="container">

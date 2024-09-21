@@ -7,6 +7,7 @@ import Verify from './Pages/Common/Register/Verify';
 
 import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
+import ResetPassword from './Pages/Common/ForgotPassword/ResetPassword';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </BrowserRouter>
   )

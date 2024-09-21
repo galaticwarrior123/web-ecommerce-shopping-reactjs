@@ -22,6 +22,7 @@ const Login = () => {
       const response = await AuthAPI.login({ email, password });
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
+        toast.error("Đăng nhập thành công");
         navigate('/');
       }
       else {

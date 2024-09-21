@@ -21,6 +21,21 @@ class AuthAPI {
         return axiosClient.post(url, data);
     }
 
+     static async forgotPassword(data) {
+        const url = '/user/forgot-password'; 
+        return axiosClient.post(url, data);
+    }
+
+    static async verifyOTPForgotPassword(data) {
+        const url = '/user/verify-otp_forgotpassword'; 
+        return axiosClient.post(url, data);
+    }
+
+    static async resetPassword(data, config) {
+        const url = '/user/change-password'; 
+        return axiosPrivate.post(url, data, config); // Gửi config vào đây
+    }
+
 }
 
 export default AuthAPI;
