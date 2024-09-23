@@ -1,15 +1,14 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify'
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
+
 import AuthAPI from '../../../API/AuthAPI';
 
 import '../Login/Login.css';
 
 const Verify = () => {
     const [otp, setOtp] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const email = location.state?.email;
@@ -17,53 +16,33 @@ const Verify = () => {
         e.preventDefault();
 
         if (!otp) {
-            setError('Vui lòng nhập mã OTP.');
+            toast.error('Vui lòng nhập mã OTP.');
             return;
         }
 
         try {
             await AuthAPI.verified({ email, otp });
-            setSuccess('Xác thực thành công!');
-            setTimeout(() => {
-                navigate('/login');  // Chuyển hướng tới trang đăng nhập sau khi xác thực thành công
-            }, 2000);  // Thời gian hiển thị thông báo thành công
+            toast.success('Xác thực thành công!');
+            navigate('/login');
         } catch (err) {
-            setError('Xác thực thất bại. Vui lòng kiểm tra mã OTP.');
+            toast.error('Xác thực thất bại!');
         }
     };
 
     return (
-        <div className="login-background">
-            <Container className="d-flex justify-content-center align-items-center min-vh-100">
-                <Row className="w-100 justify-content-center">
-                    <Col md={6} lg={4}>
-                        <Card className="p-4 shadow-lg">
-                            <Card.Body>
-                                <h3 className="text-center mb-4">Xác thực OTP </h3>
-                                {error && <div className="alert alert-danger">{error}</div>}
-                                {success && <div className="alert alert-success">{success}</div>}
-                                <Form onSubmit={handleSubmit}>
-                                    <Form.Group className="mb-3" controlId="formBasicOtp">
-                                        <Form.Label>Nhập OTP được gửi về email của ban</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Nhập mã OTP"
-                                            value={otp}
-                                            onChange={(e) => setOtp(e.target.value)}
-                                            required
-                                        />
-                                    </Form.Group>
-
-                                    <Button variant="primary" type="submit" className="w-100 mb-3">
-                                        Xác thực
-                                    </Button>
-                                </Form>
-                            </Card.Body>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+        <DefaultLayoutLogReg>
+            <ToastContainer />
+            <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+                <h2 className="text-center mb-4">Xác thực tài khoản</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label htmlFor="otp" className="form-label fw-bold fs-5">Nhập OTP được gửi vào {email}</label>
+                        <input type="text" className="form-control" id="otp" placeholder="Nhập OTP" value={otp} onChange={(e) => setOtp(e.target.value)} />
+                    </div>
+                    <button type="submit" className="btn btn-warning w-100">Xác thực</button>
+                </form>
+            </div>
+        </DefaultLayoutLogReg>
     );
 };
 
