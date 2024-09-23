@@ -3,7 +3,7 @@ import AuthAPI from '../../../API/AuthAPI';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -74,7 +74,7 @@ function Register() {
                     <button type="submit" className="btn btn-warning w-100">Xác nhận</button>
                 </form>
                 <div className="text-center mt-3">
-                    Bạn đã có tài khoản? <a href="/login" className="text-decoration-none">Đăng nhập</a>
+                    Bạn đã có tài khoản? <Link to="/login" className="text-decoration-none">Đăng nhập</Link>
                 </div>
             </div>
 

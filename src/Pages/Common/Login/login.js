@@ -3,7 +3,7 @@ import AuthAPI from '../../../API/AuthAPI';
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
@@ -22,10 +22,19 @@ const Login = () => {
 
     try {
       const response = await AuthAPI.login({ email, password });
+      console.log(response);
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
-        toast.error("Đăng nhập thành công");
-        navigate('/');
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        if (response.data.user.isVerified === true) {
+          toast.success("Đăng nhập thành công");
+          navigate('/');
+        }
+        else {
+          toast.error("Tài khoản chưa được xác thực, vui lòng xác thực tài khoản");
+          await AuthAPI.sendOTP({ email });
+          navigate('/verify', { state: { email } });
+        }
       }
       else {
         toast.error("Đăng nhập thất bại");
@@ -42,7 +51,6 @@ const Login = () => {
   return (
     <DefaultLayoutLogReg>
       <ToastContainer />
-
       <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
         <h2 className="text-center mb-4">Đăng nhập</h2>
         <form>
@@ -71,7 +79,7 @@ const Login = () => {
           <button type="button" onClick={handleClickLogin} className="btn btn-warning w-100">Đăng nhập</button>
         </form>
         <div className="text-center mt-3">
-          Bạn chưa có tài khoản? <a href="/register" className="text-decoration-none">Đăng ký</a>
+          Bạn chưa có tài khoản? <Link to="/register" className="text-decoration-none">Đăng ký</Link>
         </div>
       </div>
 
