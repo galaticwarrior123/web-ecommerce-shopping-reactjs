@@ -8,6 +8,7 @@ import Verify from './Pages/Common/Register/Verify';
 import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
 import ResetPassword from './Pages/Common/ForgotPassword/ResetPassword';
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <BrowserRouter>

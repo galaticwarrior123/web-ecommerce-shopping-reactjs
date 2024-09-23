@@ -21,7 +21,7 @@ const ForgotPassword = () => {
                 // Handle success response
                 //localStorage.setItem("jwtToken", body.token);
                 localStorage.setItem('token', response.data.token);
-                localStorage.setItem("email", email); 
+                localStorage.setItem("email", email);
 
                 setMessage(body.message); // Display success message
 
@@ -55,16 +55,16 @@ const ForgotPassword = () => {
     //             .then(response => response.json().then(data => ({ status: response.status, body: data }))) // Đảm bảo lấy cả mã trạng thái
     //             .then(({ status, body }) => {
     //                 if (status === 200) {
-                        
+
     //                     localStorage.setItem("jwtToken", body.token); // Lưu token nhận từ API    
     //                     localStorage.setItem("email", email); // Lưu email vào localStorage
-                        
+
     //                     setTimeout(() => {
     //                         setMessage('');
     //                     }, 1000);
-                        
+
     //                     setMessage(body.message); // Hiển thị thông báo từ API khi thành công
-                       
+
     //                     setTimeout(() => {
     //                         navigate("/verifyOTP-forgot-password");
     //                     }, 2000);
@@ -73,7 +73,7 @@ const ForgotPassword = () => {
     //                     setTimeout(() => {
     //                         setMessage('');
     //                     }, 5000);
-        
+
     //                     setMessage(body.error || 'Error sending verification email.'); // Hiển thị thông báo lỗi
     //                 }
     //             })
@@ -81,7 +81,7 @@ const ForgotPassword = () => {
     //                 setTimeout(() => {
     //                     setMessage('');
     //                 }, 1000);
-    
+
     //                 setMessage('Error sending verification email.');
     //             });
     //     } else {
@@ -112,6 +112,10 @@ const ForgotPassword = () => {
                             placeholder="Enter your email"
                             required
                         />
+                    </div>
+                    <div className="d-flex justify-content-between">
+                        
+                        <a href="/register" className="text-primary">Đăng nhập</a>
                     </div>
                     <button type="submit" className="btn btn-primary w-100">Verify</button>
                 </form>
