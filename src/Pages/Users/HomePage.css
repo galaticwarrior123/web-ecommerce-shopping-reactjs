@@ -26,6 +26,7 @@
     border-radius: 30px !important;
     height: 50px;
     margin-left: 20px !important;
+
 }
 
 .input-group .search-text{
@@ -33,9 +34,21 @@
 }
 
 .user-circle{
+    margin-top: 20px;
     border-radius: 50%;
+    border: 1px solid black;
     width: 60px;
     height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.user-circle img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover; 
 }
 
 .cart-circle{
@@ -54,7 +67,7 @@
 }
 
 .common-border{
-    width: 20%;
+    width: 40%;
     display: flex;
     justify-content: space-between;
 }
@@ -79,11 +92,21 @@
     bottom: 10px;
 }
 
-/* .info-border{
+.user-info span{
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+    margin-left: 10px;
+}
+
+.info-border{
     background-color: antiquewhite;
-    width: 100px;
+    width: 200px;
     height: 100px;
-    position: absolute;
-    top: 100px;
-} */
+    top: 80px;
+    right: 75px;
+    position: relative;
+    box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid #9c9c9c;
+}
 

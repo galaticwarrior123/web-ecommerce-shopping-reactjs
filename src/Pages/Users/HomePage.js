@@ -2,6 +2,7 @@ import React from "react";
 import './HomePage.css';
 import logo from '../Users/images/logo-fruite.png';
 import avatar from '../Users/images/icon-avatar.png';
+import avatar2 from '../Users/images/icon-avatar-2.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faAngleDown,  faCartShopping } from '@fortawesome/free-solid-svg-icons';
@@ -24,7 +25,7 @@ const HomePage = () => {
 
                 {/* Search */}
                 <div className="input-group">
-                    <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm" />
+                    <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm..." />
                     <button type="button" className="btn btn-outline-first bg-white" >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
@@ -33,17 +34,28 @@ const HomePage = () => {
                 {/* User and Cart icons */}
                 <Nav className="ml-auto d-flex align-items-center common-border" >
                     <Nav.Link href="#" className="d-flex">
-                        <img
-                            src={avatar}
-                            alt="Avatar"
-                            className="user-circle"
-                        />
+                        <div className="user-circle d-flex flex-column align-items-left justify-content-center">
+                            <img
+                                src={avatar}
+                                alt="Avatar"
+                                // className="user-circle"
+                            />
+                        </div>
                         <div className="user-info d-flex flex-column align-items-left justify-content-center">
                             <span>Chào Ngân</span>
                             <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>
                         
-                        <div className="info-border"></div>
+                        <div className="info-border">
+                            <div className="">
+                                <div className="my-account">
+                                    <span>Tài khoản của tôi</span>
+                                </div>
+                                <div className="manage-orders">
+                                    <span>Quản lý đơn hàng</span>
+                                </div>
+                            </div>
+                        </div>
                         
                     </Nav.Link>
 
