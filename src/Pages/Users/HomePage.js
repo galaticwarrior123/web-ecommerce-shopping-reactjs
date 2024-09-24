@@ -1,10 +1,13 @@
+import DefaultLayoutUserHomePage from "../../Layouts/DefaultLayoutUserHomePage";
 
 
 const HomePage = () => {
     return (
-        <div>
-            <h1>Home Page</h1>
-        </div>
+        <DefaultLayoutUserHomePage>
+            <div className="home-page">
+                <h1>Home Page</h1>
+            </div>
+        </DefaultLayoutUserHomePage>
     )
 }
 
