@@ -34,7 +34,8 @@
 }
 
 .user-circle{
-    margin-top: 20px;
+    margin-top: 4px;
+    display: block;
     border-radius: 50%;
     border: 1px solid black;
     width: 60px;
@@ -70,6 +71,8 @@
     width: 40%;
     display: flex;
     justify-content: space-between;
+    cursor: pointer;
+    position: relative;
 }
 
 .cart-info{
@@ -100,13 +103,47 @@
 }
 
 .info-border{
+    /* display: none !important; */
     background-color: antiquewhite;
     width: 200px;
-    height: 100px;
-    top: 80px;
-    right: 75px;
-    position: relative;
+    height: 120px;
+    margin-top: 200px;
+    margin-left: 170px !important;
+    /* margin-top: -250px;
+    margin-left: 330px; */
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
     border: 1px solid #9c9c9c;
+    /* position: fixed; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
+.my-account,
+.manage-orders,
+.favourite-products {
+    margin: 10px 0; /* Adds spacing between the lines */
+}
+
+.my-account span,
+.my-account svg,
+.manage-orders span,
+.manage-orders svg,
+.favourite-products span,
+.favourite-products svg {
+    display: inline-block;
+}
+.my-account,
+.manage-orders,
+.favourite-products {
+    transition: color 0.3s ease; 
+}
+
+.my-account:hover,
+.manage-orders:hover,
+.favourite-products:hover{
+    color: rgb(149, 50, 207);
+
+}

@@ -5,7 +5,7 @@ import avatar from '../Users/images/icon-avatar.png';
 import avatar2 from '../Users/images/icon-avatar-2.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faAngleDown,  faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faAngleDown,  faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
@@ -32,32 +32,34 @@ const HomePage = () => {
                 </div>
 
                 {/* User and Cart icons */}
-                <Nav className="ml-auto d-flex align-items-center common-border" >
-                    <Nav.Link href="#" className="d-flex">
+                <Nav className="ml-auto d-flex align-items-center position-relative common-border" >
+                    <Nav className="d-flex">
                         <div className="user-circle d-flex flex-column align-items-left justify-content-center">
-                            <img
-                                src={avatar}
-                                alt="Avatar"
-                                // className="user-circle"
-                            />
+                                <img
+                                    src={avatar}
+                                    alt="Avatar"
+                                    // className="user-circle"
+                                />
                         </div>
                         <div className="user-info d-flex flex-column align-items-left justify-content-center">
-                            <span>Chào Ngân</span>
-                            <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
-                        </div>
-                        
-                        <div className="info-border">
-                            <div className="">
+                                <span>Chào Ngân</span>
+                                <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
+                        </div>                        
+                    </Nav>
+
+                    <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
+                            <div className="manage-info-customer">
                                 <div className="my-account">
-                                    <span>Tài khoản của tôi</span>
+                                    <span><FontAwesomeIcon icon={faUser} /> Tài khoản của tôi</span>
                                 </div>
                                 <div className="manage-orders">
-                                    <span>Quản lý đơn hàng</span>
+                                    <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
+                                </div>
+                                <div className="favourite-products">
+                                    <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
                                 </div>
                             </div>
                         </div>
-                        
-                    </Nav.Link>
 
                     <Nav.Link href="#" className="cart-info">
                         <div className="cart-circle">
