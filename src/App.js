@@ -8,8 +8,14 @@ import Verify from './Pages/Common/Register/Verify';
 import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
 import ResetPassword from './Pages/Common/ForgotPassword/ResetPassword';
+
+import SearchPage from './Pages/Users/SearchPage/SearchPage';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductPage from './Pages/Users/ProductPage/ProductPage';
+import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
+import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
 function App() {
   return (
     <BrowserRouter>
@@ -22,11 +28,19 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
 
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product" element={<ProductPage />} />
+      </Routes>
+
+
+      <Routes>
+        <Route path="/admin/category" element={<ManageCategory />} />
+        <Route path="/admin/product" element={<ManageProduct />} />
       </Routes>
     </BrowserRouter>
   )
