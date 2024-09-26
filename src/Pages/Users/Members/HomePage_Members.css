@@ -77,6 +77,10 @@
     position: relative;
 }
 
+.ml-auto.d-flex.align-items-center.position-relative.navbar-nav {
+    gap: 100px;
+}
+
 .cart-info{
     display: flex;
 }
@@ -135,6 +139,10 @@
     transform: translateY(0); 
 }
 
+.d-flex.navbar-nav{
+    cursor: pointer;
+}
+
 .my-account,
 .manage-orders,
 .favourite-products {
@@ -160,6 +168,7 @@
 .favourite-products:hover{
     /* color: rgb(149, 50, 207); */
     color: #6c63ff;
+    cursor: pointer;
 
 }
 
