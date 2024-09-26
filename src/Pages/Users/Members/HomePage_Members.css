@@ -1,5 +1,7 @@
 .navbar {
-    background-color: #FCD790 !important;
+    /* background-color: #FCD790 !important; */
+    background-color: #ffc107 !important;
+
     padding: 0;
 }
 
@@ -96,7 +98,7 @@
 }
 
 .user-info span{
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     color: black;
     margin-left: 10px;
@@ -105,10 +107,15 @@
 .info-border{
     /* display: none !important; */
     background-color: antiquewhite;
-    width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px); 
+    transition: all 0.3s ease-in-out;
+    font-size: 18px;
+    width: 250px;
     height: 120px;
     margin-top: 200px;
-    margin-left: 170px !important;
+    margin-left: 195px !important;
     /* margin-top: -250px;
     margin-left: 330px; */
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -118,7 +125,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
+/* Hiển thị info-border khi hover vào phần user info */
+.d-flex:hover + .info-border, 
+.info-border:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); 
 }
 
 .my-account,
@@ -144,6 +158,7 @@
 .my-account:hover,
 .manage-orders:hover,
 .favourite-products:hover{
-    color: rgb(149, 50, 207);
+    /* color: rgb(149, 50, 207); */
+    color: #6c63ff;
 
 }

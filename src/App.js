@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Pages/Common/Login/login';
-import HomePage from './Pages/Users/HomePage';
+import HomePage_Members from './Pages/Users/Members/HomePage_Members';
+import HomePage_CommonUsers from './Pages/Users/Common_Users/HomePage_CommonUsers';
 
 import Register from './Pages/Common/Register/Register';
 import Verify from './Pages/Common/Register/Verify';
@@ -16,7 +17,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/verify" element={<Verify />} />
-        <Route path="/" element={<HomePage />} />
+        <Route path="/homepage_members" element={<HomePage_Members />} />
+        
+        <Route path="/homepage_commonusers" element={<HomePage_CommonUsers />} />
 
 
         <Route path="/forgot-password" element={<ForgotPassword />} />

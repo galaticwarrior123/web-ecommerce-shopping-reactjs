@@ -1,8 +1,8 @@
-import React from "react";
-import './HomePage.css';
-import logo from '../Users/images/logo-fruite.png';
-import avatar from '../Users/images/icon-avatar.png';
-import avatar2 from '../Users/images/icon-avatar-2.png';
+import { React, useState } from "react";
+import './HomePage_Members.css';
+import logo from '../images/logo-fruite.png';
+import avatar from '../images/icon-avatar.png';
+import avatar2 from '../images/icon-avatar-2.png';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faAngleDown,  faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,12 @@ import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 
 const HomePage = () => {
+    // const[showInfo, setShowInfo] = useState(false);
+
+    // const toggleInfo = () =>{
+    //     setShowInfo(!showInfo);
+    // }
+
     return (
         <div className="header">
             <Navbar>
@@ -42,12 +48,13 @@ const HomePage = () => {
                                 />
                         </div>
                         <div className="user-info d-flex flex-column align-items-left justify-content-center">
-                                <span>Chào Ngân</span>
+                                <span>Chào mừng Ngân, hãy cùng tận hưởng hương vị tươi mới mỗi ngày!</span>
                                 <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
                         </div>                        
                     </Nav>
 
                     <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
+
                             <div className="manage-info-customer">
                                 <div className="my-account">
                                     <span><FontAwesomeIcon icon={faUser} /> Tài khoản của tôi</span>
