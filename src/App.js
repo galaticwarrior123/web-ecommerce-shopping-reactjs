@@ -9,6 +9,10 @@ import Verify from './Pages/Common/Register/Verify';
 import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
 import ResetPassword from './Pages/Common/ForgotPassword/ResetPassword';
+
+import SearchPage from './Pages/Users/SearchPage/SearchPage';
+
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
@@ -25,6 +29,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   )
