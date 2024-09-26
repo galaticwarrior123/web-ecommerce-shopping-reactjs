@@ -1,0 +1,23 @@
+.categories {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #f0f0f0;
+}
+
+.category-icon {
+  width: 30px;
+  height: auto;
+  margin-right: 10px;
+}

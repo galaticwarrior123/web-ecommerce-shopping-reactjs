@@ -1,14 +1,20 @@
+import React from "react";
+import './HomePage.css';
 import DefaultLayoutUserHomePage from "../../Layouts/DefaultLayoutUserHomePage";
+import { Form } from "react-bootstrap";
+
+
+
 
 
 const HomePage = () => {
     return (
         <DefaultLayoutUserHomePage>
-            <div className="home-page">
-                <h1>Home Page</h1>
-            </div>
+            
+
         </DefaultLayoutUserHomePage>
-    )
-}
+
+    );
+};
 
 export default HomePage;

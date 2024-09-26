@@ -1,30 +1,60 @@
 import './Header.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass, faAngleDown,  faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
+import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 const Header = () => {
     return (
-        <header className="header bg-warning ">
-            <div className=" d-flex justify-content-between align-items-center">
-                <div className="logo d-flex align-items-center flex-column justify-content-center">
-                    <img src="./Images/logo.png" alt="Logo" width="80" />
-                    <p className="">CLEAN AND FRESH FRUIT</p>
-                </div>
-                <div className="search-box d-flex flex-start">
-                    <input
-                        type="text"
-                        className="form-control search-input"
-                        placeholder="Search something..."
+        <div className="header">
+            <Navbar>
+                {/* Logo */}
+                <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column">
+                    <img
+                        src='./Images/logo-fruite.png'
+                        alt="Logo"
                     />
-                    <button className="btn btn-outline-secondary">
-                        <i className="bi bi-search"></i>
+                    <span>CLEAN AND FRESH FRUIT</span>
+                </Navbar.Brand>
+
+                {/* Search */}
+                <div className="input-group">
+                    <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm" />
+                    <button type="button" className="btn btn-outline-first bg-white" >
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </div>
-                <div className="user-info d-flex align-items-center">
-                    <span>Chào Ngân</span>
-                    <i className="bi bi-person-circle mx-3"></i>
-                    <i className="bi bi-cart"></i>
-                </div>
-            </div>
-        </header>
+
+                {/* User and Cart icons */}
+                <Nav className="ml-auto d-flex align-items-center common-border" >
+                    <Nav.Link href="#" className="d-flex">
+                        <img
+                            src='./Images/icon-avatar.png'
+                            alt="Avatar"
+                            className="user-circle"
+                        />
+                        <div className="user-info d-flex flex-column align-items-left justify-content-center">
+                            <span>Chào Ngân</span>
+                            <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
+                        </div>
+                        
+                        <div className="info-border"></div>
+                        
+                    </Nav.Link>
+
+                    <Nav.Link href="#" className="cart-info">
+                        <div className="cart-circle">
+                            <FontAwesomeIcon icon={faCartShopping} />
+                        </div>
+                        <div className="cart-quantity">
+                            <span>0</span>
+                        </div>
+                        
+                    </Nav.Link>
+                </Nav>
+
+
+            </Navbar>
+        </div>
     )
 }
 
