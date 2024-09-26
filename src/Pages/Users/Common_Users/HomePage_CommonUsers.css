@@ -152,3 +152,8 @@ button.btn.btn-link.p-0.btn-register{
     font-weight: 600;
     text-transform: uppercase;
 }
+
+
+.ml-auto.d-flex.align-items-center.position-relative.navbar-nav {
+    gap: 100px;
+}

@@ -76,7 +76,7 @@ const Login = () => {
             <label htmlFor="password" className="form-label fw-bold fs-5">Mật khẩu</label>
             <div className="input-group">
               <input type={showPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowPassword}>
+              <button type="button" className="btn btn-outline-first bg-white " onClick={handleShowPassword}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </button>
             </div>
