@@ -76,6 +76,10 @@
     position: relative;
 }
 
+.ml-auto.d-flex.align-items-center.position-relative.navbar-nav {
+    gap: 100px;
+}
+
 .cart-info{
     display: flex;
 }
