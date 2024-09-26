@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { React, useState } from "react";
 import './HomePage_Members.css';
 
-import { faMagnifyingGlass, faAngleDown,  faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faAngleDown, faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
@@ -16,42 +16,43 @@ const HomePage = () => {
     // }
 
     return (
-        <div className="header">
-            <Navbar>
-                {/* Logo */}
-                <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column">
-                    <img
-                        src='./Images/logo-fruite.png'
-                        alt="Logo"
-                    />
-                    <span>CLEAN AND FRESH FRUIT</span>
-                </Navbar.Brand>
+        <>
+            <div className="header">
+                <Navbar>
+                    {/* Logo */}
+                    <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column">
+                        <img
+                            src='./Images/logo-fruite.png'
+                            alt="Logo"
+                        />
+                        <span>CLEAN AND FRESH FRUIT</span>
+                    </Navbar.Brand>
 
-                {/* Search */}
-                <div className="input-group">
-                    <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm..." />
-                    <button type="button" className="btn btn-outline-first bg-white" >
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                </div>
+                    {/* Search */}
+                    <div className="input-group">
+                        <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm..." />
+                        <button type="button" className="btn btn-outline-first bg-white" >
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
+                    </div>
 
-                {/* User and Cart icons */}
-                <Nav className="ml-auto d-flex align-items-center position-relative " >
-                    <Nav className="d-flex">
-                        <div className="user-circle d-flex flex-column align-items-left justify-content-center">
-                            <img
-                                src='./Images/icon-avatar.png'
-                                alt="Avatar"
+                    {/* User and Cart icons */}
+                    <Nav className="ml-auto d-flex align-items-center position-relative " >
+                        <Nav className="d-flex">
+                            <div className="user-circle d-flex flex-column align-items-left justify-content-center">
+                                <img
+                                    src='./Images/icon-avatar.png'
+                                    alt="Avatar"
                                 // className="user-circle"
-                            />
-                        </div>
-                        <div className="user-info d-flex flex-column align-items-left justify-content-center">
+                                />
+                            </div>
+                            <div className="user-info d-flex flex-column align-items-left justify-content-center">
                                 <span>Chào mừng Ngân, hãy cùng tận hưởng hương vị tươi mới mỗi ngày!</span>
                                 <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
-                        </div>                        
-                    </Nav>
+                            </div>
+                        </Nav>
 
-                    <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
+                        <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
 
                             <div className="manage-info-customer">
                                 <div className="my-account">
@@ -66,20 +67,24 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                    <Nav.Link href="#" className="cart-info">
-                        <div className="cart-circle">
-                            <FontAwesomeIcon icon={faCartShopping} />
-                        </div>
-                        <div className="cart-quantity">
-                            <span>0</span>
-                        </div>
-                        
-                    </Nav.Link>
-                </Nav>
+                        <Nav.Link href="#" className="cart-info">
+                            <div className="cart-circle">
+                                <FontAwesomeIcon icon={faCartShopping} />
+                            </div>
+                            <div className="cart-quantity">
+                                <span>0</span>
+                            </div>
+
+                        </Nav.Link>
+                    </Nav>
 
 
-            </Navbar>
-        </div>
+                </Navbar>
+            </div>
+
+            
+        </>
+
 
     );
 };
