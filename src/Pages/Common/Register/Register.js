@@ -33,7 +33,7 @@ function Register() {
         }
 
         try {
-            await AuthAPI.signup({ email, password });
+            await AuthAPI.signup({ email, password, username, gender, phone, address });
             await AuthAPI.sendOTP({ email });
             navigate('/verify', { state: { email } });
         } catch (err) {
@@ -108,7 +108,7 @@ function Register() {
                     <div className="mb-3">
                         <label htmlFor="password" className="form-label fw-bold fs-5">Nhập lại mật khẩu</label>
                         <div className="input-group">
-                            <input type={showConfirmPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                            <input type={showConfirmPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập lại mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
                             <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowConfirmPassword}>
                                 <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
                             </button>
