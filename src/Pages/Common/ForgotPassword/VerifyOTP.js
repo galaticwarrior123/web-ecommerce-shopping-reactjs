@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import './VerifyOTP.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
 import AuthAPI from '../../../API/AuthAPI';
+
+
 
 
 const OTPInput = () => {
@@ -22,7 +25,7 @@ const OTPInput = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const otpValue = otp.join(''); // Combine OTP characters into a string
         const token = localStorage.getItem("token"); // Get token from localStorage
 
@@ -61,7 +64,7 @@ const OTPInput = () => {
 
     // const handleSubmit = (e) => {
     //     e.preventDefault();
-        
+
     //     const otpValue = otp.join(''); // Kết hợp các ký tự OTP thành một chuỗi
     //     const token = localStorage.getItem("jwtToken"); // Lấy token từ localStorage
 
@@ -87,7 +90,7 @@ const OTPInput = () => {
     //             .then(({ status, body }) => {
     //                 if (status === 200) {
     //                     setMessage('OTP verified successfully!');
-                        
+
     //                     setTimeout(() => {
     //                         navigate("/reset-password");
     //                     }, 2000);
@@ -107,11 +110,22 @@ const OTPInput = () => {
     // };
 
     return (
-        <div className="container">
-            <div className="otp-card">
-                <h2 className="text-center">Enter OTP</h2>
-                <p className="text-center">OTP was sent to your email. Please verify!</p>
+        <DefaultLayoutLogReg>
+            <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+                {/* LOGO */}
+                <div className='d-flex justify-content-center mb-4'>
+                    <div className='logo-container rounded-circle d-flex justify-content-center align-items-center shadow'>
+                        <img src='./Images/logo-fruite.png' alt="Logo" className="img-fluid"></img>
+                    </div>
+                </div>
 
+                <h2 className="text-center mb-4">Xác thực người dùng</h2>
+                <h6 class="sub-title">
+                    <span>Một mã OTP đã được gửi đến email của bạn.<br></br>
+                        Vui lòng không chia sẻ cho người khác.<br></br>
+                        Hãy nhập mã OTP để xác thực.</span>
+                </h6>
+                <label htmlFor="otp" className="form-label fw-bold fs-5 enter-otp ">Nhập OTP</label>
                 <form onSubmit={handleSubmit}>
                     <div className="otp-inputs">
                         {otp.map((data, index) => (
@@ -119,19 +133,19 @@ const OTPInput = () => {
                                 key={index}
                                 type="text"
                                 maxLength="1"
-                                className="otp-field"
+                                className="otp-field form-control"
                                 value={data}
                                 onChange={(e) => handleChange(e.target, index)}
                                 onFocus={(e) => e.target.select()} // Tự động chọn nội dung khi focus
                             />
                         ))}
                     </div>
-                    <button type="submit" className="btn-submit">Verify OTP</button>
+                    <button type="submit" className="btn btn-warning w-100 btn-find-account">Xác thực</button>
                 </form>
 
                 {message && <p className="message">{message}</p>}
             </div>
-        </div>
+        </DefaultLayoutLogReg>
     );
 };
 

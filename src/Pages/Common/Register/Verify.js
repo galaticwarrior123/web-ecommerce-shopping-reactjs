@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
 
+
 import AuthAPI from '../../../API/AuthAPI';
 
 import '../Login/Login.css';
@@ -33,6 +34,12 @@ const Verify = () => {
         <DefaultLayoutLogReg>
             <ToastContainer />
             <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+                {/* LOGO */}
+                <div className='d-flex justify-content-center mb-4'>
+                    <div className='logo-container rounded-circle d-flex justify-content-center align-items-center shadow'>
+                        <img src='./Images/logo-fruite.png' alt="Logo" className="img-fluid"></img>
+                    </div>
+                </div>
                 <h2 className="text-center mb-4">Xác thực tài khoản</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">

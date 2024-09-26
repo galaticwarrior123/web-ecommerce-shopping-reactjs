@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './ForgotPassword.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import AuthAPI from '../../../API/AuthAPI';
+import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
+
+
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -94,34 +97,44 @@ const ForgotPassword = () => {
     // };
 
     return (
-        <div className="container" >
-            <div className="border-forgot_password">
-                <h2 className="text-center mb-4">Forgot Password</h2>
+        <DefaultLayoutLogReg>
+
+            <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+                {/* LOGO */}
+                <div className='d-flex justify-content-center mb-4'>
+                    <div className='logo-container rounded-circle d-flex justify-content-center align-items-center shadow'>
+                        <img src='./Images/logo-fruite.png' alt="Logo" className="img-fluid"></img>
+                    </div>
+                </div>
+
+                <h2 className="text-center mb-4">Quên mật khẩu</h2>
                 <h6 class="sub-title">
-                    <span>We will send you an OTP to reset password</span>
+                    <span>Vui lòng nhập địa chỉ email của bạn để tìm kiếm tài khoản</span>
                 </h6>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group mb-3">
-                        <label htmlFor="email">Email address</label>
+                        <label htmlFor="email" className="form-label fw-bold fs-5">Email</label>
                         <input
                             type="email"
                             id="email"
                             className="form-control"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email"
+                            placeholder="Nhập email của bạn"
                             required
                         />
                     </div>
-                    <div className="d-flex justify-content-between">
-                        
-                        <a href="/register" className="text-primary">Đăng nhập</a>
+                    <button type="submit" className="btn btn-warning w-100 btn-find-account">Tìm kiếm</button>
+
+
+                    <div className="text-center mt-3 text-login">
+                        Bạn đã nhớ mật khẩu?  <br/> Nhấp vào đây để <Link to="/login" className="text-decoration-none">Đăng nhập</Link>
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">Verify</button>
+
                 </form>
                 {message && <div className="alert alert-info alert-custom">{message}</div>} {/* Thay alert margin bằng class */}
             </div>
-        </div>
+        </DefaultLayoutLogReg>
     );
 
 };

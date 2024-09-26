@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import './ResetPassword.css';
 import AuthAPI from '../../../API/AuthAPI';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
-const ResetPassword = () =>{
+import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
+
+
+
+const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -12,41 +16,41 @@ const ResetPassword = () =>{
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    const token = localStorage.getItem("token"); // lấy token từ localStorage
+        const token = localStorage.getItem("token"); // lấy token từ localStorage
 
-    if (!token) {
-        setMessage("Token is missing. Please try the process again.");
-        return;
-    }
+        if (!token) {
+            setMessage("Token is missing. Please try the process again.");
+            return;
+        }
 
-    if (newPassword !== confirmPassword) {
-        setMessage("New password and confirm password do not match.");
-        return;
-    }
+        if (newPassword !== confirmPassword) {
+            setMessage("New password and confirm password do not match.");
+            return;
+        }
 
-    // Tạo dữ liệu cho body mà không có token
-    const data = { newPassword, confirmPassword };
+        // Tạo dữ liệu cho body mà không có token
+        const data = { newPassword, confirmPassword };
 
-    // Gọi tới api của reset password với token trong headers
-    try {
-        const response = await AuthAPI.resetPassword(data, { headers: { 'x-token': token } });
-        const body = response.data;
+        // Gọi tới api của reset password với token trong headers
+        try {
+            const response = await AuthAPI.resetPassword(data, { headers: { 'x-token': token } });
+            const body = response.data;
 
-        setMessage(body.message); // Hiển thị thông báo thành công
-        localStorage.removeItem('token');
+            setMessage(body.message); // Hiển thị thông báo thành công
+            localStorage.removeItem('token');
 
-        setTimeout(() => {
-            navigate("/login");
-        }, 2000);
+            setTimeout(() => {
+                navigate("/login");
+            }, 2000);
 
-    } catch (error) {
-        console.log({ newPassword, confirmPassword, token });
+        } catch (error) {
+            console.log({ newPassword, confirmPassword, token });
 
-        const body = error.response?.data;
-        console.log(body);
-        setMessage(body.error || 'Error resetting password. Please try again later.'); // Hiển thị thông báo lỗi
-    }
-        
+            const body = error.response?.data;
+            console.log(body);
+            setMessage(body.error || 'Error resetting password. Please try again later.'); // Hiển thị thông báo lỗi
+        }
+
         // fetch('http://localhost:3000/api/v1/user/change-password', {
         //     method: 'POST',
         //     headers: { 
@@ -71,31 +75,45 @@ const ResetPassword = () =>{
     };
 
     return (
-        <div className="container">
-            <div className="password-card">
-                <h2 className="text-center">Reset Password</h2>
+        <DefaultLayoutLogReg>
+
+            <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+                {/* LOGO */}
+                <div className='d-flex justify-content-center mb-4'>
+                    <div className='logo-container rounded-circle d-flex justify-content-center align-items-center shadow'>
+                        <img src='./Images/logo-fruite.png' alt="Logo" className="img-fluid"></img>
+                    </div>
+                </div>
+
+                <h2 className="text-center mb-4">Đặt lại mật khẩu</h2>
+                <h6 class="sub-title">
+                    <span>Tài khoản đã được tìm thấy và xác thực thành công.<br></br>
+                        Vui lòng tạo mới mật khẩu.<br></br></span>
+                </h6>
                 <form onSubmit={handleSubmit}>
+                    <label htmlFor="email" className="form-label fw-bold fs-5">Mật khẩu mới</label>
                     <input
                         type="password"
-                        placeholder="New Password"
+                        placeholder="Nhập mật khẩu mới"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         required
-                        className="password-field"
+                        className="password-field form-control"
                     />
+                    <label htmlFor="email" className="form-label fw-bold fs-5">Nhập lại mật khẩu</label>
                     <input
                         type="password"
-                        placeholder="Confirm Password"
+                        placeholder="Xác nhận mật khẩu"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         required
-                        className="password-field"
+                        className="password-field form-control"
                     />
-                    <button type="submit" className="btn-submit">Reset Password</button>
+                    <button type="submit" className="btn btn-warning w-100">Reset Password</button>
                 </form>
                 {message && <p className="message">{message}</p>}
             </div>
-        </div>
+        </DefaultLayoutLogReg>
     );
 }
 

@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 const Login = () => {
 
   const [email, setEmail] = useState('');
@@ -51,22 +52,37 @@ const Login = () => {
   return (
     <DefaultLayoutLogReg>
       <ToastContainer />
+
+
       <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
+        {/* LOGO */}
+        <div className='d-flex justify-content-center mb-4'>
+          <div className='logo-container rounded-circle d-flex justify-content-center align-items-center shadow'>
+            <img src='./Images/logo-fruite.png' alt="Logo" className="img-fluid"></img>
+          </div>
+        </div>
+        
+        
+        
+        
         <h2 className="text-center mb-4">Đăng nhập</h2>
         <form>
           <div className="mb-3">
             <label htmlFor="email" className="form-label fw-bold fs-5">Email</label>
             <input type="email" className="form-control" id="email" placeholder="Nhập email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
+
           <div className="mb-3">
             <label htmlFor="password" className="form-label fw-bold fs-5">Mật khẩu</label>
             <div className="input-group">
               <input type={showPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <button type="button" className="btn btn-outline-first bg-white" onClick={handleShowPassword}>
+              <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowPassword}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </button>
             </div>
           </div>
+
+
           <div className="mb-3 d-flex justify-content-between align-items-center">
             <div className="form-check">
               <input className="form-check-input" type="checkbox" id="rememberMe" />
