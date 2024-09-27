@@ -11,20 +11,30 @@ import ProductAPI from "../../../API/ProductAPI";
 const ProductPage = () => {
     const [quantity, setQuantity] = useState(1);
     const [seeDetail, setSeeDetail] = useState(false);
-    const [selectedCategoryId, setSelectedCategoryId] = useState(null); // State để lưu id danh mục được chọn
+    const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const [sort, setSort] = useState("asc");
+    const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [products, setProducts] = useState([]);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await ProductAPI.getProducts({
+                name: search,
+                page,
+                sort,
+                category: selectedCategoryId.join(','),
+            });
+            console.log(response);
+            setProducts(response.data.DT.products);
+        } catch (error) {
+            console.error('Lỗi khi lấy sản phẩm:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await ProductAPI.getProducts();
-                console.log("Danh sách sản phẩm: ", response);
-                setProducts(response.data.DT.products);
-            } catch (error) {
-                console.error("Lỗi khi lấy danh mục: ", error);
-            }
-        };
         fetchProducts();
-    }, []);
+    }, [search, page, sort, selectedCategoryId]);
 
 
 
@@ -39,14 +49,27 @@ const ProductPage = () => {
 
 
     const handleCategorySelect = (id) => {
-        setSelectedCategoryId(id);
-        console.log("Selected Category ID: ", id);
+        if (selectedCategoryId.includes(id)) {
+            // Nếu đã có, loại bỏ nó khỏi mảng
+            setSelectedCategoryId(prev => prev.filter(categoryId => categoryId !== id));
+        } else {
+            // Nếu chưa có, thêm id vào mảng
+            setSelectedCategoryId(prev => [...prev, id]);
+        }
     };
 
+    useEffect(() => {
+        console.log("Selected Category IDs: ", selectedCategoryId);
+    }, [selectedCategoryId]);
+
+    const handleSearch = (input) => {
+        setSearch(input);
+        console.log("Search: ", input);
+    };
     return (
         <DefaultLayoutUserHomePage>
             <div className="row mt-5">
-                <LeftPage onSelectCategory={handleCategorySelect} /> {/* Truyền hàm xuống LeftPage */}
+                <LeftPage onSelectCategory={handleCategorySelect} onSearch={handleSearch} />
                 <div className="col-md-9 z-index-0">
                     <div className="row row-cols-1 row-cols-md-2 g-3">
                         {products.map((product, index) => (
@@ -89,9 +112,9 @@ const ProductPage = () => {
                                 </div>
 
                                 <div className="col-md-6">
-                                    <h2 className="product-title">{products[0].title}</h2>
+                                    <h2 className="product-title">{products[0].productName}</h2>
                                     <p className="product-price fw-bold">Giá bán: {products[0].price}</p>
-                                    <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">Trái cây</span></div>
+                                    <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">products[0].</span></div>
                                     <div className="d-flex"><p className="product-origin fw-bold">Xuất xứ:</p> <span className="ml-2">Việt Nam</span></div>
                                     <div className="d-flex"><p className="product-supplier fw-bold">Nhà cung cấp:</p><span className="ml-2">Cửa hàng trái cây sạch</span></div>
                                     <div className="d-flex"><p className="product-in-stock fw-bold">Còn hàng: 100 sản phẩm</p></div>

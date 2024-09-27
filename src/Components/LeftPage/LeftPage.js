@@ -1,11 +1,12 @@
 import './LeftPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faList } from '@fortawesome/free-solid-svg-icons';
+import { faList, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import CategoryAPI from '../../API/CategoryAPI';
 
-const LeftPage = ({ onSelectCategory }) => {
+const LeftPage = ({ onSelectCategory, onSearch }) => {
     const [categories, setCategories] = useState([]);
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -22,6 +23,24 @@ const LeftPage = ({ onSelectCategory }) => {
     return (
         <div className="col-md-3">
             <div className="categories">
+                <div className="input-group mb-2">
+                    <input
+                        type="text"
+                        className="form-control search-text"
+                        id="search"
+                        placeholder="Tìm kiếm..."
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                    />
+                    <button
+                        type="button"
+                        className="btn btn-outline-first bg-white"
+                        onClick={() => onSearch(searchText)}
+                    >
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </button>
+                </div>
+
                 <button className="btn btn-warning w-100 mb-2">
                     <FontAwesomeIcon icon={faList} /> Danh mục sản phẩm
                 </button>
@@ -29,9 +48,9 @@ const LeftPage = ({ onSelectCategory }) => {
                     {Array.isArray(categories) && categories.length > 0 ? (
                         categories.map((category) => (
                             <div
-                                key={category.id}
+                                key={category._id}
                                 className="list-group-item list-group-item-action d-flex align-items-center"
-                                onClick={() => onSelectCategory(category.id)}
+                                onClick={() => onSelectCategory(category._id, '')}
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="icon me-3">
