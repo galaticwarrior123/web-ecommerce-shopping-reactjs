@@ -7,7 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
+import './Register.css';
 
 function Register() {
     const [email, setEmail] = useState('');
@@ -60,61 +60,62 @@ function Register() {
                 </div>
                 <h2 className="text-center mb-4">Đăng ký</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <label htmlFor="email" className="form-label fw-bold fs-5">Email</label>
-                        <input type="email" className="form-control" id="email" placeholder="Nhập email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </div>
+                    <div className="register-scroll-container">
+                        <div className="mb-3">
+                            <label htmlFor="email" className="form-label fw-bold fs-5">Email</label>
+                            <input type="email" className="form-control" id="email" placeholder="Nhập email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label fw-bold fs-5">Tên</label>
-                        <input type="text" className="form-control" id="username" placeholder="Nhập Tên của bạn" value={username} onChange={(e) => setUsername(e.target.value)} />
-                    </div>
+                        <div className="mb-3">
+                            <label htmlFor="username" className="form-label fw-bold fs-5">Tên</label>
+                            <input type="text" className="form-control" id="username" placeholder="Nhập Tên của bạn" value={username} onChange={(e) => setUsername(e.target.value)} />
+                        </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="gender" className="form-label fw-bold fs-5">Giới tính</label>
-                        <select
-                            className="form-control"
-                            id="gender"
-                            value={gender}
-                            onChange={(e) => setGender(e.target.value)}
-                        >
-                            <option value="">Chọn giới tính</option>
-                            <option value="MALE">Nam</option>
-                            <option value="FEMALE">Nữ</option>
-                            <option value="OTHER">Khác</option>
-                        </select>
-                    </div>
+                        <div className="mb-3">
+                            <label htmlFor="gender" className="form-label fw-bold fs-5">Giới tính</label>
+                            <select
+                                className="form-control"
+                                id="gender"
+                                value={gender}
+                                onChange={(e) => setGender(e.target.value)}
+                            >
+                                <option value="">Chọn giới tính</option>
+                                <option value="MALE">Nam</option>
+                                <option value="FEMALE">Nữ</option>
+                                <option value="OTHER">Khác</option>
+                            </select>
+                        </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="phone" className="form-label fw-bold fs-5">Số điện thoại</label>
-                        <input type="text" className="form-control" id="phone" placeholder="Nhập Tên của bạn" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                    </div>
+                        <div className="mb-3">
+                            <label htmlFor="phone" className="form-label fw-bold fs-5">Số điện thoại</label>
+                            <input type="text" className="form-control" id="phone" placeholder="Nhập Tên của bạn" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                        </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="address" className="form-label fw-bold fs-5">Địa chỉ</label>
-                        <input type="text" className="form-control" id="address" placeholder="Nhập Tên của bạn" value={address} onChange={(e) => setAddress(e.target.value)} />
-                    </div>
+                        <div className="mb-3">
+                            <label htmlFor="address" className="form-label fw-bold fs-5">Địa chỉ</label>
+                            <input type="text" className="form-control" id="address" placeholder="Nhập Tên của bạn" value={address} onChange={(e) => setAddress(e.target.value)} />
+                        </div>
 
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label fw-bold fs-5">Mật khẩu</label>
-                        <div className="input-group">
-                            <input type={showPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} />
-                            <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowPassword}>
-                                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-                            </button>
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label fw-bold fs-5">Mật khẩu</label>
+                            <div className="input-group">
+                                <input type={showPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập mật khẩu" value={password} onChange={(e) => setPassword(e.target.value)} />
+                                <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowPassword}>
+                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="password" className="form-label fw-bold fs-5">Nhập lại mật khẩu</label>
+                            <div className="input-group">
+                                <input type={showConfirmPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập lại mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+                                <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowConfirmPassword}>
+                                    <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                                </button>
+                            </div>
                         </div>
                     </div>
-
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label fw-bold fs-5">Nhập lại mật khẩu</label>
-                        <div className="input-group">
-                            <input type={showConfirmPassword ? "text" : "password"} className="form-control" id="password" placeholder="Nhập lại mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-                            <button type="button" className="btn btn-outline-first bg-white btn-eye" onClick={handleShowConfirmPassword}>
-                                <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
-                            </button>
-                        </div>
-                    </div>
-
                     <button type="submit" className="btn btn-warning w-100">Xác nhận</button>
                 </form>
                 <div className="text-center mt-3">

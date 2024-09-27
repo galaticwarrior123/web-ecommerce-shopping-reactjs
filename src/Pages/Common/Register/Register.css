@@ -1,0 +1,10 @@
+.register-scroll-container {
+    max-height: 350px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.register-scroll-container::-webkit-scrollbar {
+    display: none;
+}
