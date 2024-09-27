@@ -59,7 +59,7 @@ const Header = () => {
                                 </div>
                             </Nav>
 
-                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5 h-auto">
+                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5 h-auto z-2">
 
                                 <div className="manage-info-customer">
                                     <div className="my-account">
@@ -71,7 +71,7 @@ const Header = () => {
                                     <div className="favourite-products">
                                         <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
                                     </div>
-                                    <div className="logout">
+                                    <div className="logout" onClick={handleLogout}>
                                         <span><FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogout}/> Đăng xuất</span>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@ const Header = () => {
                                 </div>
                             </Nav>
 
-                            <div className="info-border-1 d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
+                            <div className="info-border-1 d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5 z-2">
 
                                 <div className="manage-info-customer">
                                     <button type="button" className="btn btn-primary w-100 mb-3 btn-login" onClick={handleLogin}>

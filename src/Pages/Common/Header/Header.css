@@ -145,7 +145,8 @@
 
 .my-account,
 .manage-orders,
-.favourite-products {
+.favourite-products
+.logout {
     margin: 10px 0; /* Adds spacing between the lines */
 }
 
@@ -154,18 +155,22 @@
 .manage-orders span,
 .manage-orders svg,
 .favourite-products span,
-.favourite-products svg {
+.favourite-products svg
+.logout span,
+.logout svg {
     display: inline-block;
 }
 .my-account,
 .manage-orders,
-.favourite-products {
+.favourite-products,
+.logout {
     transition: color 0.3s ease; 
 }
 
 .my-account:hover,
 .manage-orders:hover,
-.favourite-products:hover{
+.favourite-products:hover,
+.logout:hover {
     /* color: rgb(149, 50, 207); */
     color: #6c63ff;
     cursor: pointer;
