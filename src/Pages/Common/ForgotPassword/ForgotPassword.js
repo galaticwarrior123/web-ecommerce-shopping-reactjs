@@ -111,7 +111,7 @@ const ForgotPassword = () => {
                 <h6 class="sub-title">
                     <span>Vui lòng nhập địa chỉ email của bạn để tìm kiếm tài khoản</span>
                 </h6>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='w-100'>
                     <div className="form-group mb-3">
                         <label htmlFor="email" className="form-label fw-bold fs-5">Email</label>
                         <input
