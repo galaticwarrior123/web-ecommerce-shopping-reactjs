@@ -1,86 +1,97 @@
 import { React, useState } from "react";
 import './HomePage_CommonUsers.css';
+import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePage";
+import LeftPage from "../../../Components/LeftPage/LeftPage";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faAngleDown,  faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faAngleDown, faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
 
 const HomePage = () => {
-    // const[showInfo, setShowInfo] = useState(false);
+    const [search, setSearch] = useState("");
+    const [selectedCategoryId, setSelectedCategoryId] = useState([]);
 
-    // const toggleInfo = () =>{
-    //     setShowInfo(!showInfo);
-    // }
+    const handleSearch = (input) => {
+        setSearch(input);
+        console.log("Search: ", input);
+    };
+
+    const handleCategorySelect = (id) => {
+        if (selectedCategoryId.includes(id)) {
+            // Nếu đã có, loại bỏ nó khỏi mảng
+            setSelectedCategoryId(prev => prev.filter(categoryId => categoryId !== id));
+        } else {
+            // Nếu chưa có, thêm id vào mảng
+            setSelectedCategoryId(prev => [...prev, id]);
+        }
+    };
 
     return (
-        <div className="header">
-            <Navbar>
-                {/* Logo */}
-                <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column">
-                    <img
-                        src='./Images/logo-fruite.png'
-                        alt="Logo"
-                    />
-                    <span>CLEAN AND FRESH FRUIT</span>
-                </Navbar.Brand>
+        <DefaultLayoutUserHomePage>
+            <div className="row mt-5">
+                <LeftPage onSelectCategory={handleCategorySelect} onSearch={handleSearch} />
+                <div class="col-md-9 z-index-0">
+                    <div class="row row_1">
+                        <div class="badge-shop">
+                            <div className="badge1">
+                                <img src="./Images/always_fresh.png" alt="badge 1" class="badge-logo"></img>
+                                <span>ALWAYS FRESH</span>
+                            </div>
 
-                {/* Search */}
-                <div className="input-group">
-                    <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm..." />
-                    <button type="button" className="btn btn-outline-first bg-white" >
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                </div>
+                            <div className="badge2">
+                                <img src="./Images/super_healthy.png" alt="badge 2" class="badge-logo"></img>
+                                <span>SUPER HEALTHY</span>
+                            </div>
 
-                {/* User and Cart icons */}
-                <Nav className="ml-auto d-flex align-items-center position-relative " >
-                    <Nav className="d-flex">
-                        <div className="user-circle d-flex flex-column align-items-left justify-content-center">
-                                <img
-                                    src='./Images/icon-avatar.png'
-                                    alt="Avatar"
-                                    // className="user-circle"
-                                />
+                            <div className="badge3">
+                                <img src="./Images/premium_quality.png" alt="badge 3" class="badge-logo"></img>
+                                <span>PREMIUM QUALITY</span>
+                            </div>
+
+                            <div className="badge4">
+                                <img src="./Images/natural.png" alt="badge 4" class="badge-logo"></img>
+                                <span>100% NATURAL</span>
+                            </div>
                         </div>
-                        <div className="user-info d-flex flex-column align-items-left justify-content-center">
-                                <span>Chào bạn! Hãy trở thành thành viên của FRUITE để nhận nhiều ưu đãi nhé</span>
-                                <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
-                        </div>                        
-                    </Nav>
-
-                    <div className="info-border-1 d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
-
-                            <div className="manage-info-customer">
-                                <button type="button" className="btn btn-primary w-100 mb-3 btn-login">
-                                    Đăng nhập
-                                </button>
-                            </div>
-
-                            <div className="text-center">
-                                <span>Bạn chưa có tài khoản? </span>
-                                <button type="button" className="btn btn-link p-0 btn-register">
-                                    Đăng ký ngay
-                                </button>
-                            </div>
-
                     </div>
 
-                    <Nav.Link href="#" className="cart-info">
-                        <div className="cart-circle">
-                            <FontAwesomeIcon icon={faCartShopping} />
+                    <div className="row row_2">
+                        <div className="col-12">
+                            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                               
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleFade" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                </div>
+
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src="./Images/slide1.png" class="d-block w-100" alt="..."/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="./Images/slide2.png" class="d-block w-100" alt="..."/>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="./Images/slide3.png" class="d-block w-100" alt="..."/>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div className="cart-quantity">
-                            <span>0</span>
-                        </div>
-                        
-                    </Nav.Link>
-                </Nav>
+                    </div>
+                    {/* <div class="row row-cols-1 row-cols-md-2 g-3">
+                        <span>asdfs</span>
+                    </div> */}
+                </div>
+            </div>
+        </DefaultLayoutUserHomePage>
 
 
-            </Navbar>
-        </div>
 
     );
 };
