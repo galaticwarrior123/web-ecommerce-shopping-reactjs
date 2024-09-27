@@ -34,7 +34,7 @@ const LeftPage = ({ onSelectCategory, onSearch }) => {
                     />
                     <button
                         type="button"
-                        className="btn btn-outline-first bg-white"
+                        className="btn btn-outline-first bg-white z-index-0"
                         onClick={() => onSearch(searchText)}
                     >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />

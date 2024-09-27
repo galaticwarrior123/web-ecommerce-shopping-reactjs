@@ -98,7 +98,7 @@ const ProductPage = () => {
                 </div>
 
                 {seeDetail && (
-                    <div className="position-fixed top-0 left-0 right-0 bottom-0 ml-n1 z-index-1000 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }} onClick={toggleDetailProduct}>
+                    <div className="position-fixed top-0 left-0 right-0 bottom-0 ml-n1 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex:1000 }} onClick={toggleDetailProduct}>
                         <div className="detail-product bg-white" onClick={(e) => e.stopPropagation()}>
                             <div className="row w-100 h-100">
                                 <div className="col-md-6">

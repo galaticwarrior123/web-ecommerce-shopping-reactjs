@@ -1,9 +1,26 @@
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart } from '@fortawesome/free-solid-svg-icons';
-
+import { faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 const Header = () => {
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        navigate('/login');
+    }
+
+    const handleRegister = () => {
+        navigate('/register');
+    }
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location.reload();
+    }
+    
+    const token = localStorage.getItem('token');
     return (
         <div className="header">
             <Navbar>
@@ -26,35 +43,78 @@ const Header = () => {
 
                 {/* User and Cart icons */}
                 <Nav className="ml-auto d-flex align-items-center position-relative " >
-                    <Nav className="d-flex">
-                        <div className="user-circle d-flex flex-column align-items-left justify-content-center">
-                            <img
-                                src='./Images/icon-avatar.png'
-                                alt="Avatar"
-                            // className="user-circle"
-                            />
-                        </div>
-                        <div className="user-info d-flex flex-column align-items-left justify-content-center">
-                            <span>Chào mừng Ngân, hãy cùng tận hưởng hương vị tươi mới mỗi ngày!</span>
-                            <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
-                        </div>
-                    </Nav>
+                    {token ? (
+                        <>
+                            <Nav className="d-flex">
+                                <div className="user-circle d-flex flex-column align-items-left justify-content-center">
+                                    <img
+                                        src='./Images/icon-avatar.png'
+                                        alt="Avatar"
+                                    // className="user-circle"
+                                    />
+                                </div>
+                                <div className="user-info d-flex flex-column align-items-left justify-content-center">
+                                    <span>Chào mừng Ngân, hãy cùng tận hưởng hương vị tươi mới mỗi ngày!</span>
+                                    <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
+                                </div>
+                            </Nav>
 
-                    <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
+                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5 h-auto">
 
-                        <div className="manage-info-customer">
-                            <div className="my-account">
-                                <span><FontAwesomeIcon icon={faUser} /> Tài khoản của tôi</span>
+                                <div className="manage-info-customer">
+                                    <div className="my-account">
+                                        <span><FontAwesomeIcon icon={faUser} /> Tài khoản của tôi</span>
+                                    </div>
+                                    <div className="manage-orders">
+                                        <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
+                                    </div>
+                                    <div className="favourite-products">
+                                        <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
+                                    </div>
+                                    <div className="logout">
+                                        <span><FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogout}/> Đăng xuất</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="manage-orders">
-                                <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
-                            </div>
-                            <div className="favourite-products">
-                                <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
-                            </div>
-                        </div>
-                    </div>
 
+                        </>
+
+
+                    ) : (
+
+                        <>
+                            <Nav className="d-flex">
+                                <div className="user-circle d-flex flex-column align-items-left justify-content-center">
+                                    <img
+                                        src='./Images/icon-avatar.png'
+                                        alt="Avatar"
+                                    // className="user-circle"
+                                    />
+                                </div>
+                                <div className="user-info d-flex flex-column align-items-left justify-content-center">
+                                    <span>Chào bạn! Hãy trở thành thành viên của FRUITE để nhận nhiều ưu đãi nhé</span>
+                                    <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
+                                </div>
+                            </Nav>
+
+                            <div className="info-border-1 d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5">
+
+                                <div className="manage-info-customer">
+                                    <button type="button" className="btn btn-primary w-100 mb-3 btn-login" onClick={handleLogin}>
+                                        Đăng nhập
+                                    </button>
+                                </div>
+
+                                <div className="text-center">
+                                    <span>Bạn chưa có tài khoản? </span>
+                                    <button type="button" className="btn btn-link p-0 btn-register" onClick={handleRegister}>
+                                        Đăng ký ngay
+                                    </button>
+                                </div>
+
+                            </div>
+                        </>
+                    )}
                     <Nav.Link href="#" className="cart-info">
                         <div className="cart-circle">
                             <FontAwesomeIcon icon={faCartShopping} />
@@ -65,8 +125,6 @@ const Header = () => {
 
                     </Nav.Link>
                 </Nav>
-
-
             </Navbar>
         </div>
     )
