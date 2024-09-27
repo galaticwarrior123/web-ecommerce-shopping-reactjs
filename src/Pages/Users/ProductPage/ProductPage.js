@@ -5,11 +5,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBagShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ProductAPI from "../../../API/ProductAPI";
 
 const ProductPage = () => {
     const [quantity, setQuantity] = useState(1);
     const [seeDetail, setSeeDetail] = useState(false);
+    const [selectedCategoryId, setSelectedCategoryId] = useState(null); // State để lưu id danh mục được chọn
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await ProductAPI.getProducts();
+                console.log("Danh sách sản phẩm: ", response);
+                setProducts(response.data.DT.products);
+            } catch (error) {
+                console.error("Lỗi khi lấy danh mục: ", error);
+            }
+        };
+        fetchProducts();
+    }, []);
+
+
 
     const increaseQuantity = () => setQuantity(prev => prev + 1);
     const decreaseQuantity = () => {
@@ -20,25 +37,25 @@ const ProductPage = () => {
 
     const toggleDetailProduct = () => setSeeDetail(prev => !prev);
 
-    const products = Array(7).fill({
-        title: "Táo xanh tự nhiên organic được trồng tại đà lạt",
-        price: "220.000 VNĐ",
-        image: "./Images/vegetable.png"
-    });
+
+    const handleCategorySelect = (id) => {
+        setSelectedCategoryId(id);
+        console.log("Selected Category ID: ", id);
+    };
 
     return (
         <DefaultLayoutUserHomePage>
             <div className="row mt-5">
-                <LeftPage />
+                <LeftPage onSelectCategory={handleCategorySelect} /> {/* Truyền hàm xuống LeftPage */}
                 <div className="col-md-9 z-index-0">
                     <div className="row row-cols-1 row-cols-md-2 g-3">
                         {products.map((product, index) => (
                             <div className="col" key={index}>
                                 <div className="card h-100 shadow-sm d-flex flex-row">
-                                    <img src={product.image} className="card-img-left" alt="Product" />
+                                    <img src="./Images/vegetable.png" className="card-img-left" alt="Product" />
                                     <div className="card-body">
-                                        <h5 className="card-title">{product.title}</h5>
-                                        <p className="card-text">Giá bán: {product.price}</p>
+                                        <h5 className="card-title">{product.productName}</h5>
+                                        <p className="card-text">Giá bán: {product.price}đ</p>
                                         <div className="d-flex justify-content-start">
                                             <button className="btn btn-light me-2">
                                                 <FontAwesomeIcon icon={faBagShopping} />
