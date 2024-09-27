@@ -10,9 +10,6 @@ import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
 import ResetPassword from './Pages/Common/ForgotPassword/ResetPassword';
 
-import SearchPage from './Pages/Users/SearchPage/SearchPage';
-
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductPage from './Pages/Users/ProductPage/ProductPage';
 import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
@@ -25,15 +22,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/homepage_members" element={<HomePage_Members />} />
-        
+
         <Route path="/homepage_commonusers" element={<HomePage_CommonUsers />} />
 
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
         <Route path="/reset-password" element={<ResetPassword />} />
-
-        <Route path="/search" element={<SearchPage />} />
       </Routes>
 
       <Routes>

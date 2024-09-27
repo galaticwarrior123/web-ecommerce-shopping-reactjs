@@ -3,6 +3,11 @@
   border-radius: 10px;
 }
 
+.categories .input-group {
+  width: 100% !important;
+  margin-left: 0px !important;
+}
+
 .list-group-item {
   display: flex;
   align-items: center;
