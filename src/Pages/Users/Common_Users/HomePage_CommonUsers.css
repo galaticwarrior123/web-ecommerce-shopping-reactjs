@@ -162,11 +162,11 @@ button.btn.btn-link.p-0.btn-register{
 }
 
 .col-md-9.z-index-0 {
-    border: solid;
+    /* border: solid; */
 }
 
 .row.row_1 {
-    border: solid blue;
+    /* border: solid blue; */
     height: 100px;
     display: flex;
 }
@@ -193,7 +193,7 @@ button.btn.btn-link.p-0.btn-register{
 }
 
 .row.row_2 {
-    border: solid pink;
+    /* border: solid pink; */
     margin-top: 10px;
     border-radius: 30px;
 }

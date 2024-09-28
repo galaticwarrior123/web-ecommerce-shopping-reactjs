@@ -70,13 +70,13 @@ const HomePage = () => {
                                 </div>
 
                                 <div class="carousel-inner">
-                                    <div class="carousel-item active">
+                                    <div class="carousel-item active" data-bs-interval="3000">
                                         <img src="./Images/slide1.png" class="d-block w-100" alt="..."/>
                                     </div>
-                                    <div class="carousel-item">
+                                    <div class="carousel-item" data-bs-interval="3000">
                                         <img src="./Images/slide2.png" class="d-block w-100" alt="..."/>
                                     </div>
-                                    <div class="carousel-item">
+                                    <div class="carousel-item" data-bs-interval="3000">
                                         <img src="./Images/slide3.png" class="d-block w-100" alt="..."/>
                                     </div>
                                 </div>

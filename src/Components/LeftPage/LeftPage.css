@@ -8,6 +8,14 @@
   margin-left: 0px !important;
 }
 
+.list-group{
+  /* border: solid black; */
+  border-radius: 20px;
+  box-shadow: 0 0 10px #00000026;
+  display: block;
+
+}
+
 .list-group-item {
   display: flex;
   align-items: center;
@@ -15,6 +23,8 @@
   padding: 10px 20px;
   border: none;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-bottom: 1px solid #ccc;
 }
 
 .list-group-item:hover {

@@ -14,6 +14,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductPage from './Pages/Users/ProductPage/ProductPage';
 import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
 import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
+
+import SubHeader from './Components/SubHeader/SubHeader';
+
 function App() {
   return (
     <BrowserRouter>
@@ -41,6 +44,12 @@ function App() {
         <Route path="/admin/category" element={<ManageCategory />} />
         <Route path="/admin/product" element={<ManageProduct />} />
       </Routes>
+
+      <Routes>
+        <Route path="/sub" element={<SubHeader />} />
+      </Routes>
+
+      
     </BrowserRouter>
   )
 }
