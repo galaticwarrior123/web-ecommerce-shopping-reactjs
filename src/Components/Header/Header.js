@@ -3,8 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 const Header = () => {
     const navigate = useNavigate();
+    const [userName, setUserName] = useState(null);
+
+    useEffect (() =>{
+        const storedUser  = localStorage.getItem('user');
+        if(storedUser){
+            const user = JSON.parse(storedUser);
+            setUserName(user.username);
+        }
+    }, []);
 
     const handleLogin = () => {
         navigate('/login');
@@ -21,6 +31,7 @@ const Header = () => {
     }
     
     const token = localStorage.getItem('token');
+
     return (
         <div className="header">
             <Navbar>
@@ -54,7 +65,7 @@ const Header = () => {
                                     />
                                 </div>
                                 <div className="user-info d-flex flex-column align-items-left justify-content-center">
-                                    <span>Chào mừng Ngân, hãy cùng tận hưởng hương vị tươi mới mỗi ngày!</span>
+                                    <span>Chào mừng {userName}, hãy cùng tận hưởng hương vị tươi mới mỗi ngày!</span>
                                     <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
                                 </div>
                             </Nav>

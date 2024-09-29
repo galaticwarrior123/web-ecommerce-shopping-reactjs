@@ -88,12 +88,12 @@ function Register() {
 
                         <div className="mb-3">
                             <label htmlFor="phone" className="form-label fw-bold fs-5">Số điện thoại</label>
-                            <input type="text" className="form-control" id="phone" placeholder="Nhập Tên của bạn" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                            <input type="text" className="form-control" id="phone" placeholder="Nhập số điện thoại" value={phone} onChange={(e) => setPhone(e.target.value)} />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="address" className="form-label fw-bold fs-5">Địa chỉ</label>
-                            <input type="text" className="form-control" id="address" placeholder="Nhập Tên của bạn" value={address} onChange={(e) => setAddress(e.target.value)} />
+                            <input type="text" className="form-control" id="address" placeholder="Nhập địa chỉ" value={address} onChange={(e) => setAddress(e.target.value)} />
                         </div>
 
                         <div className="mb-3">
