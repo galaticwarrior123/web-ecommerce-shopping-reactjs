@@ -90,7 +90,7 @@ const ResetPassword = () => {
                     <span>Tài khoản đã được tìm thấy và xác thực thành công.<br></br>
                         Vui lòng tạo mới mật khẩu.<br></br></span>
                 </h6>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className='w-100'>
                     <label htmlFor="email" className="form-label fw-bold fs-5">Mật khẩu mới</label>
                     <input
                         type="password"
