@@ -51,9 +51,6 @@ const Login = () => {
 
   return (
     <DefaultLayoutLogReg>
-      <ToastContainer />
-
-
       <div className="card p-4 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', borderRadius: '10px' }}>
         {/* LOGO */}
         <div className='d-flex justify-content-center mb-4'>
@@ -61,10 +58,10 @@ const Login = () => {
             <img src='./Images/logo-fruite.png' alt="Logo" className="img-fluid"></img>
           </div>
         </div>
-        
-        
-        
-        
+
+
+
+
         <h2 className="text-center mb-4">Đăng nhập</h2>
         <form>
           <div className="mb-3">
@@ -90,7 +87,7 @@ const Login = () => {
                 Ghi nhớ tài khoản
               </label>
             </div>
-            <a href="/forgot-password" className="text-decoration-none">Quên mật khẩu</a>
+            <Link to="/forgot-password" className="text-decoration-none">Quên mật khẩu</Link>
           </div>
           <button type="button" onClick={handleClickLogin} className="btn btn-warning w-100">Đăng nhập</button>
         </form>
