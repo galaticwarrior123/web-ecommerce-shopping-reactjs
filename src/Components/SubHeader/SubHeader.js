@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { Link } from 'react-router-dom';
 
 const SubHeader = () => {
 
@@ -19,7 +19,7 @@ const SubHeader = () => {
 
                         
                         <li className='nav-item dropdown'>
-                            <a className='nav-link' href='#product'>PRODUCT <FontAwesomeIcon icon={faAngleDown} className="icon-spacing" /></a>
+                            <Link to='/product' className='nav-link'>PRODUCTS <FontAwesomeIcon icon={faAngleDown} className="icon-spacing" /></Link>
                             <div className="dropdown-menu">
                                 <ul>
                                     <li><a href='#grape'>Nho</a></li>

@@ -7,6 +7,7 @@ import CategoryAPI from '../../API/CategoryAPI';
 const LeftPage = ({ onSelectCategory, onSearch }) => {
     const [categories, setCategories] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -19,6 +20,15 @@ const LeftPage = ({ onSelectCategory, onSearch }) => {
         };
         fetchCategories();
     }, []);
+
+    const handleCategorySelect = (categoryId) => {
+        if (selectedCategories.includes(categoryId)) {
+            setSelectedCategories(selectedCategories.filter((id) => id !== categoryId));
+        } else {
+            setSelectedCategories([...selectedCategories, categoryId]);
+        }
+        onSelectCategory(categoryId, '');
+    };
 
     return (
         <div className="col-md-3">
@@ -49,8 +59,8 @@ const LeftPage = ({ onSelectCategory, onSearch }) => {
                         categories.map((category) => (
                             <div
                                 key={category._id}
-                                className="list-group-item list-group-item-action d-flex align-items-center"
-                                onClick={() => onSelectCategory(category._id, '')}
+                                className={`list-group-item list-group-item-action d-flex align-items-center ${selectedCategories.includes(category._id) ? 'active' : ''}`}
+                                onClick={() => handleCategorySelect(category._id)}
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="icon me-3">

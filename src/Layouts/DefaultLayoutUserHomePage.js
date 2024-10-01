@@ -15,7 +15,6 @@ const DefaultLayoutUserHomePage = ({ children }) => {
             <div className="col-md-12">
                 {children}
             </div>
-            <Top10_BanChayNhat/>
             <Footer />
         </div>
     )

@@ -13,18 +13,21 @@
 }
 
 .logo-container {
-  width: 180px; /* Thay đổi giá trị này theo ý muốn */
-  height: 180px; /* Thay đổi giá trị này theo ý muốn */
+  width: 180px;
+  /* Thay đổi giá trị này theo ý muốn */
+  height: 180px;
+  /* Thay đổi giá trị này theo ý muốn */
 }
 
 .logo-container img {
-  width: 600px; /* Giảm kích thước hình ảnh theo phần trăm của phần tử cha */
+  width: 600px;
+  /* Giảm kích thước hình ảnh theo phần trăm của phần tử cha */
   height: auto;
 }
 
-h2.text-center.mb-4{
+h2.text-center.mb-4 {
   font-weight: bold;
-  font-size:30px;
+  font-size: 30px;
   color: #e85252;
 }
 
@@ -35,7 +38,6 @@ input#password {
 button.btn.btn-outline-first.bg-white.btn-eye {
   width: 35px;
   height: 39px;
-  right: 15px;
   position: relative;
   border-radius: 10px;
   border: solid 1px #e2e2e2;
