@@ -98,7 +98,7 @@ const ProductPage = () => {
                 </div>
 
                 {seeDetail && (
-                    <div className="position-fixed top-0 left-0 right-0 bottom-0 ml-n1 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex:1000 }} onClick={toggleDetailProduct}>
+                    <div className="position-fixed top-0 left-0 right-0 bottom-0 ml-n1 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
                         <div className="detail-product bg-white" onClick={(e) => e.stopPropagation()}>
                             <div className="row w-100 h-100">
                                 <div className="col-md-6">
@@ -114,7 +114,7 @@ const ProductPage = () => {
                                 <div className="col-md-6">
                                     <h2 className="product-title">{products[0].productName}</h2>
                                     <p className="product-price fw-bold">Giá bán: {products[0].price}</p>
-                                    <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">products[0].</span></div>
+                                    <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">products[0].category</span></div>
                                     <div className="d-flex"><p className="product-origin fw-bold">Xuất xứ:</p> <span className="ml-2">Việt Nam</span></div>
                                     <div className="d-flex"><p className="product-supplier fw-bold">Nhà cung cấp:</p><span className="ml-2">Cửa hàng trái cây sạch</span></div>
                                     <div className="d-flex"><p className="product-in-stock fw-bold">Còn hàng: 100 sản phẩm</p></div>
