@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { useState, useEffect } from "react";
 import ProductAPI from "../../../API/ProductAPI";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const ProductPage = () => {
     const [quantity, setQuantity] = useState(1);
@@ -16,6 +17,8 @@ const ProductPage = () => {
     const [sort, setSort] = useState("asc");
     const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [products, setProducts] = useState([]);
+    const [hasMore, setHasMore] = useState(true); // State to track if more products are available
+    const [totalProducts, setTotalProducts] = useState(0); // Total number of products
 
     const fetchProducts = async () => {
         try {
@@ -71,34 +74,41 @@ const ProductPage = () => {
             <div className="row mt-5">
                 <LeftPage onSelectCategory={handleCategorySelect} onSearch={handleSearch} />
                 <div className="col-md-9 z-index-0">
-                    <div className="row row-cols-1 row-cols-md-2 g-3">
-                        {products.map((product, index) => (
-                            <div className="col" key={index}>
-                                <div className="card h-100 shadow-sm d-flex flex-row">
-                                    <img src="./Images/vegetable.png" className="card-img-left" alt="Product" />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{product.productName}</h5>
-                                        <p className="card-text">Giá bán: {product.price}đ</p>
-                                        <div className="d-flex justify-content-start">
-                                            <button className="btn btn-light me-2">
-                                                <FontAwesomeIcon icon={faBagShopping} />
-                                            </button>
-                                            <button className="btn btn-light me-2">
-                                                <FontAwesomeIcon icon={faHeart} />
-                                            </button>
-                                            <button className="btn btn-light" onClick={toggleDetailProduct}>
-                                                <FontAwesomeIcon icon={faSearch} />
-                                            </button>
+                    <InfiniteScroll
+                        dataLength={products.length}
+                        next={() => setPage(prev => prev + 1)}
+                        hasMore={true}
+                        loader={<h4>Loading...</h4>}
+                    >
+                        <div className="row row-cols-1 row-cols-md-2 g-3">
+                            {products.map((product, index) => (
+                                <div className="col" key={index}>
+                                    <div className="card h-100 shadow-sm d-flex flex-row">
+                                        <img src="./Images/vegetable.png" className="card-img-left" alt="Product" />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{product.productName}</h5>
+                                            <p className="card-text">Giá bán: {product.price}đ</p>
+                                            <div className="d-flex justify-content-start">
+                                                <button className="btn btn-light me-2">
+                                                    <FontAwesomeIcon icon={faBagShopping} />
+                                                </button>
+                                                <button className="btn btn-light me-2">
+                                                    <FontAwesomeIcon icon={faHeart} />
+                                                </button>
+                                                <button className="btn btn-light" onClick={toggleDetailProduct}>
+                                                    <FontAwesomeIcon icon={faSearch} />
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    </InfiniteScroll>
                 </div>
 
                 {seeDetail && (
-                    <div className="position-fixed top-0 left-0 right-0 bottom-0 ml-n1 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex:1000 }} onClick={toggleDetailProduct}>
+                    <div className="position-fixed top-0 left-0 right-0 bottom-0 ml-n1 d-flex justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
                         <div className="detail-product bg-white" onClick={(e) => e.stopPropagation()}>
                             <div className="row w-100 h-100">
                                 <div className="col-md-6">
@@ -114,7 +124,7 @@ const ProductPage = () => {
                                 <div className="col-md-6">
                                     <h2 className="product-title">{products[0].productName}</h2>
                                     <p className="product-price fw-bold">Giá bán: {products[0].price}</p>
-                                    <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">products[0].</span></div>
+                                    <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">{products[0].category[0].name}</span></div>
                                     <div className="d-flex"><p className="product-origin fw-bold">Xuất xứ:</p> <span className="ml-2">Việt Nam</span></div>
                                     <div className="d-flex"><p className="product-supplier fw-bold">Nhà cung cấp:</p><span className="ml-2">Cửa hàng trái cây sạch</span></div>
                                     <div className="d-flex"><p className="product-in-stock fw-bold">Còn hàng: 100 sản phẩm</p></div>
