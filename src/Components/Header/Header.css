@@ -9,7 +9,7 @@
     margin-left: -10px;
     width: 120px;
     height: 120px;
-    margin-top: -10px ;
+    margin-top: -10px;
     /* display: table-column; */
 }
 
@@ -23,18 +23,18 @@
 }
 
 
-.input-group{
-    width: 400px !important;
-    border-radius: 30px !important;
-    margin-left: 20px !important;
+.header .input-group {
+    width: 400px;
+    border-radius: 30px;
+    margin-left: 20px;
 
 }
 
-.input-group .search-text{
+.header .input-group .search-text {
     height: 50px;
 }
 
-.user-circle{
+.user-circle {
     margin-top: 4px;
     display: block;
     border-radius: 50%;
@@ -50,10 +50,10 @@
 .user-circle img {
     width: 60px;
     height: 60px;
-    object-fit: cover; 
+    object-fit: cover;
 }
 
-.cart-circle{
+.cart-circle {
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -64,11 +64,11 @@
     align-items: center;
 }
 
-.cart-circle svg{
+.cart-circle svg {
     font-size: 30px;
 }
 
-.common-border{
+.common-border {
     width: 40%;
     display: flex;
     justify-content: space-between;
@@ -80,11 +80,11 @@
     gap: 100px;
 }
 
-.cart-info{
+.cart-info {
     display: flex;
 }
 
-.cart-quantity{
+.cart-quantity {
     border-radius: 20px;
     width: 35px;
     height: 30px;
@@ -100,19 +100,19 @@
     bottom: 10px;
 }
 
-.user-info span{
+.user-info span {
     font-size: 16px;
     font-weight: 600;
     color: black;
     margin-left: 10px;
 }
 
-.info-border{
+.info-border {
     /* display: none !important; */
     background-color: antiquewhite;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px); 
+    transform: translateY(-10px);
     transition: all 0.3s ease-in-out;
     font-size: 18px;
     width: 250px;
@@ -131,22 +131,22 @@
 }
 
 /* Hiển thị info-border khi hover vào phần user info */
-.d-flex:hover + .info-border, 
+.d-flex:hover+.info-border,
 .info-border:hover {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0); 
+    transform: translateY(0);
 }
 
-.d-flex.navbar-nav{
+.d-flex.navbar-nav {
     cursor: pointer;
 }
 
 .my-account,
 .manage-orders,
-.favourite-products
-.logout {
-    margin: 10px 0; /* Adds spacing between the lines */
+.favourite-products .logout {
+    margin: 10px 0;
+    /* Adds spacing between the lines */
 }
 
 .my-account span,
@@ -154,16 +154,16 @@
 .manage-orders span,
 .manage-orders svg,
 .favourite-products span,
-.favourite-products svg
-.logout span,
+.favourite-products svg .logout span,
 .logout svg {
     display: inline-block;
 }
+
 .my-account,
 .manage-orders,
 .favourite-products,
 .logout {
-    transition: color 0.3s ease; 
+    transition: color 0.3s ease;
 }
 
 .my-account:hover,
@@ -177,6 +177,6 @@
 }
 
 
-.button-click-search{
+.button-click-search {
     z-index: 0 !important;
 }

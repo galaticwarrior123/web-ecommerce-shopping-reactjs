@@ -8,7 +8,7 @@
   margin-left: 0px !important;
 }
 
-.list-group{
+.categories .list-group {
   /* border: solid black; */
   border-radius: 20px;
   box-shadow: 0 0 10px #00000026;
@@ -16,7 +16,7 @@
 
 }
 
-.list-group-item {
+.categories .list-group-item {
   display: flex;
   align-items: center;
   font-size: 1.1rem;
@@ -27,11 +27,18 @@
   border-bottom: 1px solid #ccc;
 }
 
-.list-group-item:hover {
+.categories .list-group-item:hover {
   background-color: #f0f0f0;
 }
 
-.category-icon {
+.categories .list-group-item.active {
+  background-color: #ffc107;
+  color: black;
+  border-color: #ffc107;
+}
+
+
+.categories .category-icon {
   width: 30px;
   height: auto;
   margin-right: 10px;
