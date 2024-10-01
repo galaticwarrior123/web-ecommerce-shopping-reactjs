@@ -187,6 +187,18 @@ const HomePage = () => {
                         </div> */}
 
                 </div>
+
+                <div className="row mt-5 row3">
+                    <div className="content">
+                        <span>TOP NHỮNG SẢN PHẨM BÁN CHẠY NHẤT</span>
+                    </div>
+                </div>
+
+                <div className="row mt-5 row3">
+                    <div className="content">
+                        <span>TOP NHỮNG SẢN PHẨM XEM NHIỀU NHẤT</span>
+                    </div>
+                </div>
             </div>
         </DefaultLayoutUserHomePage>
 

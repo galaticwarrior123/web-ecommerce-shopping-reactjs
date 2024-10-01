@@ -16,6 +16,7 @@ import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
 import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
 
 import SubHeader from './Components/SubHeader/SubHeader';
+import Top10_BanChayNhat from './Components/Top10_BanChayNhat/Top10_BanChayNhat';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
 
       <Routes>
         <Route path="/sub" element={<SubHeader />} />
+        <Route path='/top10_banchaynhat' element={<Top10_BanChayNhat/>}/>
       </Routes>
 
       
