@@ -180,3 +180,7 @@
 .button-click-search {
     z-index: 0 !important;
 }
+
+.ml-auto.d-flex.align-items-center.position-relative.navbar-nav {
+    padding-left: 50px;
+}

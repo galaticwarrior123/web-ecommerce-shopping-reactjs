@@ -3,6 +3,7 @@ import './HomePage_CommonUsers.css';
 import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePage";
 import LeftPage from "../../../Components/LeftPage/LeftPage";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import Top10_BanChayNhat from '../../../Components/Top10_BanChayNhat/Top10_BanChayNhat';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -191,6 +192,7 @@ const HomePage = () => {
                 <div className="row mt-5 row3">
                     <div className="content">
                         <span>TOP NHỮNG SẢN PHẨM BÁN CHẠY NHẤT</span>
+                        <Top10_BanChayNhat/>
                     </div>
                 </div>
 
