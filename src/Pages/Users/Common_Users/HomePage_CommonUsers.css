@@ -301,8 +301,71 @@ img.d-block.w-100 {
     height: auto;
 }
 
+.content span{
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.content .icon-fire path {
+    color: rgb(225, 49, 22);
+    animation: flameFlicker 3s infinite ease-in-out;
+}
+
+.content .icon-trophy path {
+    font-size: 50px;
+    color: gold;
+    animation: sparkle 2s infinite;
+    transform-origin: center;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 5px gold, 0 0 10px yellow, 0 0 15px orange;
+    }
+    50% {
+        transform: scale(1.2);
+        text-shadow: 0 0 15px gold, 0 0 20px yellow, 0 0 30px orange;
+    }
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(-5px, 0); }
+    20% { transform: translate(5px, 0); }
+    30% { transform: translate(-5px, 0); }
+    40% { transform: translate(5px, 0); }
+    50% { transform: translate(-5px, 0); }
+    60% { transform: translate(5px, 0); }
+    70% { transform: translate(-5px, 0); }
+    80% { transform: translate(5px, 0); }
+    90% { transform: translate(-5px, 0); }
+    100% { transform: translate(0, 0); }
+}
 
 
+@keyframes flameFlicker {
+    0% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+    25% {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
+    50% {
+        transform: scale(0.95);
+        filter: brightness(0.9);
+    }
+    75% {
+        transform: scale(1.1);
+        filter: brightness(1.3);
+    }
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+}
 
 /* .carousel-indicators button {
     width: 10px;

@@ -26,6 +26,7 @@ const products = [
       originalPrice: "300,000đ",
       discountedPrice: "200,000đ",
       imageUrl: "./Images/box_tropical.png",
+      imageUrl_2: "./Images/box_tropical_2.png",
       soldCount: 173,
       badge: "Best",
   },
@@ -36,6 +37,7 @@ const products = [
       originalPrice: "200,000đ",
       discountedPrice: "150,000đ",
       imageUrl: "./Images/luu.png",
+      imageUrl_2: "./Images/luu_2.png",
       soldCount: 150,
       badge: "Best",
   },
@@ -46,6 +48,7 @@ const products = [
     originalPrice: "200,000đ",
     discountedPrice: "150,000đ",
     imageUrl: "./Images/mangcau.png",
+    imageUrl_2: "./Images/mangcau_2.png",
     soldCount: 150,
     badge: "Best",
   },
@@ -56,6 +59,7 @@ const products = [
     originalPrice: "200,000đ",
     discountedPrice: "150,000đ",
     imageUrl: "./Images/dudu.png",
+    imageUrl_2: "./Images/dudu_2.png",
     soldCount: 150,
     badge: "Best",
   }
@@ -81,7 +85,7 @@ const Top10_BanChayNhat = () => {
         <Slider {...settings}>
           {products.map((product) => (
             <div key={product.id}>
-              <ProductCard_2 product={product} />
+              <ProductCard_2 product={product} showProductCount={true} showViewCount={false} />
             </div>
           ))}
         </Slider>

@@ -74,7 +74,7 @@ const Header = () => {
 
                                 <div className="manage-info-customer">
                                     <div className="my-account">
-                                        <span><FontAwesomeIcon icon={faUser} /> Tài khoản của tôi</span>
+                                        <span style={{ color: '#3a31c9' }}>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
                                     </div>
                                     <div className="manage-orders">
                                         <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
@@ -103,8 +103,9 @@ const Header = () => {
                                     />
                                 </div>
                                 <div className="user-info d-flex flex-column align-items-left justify-content-center">
-                                    <span>Chào bạn! Hãy trở thành thành viên của FRUITE để nhận nhiều ưu đãi nhé</span>
-                                    <span>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
+                                    <span>Chào bạn! <br></br>Hãy trở thành thành viên của FRUITE để nhận nhiều ưu đãi nhé</span>
+                                    <span style={{ color: '#3a31c9' }}>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
+
                                 </div>
                             </Nav>
 

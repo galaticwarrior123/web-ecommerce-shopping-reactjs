@@ -4,10 +4,10 @@ import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePag
 import LeftPage from "../../../Components/LeftPage/LeftPage";
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Top10_BanChayNhat from '../../../Components/Top10_BanChayNhat/Top10_BanChayNhat';
-
+import Top10_XemNhieuNhat from '../../../Components/Top10_XemNhieuNhat/Top10_XemNhieuNhat';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faAngleDown, faCartShopping, faFileInvoiceDollar, faUser, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faAngleDown, faCartShopping, faFileInvoiceDollar, faUser, faHeart, faFire, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 
@@ -191,14 +191,15 @@ const HomePage = () => {
 
                 <div className="row mt-5 row3">
                     <div className="content">
-                        <span>TOP NHỮNG SẢN PHẨM BÁN CHẠY NHẤT</span>
+                        <span>TOP 10 SẢN PHẨM BÁN CHẠY NHẤT <FontAwesomeIcon icon={faTrophy} className="icon-trophy" /></span>
                         <Top10_BanChayNhat/>
                     </div>
                 </div>
 
                 <div className="row mt-5 row3">
                     <div className="content">
-                        <span>TOP NHỮNG SẢN PHẨM XEM NHIỀU NHẤT</span>
+                        <span>TOP 10 SẢN PHẨM XEM NHIỀU NHẤT <FontAwesomeIcon icon={faFire} className="icon-fire" /></span>
+                        <Top10_XemNhieuNhat/>
                     </div>
                 </div>
             </div>

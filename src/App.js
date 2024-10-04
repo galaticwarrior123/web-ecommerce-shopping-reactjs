@@ -19,6 +19,8 @@ import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
 
 import SubHeader from './Components/SubHeader/SubHeader';
 import Top10_BanChayNhat from './Components/Top10_BanChayNhat/Top10_BanChayNhat';
+import Top10_XemNhieuNhatNhat from './Components/Top10_XemNhieuNhat/Top10_XemNhieuNhat';
+
 import ProductCard_2 from './Components/ProductCard/ProductCard_2';
 
 function App() {
@@ -53,6 +55,7 @@ function App() {
       <Routes>
         <Route path="/sub" element={<SubHeader />} />
         <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat/>}/>
+        <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat/>}/>
         <Route path="/product_cart2" element={<ProductCard_2/>}/>
       </Routes>
 

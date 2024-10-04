@@ -1,0 +1,29 @@
+.product-carousel {
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-right: -100px;
+    padding-left: 0px;
+    position: relative;
+    margin-left: 100px;
+}
+
+.product-container {
+    width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+
+.slick-slide {
+    padding: 10px;
+}
+
+.product-card {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+

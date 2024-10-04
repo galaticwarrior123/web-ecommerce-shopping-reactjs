@@ -40,7 +40,7 @@ import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-so
 
 
 
-const ProductCard_2 = ({ product }) => {
+const ProductCard_2 = ({ product, showViewCount, showProductCount }) => {
     const [imageUrl, setImageUrl] = useState(product.imageUrl);
     if (!product) {
         return "Không có sản phẩm để hiển thị"; // Hoặc hiển thị một thông báo lỗi nếu cần
@@ -86,9 +86,19 @@ const ProductCard_2 = ({ product }) => {
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </div>
-                <p className="sold-count">
+
+                {showProductCount && (
+                    <p className="sold-count">
                     <strong>{product.soldCount}</strong> đã bán
                 </p>
+                )}
+            
+                {showViewCount && (
+                    <p className="view-count">
+                        <strong>{product.viewCount}</strong> lượt xem
+                    </p>
+                )}
+
             </div>
         </div>
     );
