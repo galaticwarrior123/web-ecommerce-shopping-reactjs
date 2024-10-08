@@ -1,8 +1,10 @@
 .navbar {
     /* background-color: #FCD790 !important; */
     background-color: #ffc107 !important;
-
     padding: 0;
+    z-index: 10;
+    width: 100%;
+    position: fixed;
 }
 
 .navbar-brand img {

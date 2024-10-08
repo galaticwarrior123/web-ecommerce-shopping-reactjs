@@ -1,6 +1,9 @@
 .categories {
   background-color: #f8f9fa;
   border-radius: 10px;
+  margin-left: 0px;
+  left: 50px;
+  position: relative;
 }
 
 .categories .input-group {
@@ -42,4 +45,10 @@
   width: 30px;
   height: auto;
   margin-right: 10px;
+}
+
+.categories .flex-grow-1 {
+  flex-grow: 1 !important;
+  font-weight: 500;
+  text-transform: uppercase;
 }

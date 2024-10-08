@@ -1,9 +1,12 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import './Top10_BanChayNhat.css';
 import Slider from "react-slick"; // Import Slider từ react-slick
 import 'slick-carousel/slick/slick.css'; // Import Slick Carousel CSS
 import 'slick-carousel/slick/slick-theme.css'; // Import theme CSS
 import ProductCard_2 from '../ProductCard/ProductCard_2';
+import ProductAPI from "../../API/ProductAPI";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -67,6 +70,57 @@ const products = [
 ];
 
 const Top10_BanChayNhat = () => {
+  const [search, setSearch] = useState("");
+    const [page, setPage] = useState(1);
+    const [productsPerPage] = useState(2); // Số sản phẩm mỗi trang
+    const [sort, setSort] = useState("asc");
+    const [selectedCategoryId, setSelectedCategoryId] = useState([]);
+    const [products, setProducts] = useState([]);
+    const [hasMore, setHasMore] = useState(true); // Để theo dõi có còn sản phẩm hay không
+    const [totalProducts, setTotalProducts] = useState(0); // Tổng số sản phẩm
+    const [totalPages, setTotalPages] = useState(1); // Tổng số trang
+
+    const fetchProducts = async () => {
+        try {
+            const response = await ProductAPI.getProducts({
+                name: search,
+                page,
+                sort,
+                category: selectedCategoryId.join(','),
+            });
+            console.log(response);
+            setProducts(response.data.DT.products);
+            setTotalProducts(response.data.DT.products.length); // Tổng số sản phẩm
+            setTotalPages(Math.ceil(response.data.DT.products.length / productsPerPage)); // Tính tổng số trang
+        } catch (error) {
+            console.error('Lỗi khi lấy sản phẩm:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, [search, page, sort, selectedCategoryId]);
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setPage(newPage); // Cập nhật trang mới
+        }
+    };
+
+    const handleCategorySelect = (id) => {
+        if (selectedCategoryId.includes(id)) {
+            setSelectedCategoryId(prev => prev.filter(categoryId => categoryId !== id));
+        } else {
+            setSelectedCategoryId(prev => [...prev, id]);
+        }
+    };
+
+    const handleSearch = (input) => {
+        setSearch(input);
+        console.log("Search: ", input);
+    };
+
+
      // Cấu hình cho Slick Carousel
      const settings = {
       dots: true,
@@ -83,9 +137,10 @@ const Top10_BanChayNhat = () => {
     <div className="product-container">
       <div className="product-carousel">
         <Slider {...settings}>
-          {products.map((product) => (
+          {products.map((product, index) => (
             <div key={product.id}>
-              <ProductCard_2 product={product} showProductCount={true} showViewCount={false} />
+              {/* <ProductCard_2 product={product} showProductCount={true} showViewCount={false} /> */}
+              <ProductCard_2 key={index} product={product} showProductCount={true} showViewCount={false} />
             </div>
           ))}
         </Slider>

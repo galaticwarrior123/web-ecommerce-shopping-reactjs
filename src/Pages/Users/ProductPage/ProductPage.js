@@ -4,7 +4,8 @@ import "./ProductPage.css";
 
 import { useState, useEffect } from "react";
 import ProductAPI from "../../../API/ProductAPI";
-import ProductCard from "../../../Components/ProductCard/ProductCard";
+//import ProductCard from "../../../Components/ProductCard/ProductCard";
+import ProductCard_2 from "../../../Components/ProductCard/ProductCard_2";
 
 const ProductPage = () => {
     const [search, setSearch] = useState("");
@@ -64,7 +65,7 @@ const ProductPage = () => {
                 <div className="col-md-9 z-index-0">
                     <div className="row row-cols-1 row-cols-md-2 g-3">
                         {products.map((product, index) => (
-                            <ProductCard key={index} product={product} />
+                            <ProductCard_2 key={index} product={product} showProductCount={true} showViewCount={true} />
                         ))}
                     </div>
                     

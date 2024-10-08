@@ -65,10 +65,11 @@ const LeftPage = ({ onSelectCategory, onSearch }) => {
                             >
                                 <div className="icon me-3">
                                     <img
-                                        src="./Images/image3.png"
+                                        // src="./Images/image3.png"
+                                        src={category.logo}
                                         alt={category.name}
                                         className="icon me-3"
-                                        style={{ width: '50px', height: '50px', objectFit: 'contain' }}
+                                        style={{ width: '70px', height: '70px', objectFit: 'contain' }}
                                     />
                                 </div>
                                 <span className="flex-grow-1">{category.name}</span>

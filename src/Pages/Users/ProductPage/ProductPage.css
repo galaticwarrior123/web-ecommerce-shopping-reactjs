@@ -37,3 +37,8 @@
   margin: 0 10px;
   font-size: 16px;
 }
+
+.row.row-cols-1.row-cols-md-2.g-3 {
+  gap: 80px;
+  margin-left: 100px;
+}
