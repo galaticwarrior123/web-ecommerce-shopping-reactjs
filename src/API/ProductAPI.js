@@ -10,5 +10,16 @@ class ProductAPI {
         const url = '/product';
         return axiosPrivate.post(url, product);
     }
+
+    static async getTop10BestSellingProducts(){
+        const url = '/product/top-10-best-selling';
+        return axiosClient.get(url);
+    }
+
+    static async getTop10BestViewProducts(){
+        const url = '/product/top-10-best-viewing';
+        return axiosClient.get(url);
+    }
+
 }
 export default ProductAPI;
