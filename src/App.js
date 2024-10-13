@@ -22,6 +22,7 @@ import Top10_BanChayNhat from './Components/Top10_BanChayNhat/Top10_BanChayNhat'
 import Top10_XemNhieuNhatNhat from './Components/Top10_XemNhieuNhat/Top10_XemNhieuNhat';
 
 import ProductCard_2 from './Components/ProductCard/ProductCard_2';
+import OrderPage from './Pages/Users/OrderPage/OrderPage';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
         <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat/>}/>
         <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat/>}/>
         <Route path="/product_cart2" element={<ProductCard_2/>}/>
+        <Route path="/order" element={<OrderPage/>}/>
       </Routes>
 
 

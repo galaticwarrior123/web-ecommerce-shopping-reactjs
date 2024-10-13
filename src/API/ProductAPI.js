@@ -8,7 +8,12 @@ class ProductAPI {
 
     static async createProduct(product) {
         const url = '/product';
-        return axiosPrivate.post(url, product);
+        return axiosPrivate.post(url, product,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                }
+            });
     }
 }
 export default ProductAPI;
