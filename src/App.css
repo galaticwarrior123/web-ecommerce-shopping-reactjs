@@ -49,3 +49,23 @@
   box-shadow: 0 4px 10px rgb(0, 0, 0) !important;
   border: 2px solid #f44336 !important;
 }
+
+.btn-primary {
+  background-color: #e39210;
+  border-color: #e39210;
+}
+
+/* Khi nút btn-primary bị hover */
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #ffc107;
+}
+
+.border-primary {
+  border-color: #e39210 !important;
+}
+
+.text-primary {
+  color: #e39210 !important;
+}

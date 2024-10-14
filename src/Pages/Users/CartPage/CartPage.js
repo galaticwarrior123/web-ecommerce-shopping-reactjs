@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePage';
-import './OrderPage.css'; // Custom CSS for minor tweaks
+import './CartPage.css'; // Custom CSS for minor tweaks
 
-const OrderPage = () => {
+const CartPage = () => {
     const [selectedAddress, setSelectedAddress] = useState('address1'); // Keep track of selected address
 
     const handleAddressChange = (event) => {
@@ -12,22 +12,22 @@ const OrderPage = () => {
 
     return (
         <DefaultLayoutUserHomePage>
-            <div className="mt-5 order-page">
+            <div className="mt-5 cart-page">
                 <div className="w-100 d-flex">
                     {/* Shipping Address Section */}
                     <div className="col-md-7">
                         <div className="w-100 ">
                             <div className="box-body">
                                 <h5 className="box-body-title">Địa chỉ giao hàng</h5>
-                                
+
                                 {/* Existing Address 1 */}
                                 <div className="form-check mb-3">
-                                    <input 
-                                        className="form-check-input" 
-                                        type="radio" 
-                                        name="address" 
-                                        id="address1" 
-                                        value="address1" 
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="address"
+                                        id="address1"
+                                        value="address1"
                                         checked={selectedAddress === 'address1'}
                                         onChange={handleAddressChange}
                                     />
@@ -41,12 +41,12 @@ const OrderPage = () => {
 
                                 {/* Existing Address 2 */}
                                 <div className="form-check mb-3">
-                                    <input 
-                                        className="form-check-input" 
-                                        type="radio" 
-                                        name="address" 
-                                        id="address2" 
-                                        value="address2" 
+                                    <input
+                                        className="form-check-input"
+                                        type="radio"
+                                        name="address"
+                                        id="address2"
+                                        value="address2"
                                         checked={selectedAddress === 'address2'}
                                         onChange={handleAddressChange}
                                     />
@@ -70,7 +70,7 @@ const OrderPage = () => {
                                         onChange={handleAddressChange}
                                     />
                                     <label className="form-check-label" htmlFor="ship-different">
-                                       Địa chỉ giao hàng khác
+                                        Địa chỉ giao hàng khác
                                     </label>
                                 </div>
 
@@ -185,4 +185,4 @@ const OrderPage = () => {
     );
 };
 
-export default OrderPage;
+export default CartPage;
