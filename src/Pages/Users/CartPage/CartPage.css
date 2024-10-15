@@ -1,0 +1,27 @@
+/* Custom tweaks to match the exact design */
+.cart-page .card {
+    bcart-radius: 8px;
+}
+
+.cart-page h5 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    bcart: none;
+}
+
+.box-body {
+    padding: 20px !important;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    bcart: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}

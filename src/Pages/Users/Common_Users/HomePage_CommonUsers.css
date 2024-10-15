@@ -25,8 +25,8 @@
 .input-group {
     width: 400px !important;
     border-radius: 30px !important;
-    margin-left: 20px !important;
-
+    /* margin-left: 20px !important; */
+    margin-left: 0px !important;
 }
 
 .input-group .search-text {

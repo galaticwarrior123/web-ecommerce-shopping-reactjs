@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './App.css';
 import Login from './Pages/Common/Login/login';
 import HomePage_Members from './Pages/Users/Members/HomePage_Members';
@@ -12,7 +14,6 @@ import ForgotPassword from './Pages/Common/ForgotPassword/ForgotPassword'
 import VerifyOTP from './Pages/Common/ForgotPassword/VerifyOTP';
 import ResetPassword from './Pages/Common/ForgotPassword/ResetPassword';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductPage from './Pages/Users/ProductPage/ProductPage';
 import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
 import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
@@ -22,6 +23,9 @@ import Top10_BanChayNhat from './Components/Top10_BanChayNhat/Top10_BanChayNhat'
 import Top10_XemNhieuNhatNhat from './Components/Top10_XemNhieuNhat/Top10_XemNhieuNhat';
 
 import ProductCard_2 from './Components/ProductCard/ProductCard_2';
+import CartPage from './Pages/Users/CartPage/CartPage';
+
+import OrderPage from './Pages/Users/OrderPage/OrderPage';
 
 function App() {
   return (
@@ -52,12 +56,14 @@ function App() {
           <Route path="/admin/product" element={<ManageProduct />} />
         </Routes>
 
-      <Routes>
-        <Route path="/sub" element={<SubHeader />} />
-        <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat/>}/>
-        <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat/>}/>
-        <Route path="/product_cart2" element={<ProductCard_2/>}/>
-      </Routes>
+        <Routes>
+          <Route path="/sub" element={<SubHeader />} />
+          <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat />} />
+          <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat />} />
+          <Route path="/product_cart2" element={<ProductCard_2 />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/order" element={<OrderPage />} />
+        </Routes>
 
 
       </BrowserRouter>

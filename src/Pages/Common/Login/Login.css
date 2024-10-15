@@ -31,9 +31,7 @@ h2.text-center.mb-4 {
   color: #e85252;
 }
 
-input#password {
-  margin-left: -20px;
-}
+
 
 button.btn.btn-outline-first.bg-white.btn-eye {
   width: 35px;

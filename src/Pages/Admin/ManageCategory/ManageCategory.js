@@ -1,11 +1,14 @@
+import AddCategory from './AddCategory/AddCategory';
 import './ManageCategory.css';
 
 
 
 const ManageCategory = () => {
     return (
-        <div>
-            <h1>Manage Category</h1>
+        <div className='w-100'>
+            <AddCategory />
+
+            
         </div>
     )
 

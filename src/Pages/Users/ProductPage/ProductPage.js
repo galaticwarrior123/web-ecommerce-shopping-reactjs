@@ -4,34 +4,39 @@ import "./ProductPage.css";
 
 import { useState, useEffect } from "react";
 import ProductAPI from "../../../API/ProductAPI";
-//import ProductCard from "../../../Components/ProductCard/ProductCard";
 import ProductCard_2 from "../../../Components/ProductCard/ProductCard_2";
 
 const ProductPage = () => {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
-    const [productsPerPage] = useState(2); // Số sản phẩm mỗi trang
+   
     const [sort, setSort] = useState("asc");
     const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [products, setProducts] = useState([]);
-    const [hasMore, setHasMore] = useState(true); // Để theo dõi có còn sản phẩm hay không
-    const [totalProducts, setTotalProducts] = useState(0); // Tổng số sản phẩm
-    const [totalPages, setTotalPages] = useState(1); // Tổng số trang
+    const [hasMore, setHasMore] = useState(true); // Track if more products are available
+    const [totalPages, setTotalPages] = useState(1); // Total number of pages
 
     const fetchProducts = async () => {
         try {
             const response = await ProductAPI.getProducts({
                 name: search,
-                page,
+                page: page,
                 sort,
                 category: selectedCategoryId.join(','),
             });
-            console.log(response);
-            setProducts(response.data.DT.products);
-            setTotalProducts(response.data.DT.products.length); // Tổng số sản phẩm
-            setTotalPages(Math.ceil(response.data.DT.products.length / productsPerPage)); // Tính tổng số trang
+           
+            const fetchedProducts = response.data.DT.products;
+            setTotalPages(response.data.DT.totalPages); // Set the total number of pages
+
+            if (fetchedProducts.length > 0) {
+                setProducts(fetchedProducts); // Set the new products
+                setHasMore(true); // More products are available
+               
+            } else {
+                setHasMore(false); // No more products
+            }
         } catch (error) {
-            console.error('Lỗi khi lấy sản phẩm:', error);
+            console.error('Error fetching products:', error);
         }
     };
 
@@ -41,7 +46,7 @@ const ProductPage = () => {
 
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= totalPages) {
-            setPage(newPage); // Cập nhật trang mới
+            setPage(newPage); // Update to the new page
         }
     };
 
@@ -79,11 +84,11 @@ const ProductPage = () => {
                             Previous
                         </button>
                         
-                        <span>{`Page ${page} of ${totalPages}`}</span>
+                        <span>{page} of {totalPages}</span>
                         
                         <button
                             className="btn btn-primary ms-2"
-                            disabled={page === totalPages}
+                            disabled={page === totalPages || !hasMore}
                             onClick={() => handlePageChange(page + 1)}
                         >
                             Next
