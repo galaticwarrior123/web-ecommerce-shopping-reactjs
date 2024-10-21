@@ -3,6 +3,7 @@ import axiosClient, { axiosPrivate } from "./AxiosClient";
 class AuthAPI {
     static async login(data) {
         const url = '/user/login';
+        console.log(`Making GET request to: ${url}`);
         return axiosClient.post(url, data);
     }
 

@@ -1,47 +1,20 @@
-@media (min-width: 1025px) {
-    .h-custom {
-        height: 100vh !important;
-    }
-}
-
-.shoppingcart.card.card-registration.card-registration-2{
+.card-custom {
+    border-radius: 15px;
+    min-width: 450px !important;
     width: 100% !important;
+    max-width: none;
 }
 
-.card-body.p-0 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+h1.fw-bold.mb-4.text-center{
+    text-transform: uppercase;
+    font-size: 30px;
 }
 
-.shoppingcart.card{
-    max-width: none !important;
+.col-md-3 h6 {
+    font-size: 20px;
 }
 
-.shoppingcart.card-registration .select-input.form-control[readonly]:not([disabled]) {
-    font-size: 1rem;
-    line-height: 2.15;
-    padding-left: .75em;
-    padding-right: .75em;
-}
-
-.shoppingcart.card-registration .select-arrow {
-    top: 13px;
-}
-
-.bootstrap-touchspin-down {
-    display: none !important;
-}
-
-
-.bootstrap-touchspin-up {
-    display: none !important;
-}
-
-button.btn.btn-dark.btn-block.btn-lg a {
-    color: white;
-    text-decoration: none;
-}
-
-button.btn.btn-dark.btn-block.btn-lg {
-    background-color: #3e3e40;
+.col-md-2 img{
+    max-width: 70%;
+    height: auto;
 }

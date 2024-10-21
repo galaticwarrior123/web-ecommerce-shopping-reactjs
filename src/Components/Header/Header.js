@@ -7,12 +7,14 @@ import { useEffect, useState } from 'react';
 const Header = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState(null);
+    const [userId, setUserId] = useState(null);
 
     useEffect (() =>{
         const storedUser  = localStorage.getItem('user');
         if(storedUser){
             const user = JSON.parse(storedUser);
             setUserName(user.username);
+            setUserId(user._id);
         }
     }, []);
 
@@ -28,6 +30,15 @@ const Header = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location.reload();
+    }
+
+    const handleShoppingCartClick = () =>{
+        if (userId) {
+            navigate(`/shopping-cart/${userId}`);
+        } else {
+            // Nếu chưa đăng nhập thì điều hướng tới trang login
+            navigate('/login');
+        }
     }
     
     const token = localStorage.getItem('token');
@@ -127,7 +138,7 @@ const Header = () => {
                             </div>
                         </>
                     )}
-                    <Nav.Link href="#" className="cart-info">
+                    <Nav.Link href="#" className="cart-info" onClick={handleShoppingCartClick}>
                         <div className="cart-circle">
                             <FontAwesomeIcon icon={faCartShopping} />
                         </div>
