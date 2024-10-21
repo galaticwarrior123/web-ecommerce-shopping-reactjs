@@ -7,12 +7,18 @@ class ShoppingCartAPI {
     return axiosPrivate.get(url);
   }
 
-  static async CreateOrder(data) {
+  static async AddProductToCart(productId, quantity) {
     const url = '/shopping-cart/add';
-    console.log(`Making GET request to: ${url}`);
-    return axiosPrivate.post(url, data);
+    console.log(`Making POST request to: ${url} with productId: ${productId} and quantity: ${quantity}`);
+
+    return axiosPrivate.post(url, { productId, quantity });
   }
 
+  static async UpdateProductQuantity(shoppingCartId, productId, quantity) {
+    const url = `/shopping-cart/${shoppingCartId}/update`;
+    console.log(`Making PUT request to: ${url} with productId: ${productId} and quantity: ${quantity}`);
+    return axiosPrivate.put(url, { productId, quantity });
+  }
 }
 
 export default ShoppingCartAPI;

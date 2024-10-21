@@ -16,6 +16,7 @@ const ShoppingCartPage = () => {
         navigate('/cart');
     };
     const [shoppingCartItems, setShoppingCartItems] = useState([]);
+    const [shoppingCartId, setShoppingCartId] = useState(null);
 
     useEffect(() => {
         const fetchShoppingCart = async () => {
@@ -23,7 +24,10 @@ const ShoppingCartPage = () => {
                 const data = await ShoppingCartAPI.GetShoppingCart();
                 if (data.data.success && data.data.shoppingcart) {
                     const products = data.data.shoppingcart.products || [];
+                    console.log("Shopping Cart: ", data);
                     setShoppingCartItems(products);
+                    setShoppingCartId(data.data.shoppingcart._id); // Lưu _id của giỏ hàng
+                    setShoppingCartItems(data.data.shoppingcart.products); // Giả sử products chứa danh sách sản phẩm
                 }
             } catch (error) {
                 console.error("Error fetching shopping cart:", error);
@@ -34,22 +38,34 @@ const ShoppingCartPage = () => {
     }, []);
 
     //Decrease quantity
-    const handleDecrease = (itemId) => {
+    const handleDecrease = async (itemId) => {
         setShoppingCartItems((prevItems) =>
-            prevItems.map((item) =>
-                item.product._id === itemId ? { ...item, quantity: Math.max(item.quantity - 1, 1) } : item
-            )
+            prevItems.map((item) => {
+                if (item.product._id === itemId) {
+                    const newQuantity = Math.max(item.quantity - 1, 1);
+                    // Gọi API để cập nhật số lượng
+                    ShoppingCartAPI.UpdateProductQuantity(shoppingCartId, itemId, newQuantity);
+                    return { ...item, quantity: newQuantity };
+                }
+                return item;
+            })
         );
-    }
+    };
 
     //Increase quantity
-    const handleIncrease = (itemId) => {
+    const handleIncrease = async (itemId) => {
         setShoppingCartItems((prevItems) =>
-            prevItems.map((item) =>
-                item.product._id === itemId ? { ...item, quantity: item.quantity + 1 } : item
-            )
+            prevItems.map((item) => {
+                if (item.product._id === itemId) {
+                    const newQuantity = item.quantity + 1;
+                    // Gọi API để cập nhật số lượng
+                    ShoppingCartAPI.UpdateProductQuantity(shoppingCartId, itemId, newQuantity);
+                    return { ...item, quantity: newQuantity };
+                }
+                return item;
+            })
         );
-    }
+    };
 
     useEffect(() => {
         $("input[name='quantity']").TouchSpin({
@@ -106,7 +122,7 @@ const ShoppingCartPage = () => {
                                                         </button>
                                                     </div>
                                                     <div className="col-md-3 text-end">
-                                                        <h6 className="mb-0">€ {item.product.sale_price * item.quantity}</h6>
+                                                        <h6 className="mb-0">{item.product.sale_price * item.quantity} VND</h6>
                                                     </div>
                                                     <div className="col-md-1 text-end">
                                                         <button className="btn btn-danger">
@@ -127,7 +143,7 @@ const ShoppingCartPage = () => {
                                     <div className="p-5 bg-light rounded-3">
                                         <h3 className="fw-bold mb-4">Summary</h3>
                                         <div className="d-flex justify-content-between mb-4">
-                                            <h5 className="text-uppercase">Items {shoppingCartItems.length}</h5>
+                                            <h5 className="text-uppercase">Total Items {shoppingCartItems.reduce((total, item) => total + item.quantity, 0)}</h5>
                                             <h5>€ {shoppingCartItems.reduce((total, item) => total + item.product.sale_price * item.quantity, 0)}</h5>
                                         </div>
                                         <button

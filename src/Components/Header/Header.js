@@ -4,10 +4,12 @@ import { faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDo
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
+import ShoppingCartAPI from '../../API/ShoppingCartAPI'
 const Header = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState(null);
     const [userId, setUserId] = useState(null);
+    const [shoppingCartQuantity, setShoppingCartQuantity] = useState(0);
 
     useEffect (() =>{
         const storedUser  = localStorage.getItem('user');
@@ -15,6 +17,7 @@ const Header = () => {
             const user = JSON.parse(storedUser);
             setUserName(user.username);
             setUserId(user._id);
+            fetchShoppingCartQuantity(user._id);
         }
     }, []);
 
@@ -40,6 +43,18 @@ const Header = () => {
             navigate('/login');
         }
     }
+
+    const fetchShoppingCartQuantity = async (userId) => {
+        try {
+            const response = await ShoppingCartAPI.GetShoppingCart(); 
+            if (response.data.success) {
+                const totalQuantity = response.data.shoppingcart.products.reduce((acc, item) => acc + item.quantity, 0);
+                setShoppingCartQuantity(totalQuantity); // Update cart quantity
+            }
+        } catch (error) {
+            console.error('Error fetching shopping cart:', error);
+        }
+    };
     
     const token = localStorage.getItem('token');
 
@@ -143,7 +158,7 @@ const Header = () => {
                             <FontAwesomeIcon icon={faCartShopping} />
                         </div>
                         <div className="cart-quantity">
-                            <span>0</span>
+                            <span>{shoppingCartQuantity}</span>
                         </div>
 
                     </Nav.Link>

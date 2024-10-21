@@ -2,6 +2,7 @@ import React, { useState } from 'react'; // Import useState
 import './ProductCard_2.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import ShoppingCartAPI from '../../API/ShoppingCartAPI'
 
 
 // const ProductCard = ({ product }) => {
@@ -10,7 +11,7 @@ import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-so
 
 //     return (
 //         <>
-            
+
 //             <div className="col">
 //                 <div className="card h-100 shadow-sm d-flex flex-row">
 //                     <img src="./Images/vegetable.png" className="card-img-left" alt="Product" />
@@ -30,7 +31,7 @@ import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-so
 //                         </div>
 //                     </div>
 //                 </div>
-                
+
 //             </div>
 //             {seeDetail && <ProductDetail product={product} toggleDetailProduct={toggleDetailProduct} />}
 //         </>
@@ -40,9 +41,29 @@ import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-so
 
 const ProductCard_2 = ({ product, showViewCount, showProductCount }) => {
     const [imageUrl, setImageUrl] = useState(product.imageUrl);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+
     if (!product) {
-        return "Không có sản phẩm để hiển thị"; // Hoặc hiển thị một thông báo lỗi nếu cần
+        return "Không có sản phẩm để hiển thị";
     }
+
+    const handleAddToCart = async () => {
+        setIsLoading(true);
+        try {
+            const response = await ShoppingCartAPI.AddProductToCart(product._id, 1);
+            console.log("Thêm sản phẩm vào giỏ hàng thành công:", response.data);
+
+            // Có thể hiển thị thông báo thành công, hoặc cập nhật giao diện giỏ hàng tại đây
+
+        } catch (error) {
+            setErrorMessage("Lỗi khi thêm vào giỏ hàng");
+            console.error("Thêm sản phẩm thất bại:", error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <div className='card product-card'>
             <div className='image-container'>
@@ -74,8 +95,12 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount }) => {
                 </p>
 
                 <div className="d-flex justify-content-end ms-auto icon-buttons">
-                    <button className="btn btn-outline-secondary">
-                        <FontAwesomeIcon icon={faCartShopping} />
+                    <button
+                        className="btn btn-outline-secondary"
+                        onClick={handleAddToCart}
+                        disabled={isLoading} // Disable button khi đang gọi API
+                    >
+                        {isLoading ? "Đang thêm..." : <FontAwesomeIcon icon={faCartShopping} />}
                     </button>
                     <button className="btn btn-outline-danger">
                         <FontAwesomeIcon icon={faHeart} />
@@ -87,10 +112,10 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount }) => {
 
                 {showProductCount && (
                     <p className="sold-count">
-                    <strong>{product.sold_count}</strong> đã bán
-                </p>
+                        <strong>{product.sold_count}</strong> đã bán
+                    </p>
                 )}
-            
+
                 {showViewCount && (
                     <p className="view-count">
                         <strong>{product.view_count}</strong> lượt xem
