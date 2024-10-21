@@ -15,7 +15,7 @@ const ProductDetail = ({ product, toggleDetailProduct }) => {
         }
     };
     return (
-        <div className="position-fixed top-0 left-0 w-100 h-100  d-flex justify-content-center align-items-center body-detail"  style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
+        <div className="position-fixed top-0 left-0 w-100 h-100  d-flex justify-content-center align-items-center body-detail" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
             <div className="detail-product bg-white" onClick={(e) => e.stopPropagation()}>
                 <div className="row w-100 h-100">
                     <div className="col-md-6">
@@ -30,8 +30,13 @@ const ProductDetail = ({ product, toggleDetailProduct }) => {
 
                     <div className="col-md-6">
                         <h2 className="product-title">{product.productName}</h2>
-                        <p className="product-price fw-bold">Giá bán: {product.price}</p>
-                        <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">{product.category[0].name}</span></div>
+                        <p className="product-price fw-bold text-danger text-decoration-line-through">
+                            Giá bán: {product.origin_price}
+                        </p>
+                        <p className="product-price fw-bold">
+                            Giá khuyến mãi: {product.sale_price}
+                        </p>
+                        <div className="d-flex"><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">{product.category.name}</span></div>
                         <div className="d-flex"><p className="product-origin fw-bold">Xuất xứ:</p> <span className="ml-2">Việt Nam</span></div>
                         <div className="d-flex"><p className="product-supplier fw-bold">Nhà cung cấp:</p><span className="ml-2">Cửa hàng trái cây sạch</span></div>
                         <div className="d-flex"><p className="product-in-stock fw-bold">Còn hàng: {product.quantity} sản phẩm</p></div>
