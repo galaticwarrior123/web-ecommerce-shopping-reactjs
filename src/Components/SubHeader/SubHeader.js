@@ -13,7 +13,7 @@ const SubHeader = () => {
                 <nav>
                     <ul className='nav nav-subheader'>
                         <li className='nav-item'>
-                            <a className='nav-link' href='#home'>HOME</a>
+                            <Link to='/' className='nav-link' href='#home'>HOME</Link>
                         </li>
 
 

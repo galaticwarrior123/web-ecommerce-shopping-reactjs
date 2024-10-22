@@ -22,7 +22,7 @@
 }
 
 .card-body {
-  padding-top: 0.80rem; 
+  padding-top: 0.80rem;
   padding-left: 10px !important;
   padding-right: 50px !important;
 }
@@ -51,7 +51,7 @@
 }
 
 span.badge.best-badge {
-  font-size: 15px ;
+  font-size: 15px;
 }
 
 .card-text p {
@@ -109,26 +109,26 @@ span.badge.best-badge {
 }
 
 .d-flex.justify-content-end.ms-auto.icon-buttons {
-    gap: 10px;
-    padding-left: 150px;
-    margin-right: -40px;
+  gap: 10px;
+  padding-left: 150px;
+  margin-right: -40px;
 }
 
-.product-list{
+.product-list {
   gap: 10px;
   margin-left: 20px;
   margin-top: 20px;
 }
 
-.card-img-top:hover ~ .card-img-top.hover-img {
+.card-img-top:hover~.card-img-top.hover-img {
   opacity: 1;
 }
 
-.card-img-top:hover  {
+.card-img-top:hover {
   opacity: 0.5 !important;
 }
 
-.card-img-top:hover + .card-img-top.hover-img {
+.card-img-top:hover+.card-img-top.hover-img {
   opacity: 1 !important;
   /* display: block !important; */
 }
@@ -141,8 +141,9 @@ span.badge.best-badge {
   height: 21.5rem;
   object-fit: cover;
   animation: fadeIn 1s ease-in-out;
-  
-  pointer-events: none; /* Prevent click events on hover image */
+
+  pointer-events: none;
+  /* Prevent click events on hover image */
 }
 
 
@@ -161,9 +162,11 @@ span.badge.best-badge {
   0% {
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
+
   100% {
     opacity: 1;
   }
@@ -171,12 +174,29 @@ span.badge.best-badge {
 
 @keyframes fadeOut {
   0% {
-      opacity: 0;
+    opacity: 0;
   }
-  50%{
+
+  50% {
     opacity: 0.7;
   }
+
   100% {
-      opacity: 1;
+    opacity: 1;
   }
+}
+
+.image-animation-container {
+  pointer-events: none; /* Không cho phép tương tác với hình ảnh */
+  position: fixed;
+  z-index: 1000;
+}
+
+.animated-image {
+  max-width: 50px; /* Kích thước của hình ảnh */
+  max-height: 50px;
+  border-radius: 50%;
+  opacity: 1;
+  transition: transform 1s ease, opacity 0.5s ease; /* Hiệu ứng mờ dần */
+
 }

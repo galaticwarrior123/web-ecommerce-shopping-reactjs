@@ -49,7 +49,7 @@ const Header = () => {
             const response = await ShoppingCartAPI.GetShoppingCart(); 
             if (response.data.success) {
                 const totalQuantity = response.data.shoppingcart.products.reduce((acc, item) => acc + item.quantity, 0);
-                setShoppingCartQuantity(totalQuantity); // Update cart quantity
+                setShoppingCartQuantity(totalQuantity);
             }
         } catch (error) {
             console.error('Error fetching shopping cart:', error);
@@ -64,7 +64,7 @@ const Header = () => {
                 {/* Logo */}
                 <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column">
                     <img
-                        src='./Images/logo-fruite.png'
+                        src='/Images/logo-fruite.png'
                         alt="Logo"
                     />
                     <span>CLEAN AND FRESH FRUIT</span>
@@ -85,7 +85,7 @@ const Header = () => {
                             <Nav className="d-flex">
                                 <div className="user-circle d-flex flex-column align-items-left justify-content-center">
                                     <img
-                                        src='./Images/icon-avatar.png'
+                                        src='/Images/icon-avatar.png'
                                         alt="Avatar"
                                     // className="user-circle"
                                     />
@@ -168,4 +168,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default Header
