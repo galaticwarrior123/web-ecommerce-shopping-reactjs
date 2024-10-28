@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePage";
 import './ShoppingCartPage.css'; // Custom CSS for minor tweaks
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus, faArrowLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css'; // Import CSS
 import 'bootstrap-touchspin'; // Import JS
 import $ from 'jquery';
@@ -127,7 +127,7 @@ const ShoppingCartPage = () => {
                                                     </div>
                                                     <div className="col-md-1 text-end">
                                                         <button className="btn btn-danger">
-                                                            <i className="fas fa-times"></i>
+                                                            <FontAwesomeIcon icon={faTrash} />
                                                         </button>
                                                     </div>
                                                 </div>

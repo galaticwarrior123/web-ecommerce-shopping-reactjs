@@ -4,6 +4,8 @@ import { faSearch, faBagShopping, faHeart } from '@fortawesome/free-solid-svg-ic
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import './ProductDetail.css';
+import ShoppingCartAPI from '../../../API/ShoppingCartAPI';
+
 const ProductDetail = ({ product, toggleDetailProduct }) => {
     const [quantity, setQuantity] = useState(1);
     console.log(product);
@@ -14,6 +16,16 @@ const ProductDetail = ({ product, toggleDetailProduct }) => {
             setQuantity(prev => prev - 1);
         }
     };
+    const handleAddToCart = async() => {
+        try {
+            const response = await ShoppingCartAPI.AddProductToCart(product._id, quantity);
+            console.log("Product added to cart:", response);
+            alert("Sản phẩm đã được thêm vào giỏ hàng!");
+        } catch (error) {
+            console.error("Error adding product to cart:", error);
+            alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
+        }
+    }
     return (
         <div className="position-fixed top-0 left-0 w-100 h-100  d-flex justify-content-center align-items-center body-detail" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
             <div className="detail-product bg-white" onClick={(e) => e.stopPropagation()}>
@@ -52,7 +64,7 @@ const ProductDetail = ({ product, toggleDetailProduct }) => {
                         </div>
 
                         <div className="button-group mt-4">
-                            <button className="btn btn-primary me-2">
+                            <button className="btn btn-primary me-2" onClick={handleAddToCart}>
                                 <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
                             </button>
                             <button className="btn btn-outline-danger me-2">
