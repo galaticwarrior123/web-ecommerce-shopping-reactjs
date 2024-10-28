@@ -183,13 +183,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                         <strong>{product.view_count}</strong> lượt xem
                     </p>
                 )}
-
-                    {showViewCount && (
-                        <p className="view-count">
-                            <strong>{product.view_count}</strong> lượt xem
-                        </p>
-                    )}
-
+                
                 </div>
             </div>
             {seeDetail && <ProductDetail product={product} toggleDetailProduct={toggleDetailProduct} />}
