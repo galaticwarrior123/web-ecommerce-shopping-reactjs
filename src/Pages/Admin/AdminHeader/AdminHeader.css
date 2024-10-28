@@ -1,0 +1,28 @@
+
+
+.header-left h4 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  width: 50%;
+  flex-direction: row;
+}
+
+.icon {
+  font-size: 1.5rem;
+  color: #6c757d;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-left: 20px;
+}
+
+.icon:hover {
+  color: #343a40;
+}
+

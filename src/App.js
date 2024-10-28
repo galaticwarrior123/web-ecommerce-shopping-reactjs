@@ -52,8 +52,8 @@ function App() {
 
 
         <Routes>
-          <Route path="/admin/category" element={<ManageCategory />} />
-          <Route path="/admin/product" element={<ManageProduct />} />
+          <Route path="/admin/manager-category" element={<ManageCategory />} />
+          <Route path="/admin/manager-product" element={<ManageProduct />} />
         </Routes>
 
         <Routes>

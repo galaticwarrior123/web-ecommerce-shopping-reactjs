@@ -1,0 +1,64 @@
+body,
+html {
+    height: 100%;
+    margin: 0;
+}
+
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    /* Full screen height */
+}
+
+.admin-header {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    /* Bằng với width của sidebar */
+    right: 0;
+    height: 60px;
+    /* Chiều cao của header */
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #343a40;
+    z-index: 999;
+}
+
+.admin-main {
+    margin-top: 60px;
+    /* Đẩy nội dung xuống dưới header */
+    margin-left: 250px;
+    /* Đẩy nội dung qua phải theo width của sidebar */
+    padding: 20px;
+    height: calc(100vh - 60px);
+    /* Giới hạn chiều cao phần main content */
+    overflow-y: auto;
+    /* Cho phép cuộn phần main content */
+}
+
+/* .list-group-item {
+    border: none;
+    background-color: #343a40;
+}
+
+.list-group-item:hover {
+    background-color: #495057;
+} */
+
+.main-content {
+    margin-left: 250px;
+    padding: 20px;
+}
