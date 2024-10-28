@@ -51,15 +51,15 @@
 }
 
 .btn-primary {
-  background-color: #e39210;
-  border-color: #e39210;
+  background-color: #e39210 !important;
+  border-color: #e39210 !important;
 }
 
 /* Khi nút btn-primary bị hover */
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
-  background-color: #ffc107;
+  background-color: #ffd34e;
 }
 
 .border-primary {

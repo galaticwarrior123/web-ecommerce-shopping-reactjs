@@ -1,4 +1,4 @@
-import { axiosClient, axiosPrivate } from "./AxiosClient";
+import axiosClient, { axiosPrivate } from "./AxiosClient";
 
 class ShoppingCartAPI {
   static async GetShoppingCart() {

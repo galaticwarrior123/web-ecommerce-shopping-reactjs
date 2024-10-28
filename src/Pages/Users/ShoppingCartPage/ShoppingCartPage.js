@@ -22,6 +22,7 @@ const ShoppingCartPage = () => {
         const fetchShoppingCart = async () => {
             try {
                 const data = await ShoppingCartAPI.GetShoppingCart();
+                console.log("DATA: ", data);
                 if (data.data.success && data.data.shoppingcart) {
                     const products = data.data.shoppingcart.products || [];
                     console.log("Shopping Cart: ", data);

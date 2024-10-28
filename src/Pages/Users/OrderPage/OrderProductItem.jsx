@@ -14,11 +14,13 @@ const OrderProductItem = ({ product, quantity }) => {
         <p className="fw-bold mb-0 ms-3">{product.productName}</p>{" "}
       </div>
 
-      <p className="mb-0">Phân loại: Size {product.size}</p>
+      <p className="mb-0">Phân loại: {product.category.name}</p>
 
       <div className="d-flex flex-row gap-5 align-items-center pe-5">
         <p className="mb-0">Số lượng: {quantity}</p>
-        <p className="mb-0">Thành tiền: {product.price * quantity}</p>
+        <p className="mb-0">
+          Thành tiền: {(product.sale_price * quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+        </p>
       </div>
     </div>
   );

@@ -27,6 +27,7 @@ import CartPage from './Pages/Users/CartPage/CartPage';
 import ShoppingCartPage from './Pages/Users/ShoppingCartPage/ShoppingCartPage'
 
 import OrderPage from './Pages/Users/OrderPage/OrderPage';
+import PurchasedProducts from './Pages/Users/ReviewPage/PurchasedProducts';
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
           <Route path="/shopping-cart/:userId" element={<ShoppingCartPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/purchased-products" element={<PurchasedProducts />} />
         </Routes>
 
 
