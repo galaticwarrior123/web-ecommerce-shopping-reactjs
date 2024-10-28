@@ -1,0 +1,113 @@
+.sidebar {
+    width: 250px;
+    background-color: #112b58;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed; /* Sidebar will be fixed in this position */
+    top: 0;
+    left: 0;
+    height: 100vh; 
+    z-index: 2;
+}
+
+.profile {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid white; /* Add border to profile image */
+}
+
+.profile h3 {
+    margin: 10px 0 5px;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.profile p {
+    font-size: 14px;
+    color: #b0bec5;
+}
+
+.menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 15px 20px; /* Add horizontal padding for better touch targets */
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    background-color: #1a3d7a;
+    text-decoration: none ;
+}
+
+.menu-item.active {
+    background-color: #ffda43;
+    color: black;
+}
+
+.menu-item.active:hover {
+    background-color: #ffda43; /* Maintain the same active color on hover */
+}
+
+.menu-item::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 100%;
+    background-color: transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: background-color 0.3s ease;
+    
+}
+
+.menu-item:hover::before {
+    background-color: #ffda43; /* Highlight the left border on hover */
+}
+
+.sub-menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px; /* Indent sub-menu items */
+}
+
+.sub-menu-item {
+    width: 100%;
+    background: none;
+    border: none;
+    color: white;
+    padding: 10px 15px; /* Add padding for sub-menu items */
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.sub-menu-item:hover {
+    background-color: #1a3d7a; /* Sub-menu item hover effect */
+    text-decoration: none;
+}
