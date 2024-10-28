@@ -4,40 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import ProductDetail from './ProductDetail/ProducDetail';
 
-// const ProductCard = ({ product }) => {
-//     const [seeDetail, setSeeDetail] = useState(false);
-//     const toggleDetailProduct = () => setSeeDetail(prev => !prev);
-
-//     return (
-//         <>
-
-//             <div className="col">
-//                 <div className="card h-100 shadow-sm d-flex flex-row">
-//                     <img src="./Images/vegetable.png" className="card-img-left" alt="Product" />
-//                     <div className="card-body">
-//                         <h5 className="card-title">{product.productName}</h5>
-//                         <p className="card-text">Giá bán: {product.price}đ</p>
-//                         <div className="d-flex justify-content-start">
-//                             <button className="btn btn-light me-2">
-//                                 <FontAwesomeIcon icon={faBagShopping} />
-//                             </button>
-//                             <button className="btn btn-light me-2">
-//                                 <FontAwesomeIcon icon={faHeart} />
-//                             </button>
-//                             <button className="btn btn-light" onClick={toggleDetailProduct}>
-//                                 <FontAwesomeIcon icon={faSearch} />
-//                             </button>
-//                         </div>
-//                     </div>
-//                 </div>
-
-//             </div>
-//             {seeDetail && <ProductDetail product={product} toggleDetailProduct={toggleDetailProduct} />}
-//         </>
-//     );
-// }
-
-
 const ProductCard_2 = ({ product, showViewCount, showProductCount }) => {
     const [imageUrl, setImageUrl] = useState(product.imageUrl);
     const [seeDetail, setSeeDetail] = useState(false);
@@ -106,16 +72,5 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount }) => {
         </>
     );
 }
-
-
-// const ProductList = () => {
-//     return (
-//         <div className="product-list d-flex">
-//             {products.map((product) => (
-//                 <ProductCard_2 key={product.id} product={product} />
-//             ))}
-//         </div>
-//     );
-// }
 
 export default ProductCard_2;

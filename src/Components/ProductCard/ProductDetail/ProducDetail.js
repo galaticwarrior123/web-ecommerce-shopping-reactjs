@@ -15,11 +15,11 @@ const ProductDetail = ({ product, toggleDetailProduct }) => {
         }
     };
     return (
-        <div className="position-fixed top-0 left-0 w-100 h-100  d-flex justify-content-center align-items-center body-detail" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
+        <div className="position-fixed top-0 left-0 w-100 h-100 d-flex justify-content-center align-items-center body-detail" style={{ backgroundColor: "rgba(0, 0, 0, 0.5)", zIndex: 1000 }} onClick={toggleDetailProduct}>
             <div className="detail-product bg-white" onClick={(e) => e.stopPropagation()}>
                 <div className="row w-100 h-100">
                     <div className="col-md-6">
-                        <Swiper spaceBetween={10} slidesPerView={1} navigation pagination={{ clickable: true }} loop>
+                        <Swiper spaceBetween={1} slidesPerView={1} navigation pagination={{ clickable: true }} loop style={{ zIndex: 1051 }}>
                             {["image1.png", "image2.png", "image3.png"].map((image, idx) => (
                                 <SwiperSlide key={idx}>
                                     <img src={`./Images/${image}`} alt={`Product Image ${idx + 1}`} className="swiper-slide-img" />
