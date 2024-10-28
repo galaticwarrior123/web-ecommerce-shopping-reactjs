@@ -29,6 +29,7 @@ import ShoppingCartPage from './Pages/Users/ShoppingCartPage/ShoppingCartPage'
 import OrderPage from './Pages/Users/OrderPage/OrderPage';
 import PurchasedProducts from './Pages/Users/ReviewPage/PurchasedProducts';
 import ProductDetail from './Pages/Users/ProductDetail/ProductDetail';
+import SaleProduct from './Pages/Admin/ManageProduct/SaleProduct/SaleProduct';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
             <Route index element={<ManageCategory />} /> {/* Default route for /admin */}
             <Route path="manager-category" element={<ManageCategory />} />
             <Route path="manager-product" element={<ManageProduct />} />
+            <Route path="manager-sale-product" element={<SaleProduct />} />
           </Route>
         </Routes>
 

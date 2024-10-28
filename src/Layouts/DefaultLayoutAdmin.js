@@ -12,7 +12,7 @@ const DefaultLayoutAdmin = ({ children }) => {
         '/admin/manager-customer': 'Quản lý khách hàng',
         '/admin/manager-category': 'Quản lý danh mục',
         '/admin/manager-product': 'Danh sách sản phẩm',
-        '/admin/manager-coupon': 'Danh sách giảm giá',
+        '/admin/manager-sale-product': 'Danh sách giảm giá',
         '/admin/manager-orders': 'Quản lý đơn hàng',
         '/admin/dashboard': 'Báo cáo doanh thu',
         // Add more paths and their corresponding names as needed
