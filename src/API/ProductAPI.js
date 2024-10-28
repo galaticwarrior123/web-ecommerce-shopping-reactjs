@@ -26,5 +26,11 @@ class ProductAPI {
         return axiosClient.get(url);
     }
 
+    static async getProductById(id){
+        const url = `/product/${id}`;
+        console.log(`Making GET request to: ${url} with productId: ${id}`);
+        return axiosClient.get(url);
+    }
+
 }
 export default ProductAPI;
