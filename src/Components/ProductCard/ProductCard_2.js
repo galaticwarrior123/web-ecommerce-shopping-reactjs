@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import ShoppingCartAPI from '../../API/ShoppingCartAPI'
 import ProductAPI from '../../API/ProductAPI';
-import ProductDetail from './ProductDetail/ProducDetail';
+import ProductDetail from '../../Pages/Users/ProductDetail/ProductDetail';
 
 const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppingCartQuantity }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
 
     const [seeDetail, setSeeDetail] = useState(false);
     const toggleDetailProduct = () => setSeeDetail(prev => !prev);
-    
+
     if (!product) {
         return "Không có sản phẩm để hiển thị";
     }
@@ -58,7 +58,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
 
         // Đặt vị trí ban đầu cho hình ảnh (ở giữa màn hình)
         imgContainer.style.position = 'fixed';
-        imgContainer.style.left = '50%'; 
+        imgContainer.style.left = '50%';
         imgContainer.style.top = '50%';
         imgContainer.style.transform = 'translate(-50%, -50%)'; // Căn giữa hình ảnh
         imgContainer.style.zIndex = '1000'; // Đảm bảo nó hiển thị trên các phần tử khác
@@ -91,8 +91,13 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         }, 1500); // Tổng cộng 1.5 giây (1 giây di chuyển + 0.5 giây làm mờ)
     };
 
+    const handleProductDetail = (id) => {
+        window.location.href = `/product/${id}`;
+    }
+
     return (
         <>
+            
             <div className='card product-card'>
                 <div className='image-container'>
                     <img
@@ -122,37 +127,37 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                         <div><span className="discounted-price">{product.sale_price}</span></div>
                     </p>
 
-                <div className="d-flex justify-content-end ms-auto icon-buttons">
-                    <button
-                        className="btn btn-outline-secondary btn-cart"
-                        onClick={handleAddToCart}
-                        disabled={isLoading} // Disable button khi đang gọi API
-                    >
-                        {isLoading ? "Đang thêm..." : <FontAwesomeIcon icon={faCartShopping} />}
-                    </button>
-                    <button className="btn btn-outline-danger">
-                        <FontAwesomeIcon icon={faHeart} />
-                    </button>
-                    <button className="btn btn-outline-secondary" onClick={toggleDetailProduct}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                </div>
+                    <div className="d-flex justify-content-end ms-auto icon-buttons">
+                        <button
+                            className="btn btn-outline-secondary btn-cart"
+                            onClick={handleAddToCart}
+                            disabled={isLoading} // Disable button khi đang gọi API
+                        >
+                            {isLoading ? "Đang thêm..." : <FontAwesomeIcon icon={faCartShopping} />}
+                        </button>
+                        <button className="btn btn-outline-danger">
+                            <FontAwesomeIcon icon={faHeart} />
+                        </button>
+                        <button className="btn btn-outline-secondary" onClick={()=>handleProductDetail(product._id)}>
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
+                    </div>
 
-                {showProductCount && (
-                    <p className="sold-count">
-                        <strong>{product.sold_count}</strong> đã bán
-                    </p>
-                )}
+                    {showProductCount && (
+                        <p className="sold-count">
+                            <strong>{product.sold_count}</strong> đã bán
+                        </p>
+                    )}
 
-                {showViewCount && (
-                    <p className="view-count">
-                        <strong>{product.view_count}</strong> lượt xem
-                    </p>
-                )}
-                
+                    {showViewCount && (
+                        <p className="view-count">
+                            <strong>{product.view_count}</strong> lượt xem
+                        </p>
+                    )}
+
                 </div>
             </div>
-            {seeDetail && <ProductDetail product={product} toggleDetailProduct={toggleDetailProduct} />}
+
         </>
     );
 };

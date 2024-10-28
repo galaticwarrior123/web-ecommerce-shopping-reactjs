@@ -10,8 +10,8 @@ const AdminHeader = ({tabName}) => {
             </div>
 
             <div className="header-right d-flex justify-content-end align-items-center">
-                <FontAwesomeIcon icon={faBell} className="icon" />
-                <FontAwesomeIcon icon={faRightFromBracket} className="icon" />
+                <FontAwesomeIcon icon={faBell} className="icon-admin-page" />
+                <FontAwesomeIcon icon={faRightFromBracket} className="icon-admin-page" />
 
             </div>
         </div>

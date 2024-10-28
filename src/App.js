@@ -28,6 +28,7 @@ import ShoppingCartPage from './Pages/Users/ShoppingCartPage/ShoppingCartPage'
 
 import OrderPage from './Pages/Users/OrderPage/OrderPage';
 import PurchasedProducts from './Pages/Users/ReviewPage/PurchasedProducts';
+import ProductDetail from './Pages/Users/ProductDetail/ProductDetail';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage_CommonUsers />} />
           <Route path="/product" element={<ProductPage />} />
+          <Route path="/product/:productId" element={<ProductDetail />} />
         </Routes>
 
 

@@ -1,53 +1,39 @@
+import { useState, useEffect } from "react";
 import LeftPage from "../../../Components/LeftPage/LeftPage";
 import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePage";
-import "./ProductPage.css";
-
-import { useState, useEffect } from "react";
 import ProductAPI from "../../../API/ProductAPI";
 import ProductCard_2 from "../../../Components/ProductCard/ProductCard_2";
+import "./ProductPage.css";
+
+const PRODUCTS_PER_PAGE = 10;
 
 const ProductPage = () => {
     const [search, setSearch] = useState("");
-    const [page, setPage] = useState(1);
-   
-    const [sort, setSort] = useState("asc");
     const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [products, setProducts] = useState([]);
-    const [hasMore, setHasMore] = useState(true); // Track if more products are available
-    const [totalPages, setTotalPages] = useState(1); // Total number of pages
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
     const fetchProducts = async () => {
         try {
-            const response = await ProductAPI.getProducts({
-                name: search,
-                page: page,
-                sort,
-                category: selectedCategoryId.join(','),
-            });
-           
-            const fetchedProducts = response.data.DT.products;
-            setTotalPages(response.data.DT.totalPages); // Set the total number of pages
-
-            if (fetchedProducts.length > 0) {
-                setProducts(fetchedProducts); // Set the new products
-                setHasMore(true); // More products are available
-               
+            const response = await ProductAPI.getAllProducts();
+            if (response.data && response.data.DT && response.data.DT.products) {
+                setProducts(response.data.DT.products);
+                setTotalPages(Math.ceil(response.data.DT.products.length / PRODUCTS_PER_PAGE));
             } else {
-                setHasMore(false); // No more products
+                console.error('Không có sản phẩm nào được trả về hoặc cấu trúc dữ liệu không đúng:', response.data);
             }
         } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error('Lỗi khi lấy sản phẩm:', error);
         }
     };
 
     useEffect(() => {
         fetchProducts();
-    }, [search, page, sort, selectedCategoryId]);
+    }, [search, selectedCategoryId]);
 
     const handlePageChange = (newPage) => {
-        if (newPage >= 1 && newPage <= totalPages) {
-            setPage(newPage); // Update to the new page
-        }
+        setPage(newPage);
     };
 
     const handleCategorySelect = (id) => {
@@ -60,8 +46,10 @@ const ProductPage = () => {
 
     const handleSearch = (input) => {
         setSearch(input);
-        console.log("Search: ", input);
     };
+
+    // Get products for current page
+    const paginatedProducts = products.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
     return (
         <DefaultLayoutUserHomePage>
@@ -69,11 +57,11 @@ const ProductPage = () => {
                 <LeftPage onSelectCategory={handleCategorySelect} onSearch={handleSearch} />
                 <div className="col-md-9 z-index-0">
                     <div className="row row-cols-1 row-cols-md-2 g-3">
-                        {products.map((product, index) => (
+                        {paginatedProducts.map((product, index) => (
                             <ProductCard_2 key={index} product={product} showProductCount={true} showViewCount={true} />
                         ))}
                     </div>
-                    
+
                     {/* Pagination */}
                     <div className="pagination mt-4 d-flex justify-content-center align-items-center">
                         <button
@@ -83,12 +71,12 @@ const ProductPage = () => {
                         >
                             Previous
                         </button>
-                        
+
                         <span>{page} of {totalPages}</span>
-                        
+
                         <button
                             className="btn btn-primary ms-2"
-                            disabled={page === totalPages || !hasMore}
+                            disabled={page === totalPages}
                             onClick={() => handlePageChange(page + 1)}
                         >
                             Next

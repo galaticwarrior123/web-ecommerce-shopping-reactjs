@@ -14,7 +14,7 @@
   flex-direction: row;
 }
 
-.icon {
+.icon-admin-page {
   font-size: 1.5rem;
   color: #6c757d;
   cursor: pointer;
@@ -22,7 +22,7 @@
   margin-left: 20px;
 }
 
-.icon:hover {
+.icon-admin-page:hover {
   color: #343a40;
 }
 
