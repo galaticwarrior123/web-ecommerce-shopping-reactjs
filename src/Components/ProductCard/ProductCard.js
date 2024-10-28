@@ -9,7 +9,6 @@ const ProductCard = ({ product }) => {
 
     return (
         <>
-            
             <div className="col">
                 <div className="card h-100 shadow-sm d-flex flex-row">
                     <img src="./Images/vegetable.png" className="card-img-left" alt="Product" />
@@ -29,7 +28,6 @@ const ProductCard = ({ product }) => {
                         </div>
                     </div>
                 </div>
-                
             </div>
             {seeDetail && <ProductDetail product={product} toggleDetailProduct={toggleDetailProduct} />}
         </>

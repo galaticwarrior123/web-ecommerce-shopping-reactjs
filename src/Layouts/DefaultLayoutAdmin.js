@@ -20,7 +20,7 @@ const DefaultLayoutAdmin = ({ children }) => {
 
     useEffect(() => {
         const currentPath = location.pathname;
-        setActiveMenu(menuNames[currentPath] || 'Quản lý khách hàng');
+        setActiveMenu(menuNames[currentPath] || 'Quản lý danh mục');
     }, [location.pathname]);
 
     return (

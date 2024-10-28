@@ -6,6 +6,8 @@ import OrderAPI from "../../../API/OrderAPI";
 import { useNavigate } from "react-router-dom";
 import "./OrderPage.css";
 const OrderPage = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user._id);
   const [status, setStatus] = useState("PENDING");
   const [listOrder, setListOrder] = useState([]);
   const [totalOrder, setTotalOrder] = useState([]);
@@ -14,7 +16,7 @@ const OrderPage = () => {
 
   const fetchDataOrder = async () => {
     try {
-      const response = await OrderAPI.GetOrders();
+      const response = await OrderAPI.GetOrders(user._id);
       const listOrder = response.data.DT;
       // console.log(listOrder);
       setTotalOrder(listOrder);

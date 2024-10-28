@@ -24,8 +24,10 @@ import Top10_XemNhieuNhatNhat from './Components/Top10_XemNhieuNhat/Top10_XemNhi
 
 import ProductCard_2 from './Components/ProductCard/ProductCard_2';
 import CartPage from './Pages/Users/CartPage/CartPage';
+import ShoppingCartPage from './Pages/Users/ShoppingCartPage/ShoppingCartPage'
 
 import OrderPage from './Pages/Users/OrderPage/OrderPage';
+import PurchasedProducts from './Pages/Users/ReviewPage/PurchasedProducts';
 
 function App() {
   return (
@@ -52,8 +54,11 @@ function App() {
 
 
         <Routes>
-          <Route path="/admin/manager-category" element={<ManageCategory />} />
-          <Route path="/admin/manager-product" element={<ManageProduct />} />
+          <Route path="/admin">
+            <Route index element={<ManageCategory />} /> {/* Default route for /admin */}
+            <Route path="manager-category" element={<ManageCategory />} />
+            <Route path="manager-product" element={<ManageProduct />} />
+          </Route>
         </Routes>
 
         <Routes>
@@ -61,8 +66,10 @@ function App() {
           <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat />} />
           <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat />} />
           <Route path="/product_cart2" element={<ProductCard_2 />} />
+          <Route path="/shopping-cart" element={<ShoppingCartPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/order" element={<OrderPage />} />
+          <Route path="/purchased-products" element={<PurchasedProducts />} />
         </Routes>
 
 
