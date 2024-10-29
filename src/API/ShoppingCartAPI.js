@@ -21,10 +21,9 @@ class ShoppingCartAPI {
   }
 
   static async DeleteProduct(shoppingCartId, productId) {
-    // const url = `/shopping-cart/${shoppingCartId}/remove/${productId}`;
-    // console.log(`Making DELETE request to: ${url} to remove productId: ${productId}`);
-    
-    // return axiosPrivate.delete(url);
+    const url = `/shopping-cart/${shoppingCartId}/remove/${productId}`;
+    console.log(`Making DELETE request to: ${url} to remove productId: ${productId}`);
+    return axiosPrivate.delete(url);
   }
 
 }
