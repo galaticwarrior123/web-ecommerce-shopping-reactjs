@@ -6,6 +6,11 @@ class ProductAPI {
         return axiosClient.get(url, { params: filter });
     }
 
+    static async getAllProducts() {
+        const url = '/product/all';
+        return axiosClient.get(url);
+    }
+
     static async createProduct(product) {
         const url = '/product';
         return axiosPrivate.post(url, product,

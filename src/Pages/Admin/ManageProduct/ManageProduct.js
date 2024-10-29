@@ -12,7 +12,7 @@ const ManageProduct = () => {
 
     const fetchProducts = async () => {
         try {
-            const response = await ProductAPI.getProducts();
+            const response = await ProductAPI.getAllProducts();
             setProducts(response.data.DT.products);
         } catch (error) {
             console.error('Error fetching products:', error);

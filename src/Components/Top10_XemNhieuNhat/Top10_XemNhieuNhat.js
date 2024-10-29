@@ -86,7 +86,7 @@ const Top10_XemNhieuNhatNhat = () => {
     speed: 500,
     slidesToShow: 3, // Hiển thị 3 sản phẩm cùng lúc
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     arrows: true
   };

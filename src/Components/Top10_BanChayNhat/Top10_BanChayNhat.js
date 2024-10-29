@@ -108,7 +108,7 @@ const Top10_BanChayNhat = () => {
       <div className="product-carousel">
         <Slider {...settings}>
           {products.map((product, index) => (
-            <div key={product.id}>
+            <div key={product._id}>
               {/* <ProductCard_2 product={product} showProductCount={true} showViewCount={false} /> */}
               <ProductCard_2 key={index} product={product} showProductCount={true} showViewCount={false} />
             </div>

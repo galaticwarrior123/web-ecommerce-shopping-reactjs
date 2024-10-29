@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const SubHeader = () => {
 
     return (
-        <div className='row d-flex align-items-center position-relative'>
+        <div className='d-flex align-items-center position-relative'>
             <div className='col-md-9 d-flex justify-content-center align-items-center content_right'>
                 <nav>
                     <ul className='nav nav-subheader'>
