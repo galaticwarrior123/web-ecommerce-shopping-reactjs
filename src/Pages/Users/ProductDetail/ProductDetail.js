@@ -7,6 +7,7 @@ import './ProductDetail.css';
 import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePage';
 import { useLocation } from 'react-router-dom';
 import ProductAPI from '../../../API/ProductAPI';
+import ShoppingCartAPI from '../../../API/ShoppingCartAPI';
 
 const ProductDetail = () => {
     const location = useLocation();
@@ -20,6 +21,16 @@ const ProductDetail = () => {
             setQuantity(prev => prev - 1);
         }
     };
+    const handleAddToCart = async() => {
+        try {
+            const response = await ShoppingCartAPI.AddProductToCart(product._id, quantity);
+            console.log("Product added to cart:", response);
+            alert("Sản phẩm đã được thêm vào giỏ hàng!");
+        } catch (error) {
+            console.error("Error adding product to cart:", error);
+            alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
+        }
+    }
 
     console.log('Product: ', product);
 
@@ -89,7 +100,7 @@ const ProductDetail = () => {
                         </div>
 
                         <div className="button-group mt-4">
-                            <button className="btn btn-primary me-2">
+                            <button className="btn btn-primary me-2" onClick={handleAddToCart}>
                                 <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
                             </button>
                             <button className="btn btn-outline-danger me-2">

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePage";
 import './ShoppingCartPage.css'; // Custom CSS for minor tweaks
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faPlus, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPlus, faArrowLeft, faTrash } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css'; // Import CSS
 import 'bootstrap-touchspin'; // Import JS
 import $ from 'jquery';
@@ -68,6 +68,22 @@ const ShoppingCartPage = () => {
         );
     };
 
+    const handleRemoveFromCart = async (itemId) => {
+        try {
+            const response = await ShoppingCartAPI.DeleteProduct(shoppingCartId, String(itemId));
+            console.log("Product removed from cart:", response);
+            alert("Sản phẩm đã được xóa khỏi giỏ hàng!");
+
+            // Update the shopping cart items by filtering out the removed item
+            setShoppingCartItems((prevItems) =>
+                prevItems.filter((item) => item.product._id !== itemId)
+            );
+        } catch (error) {
+            console.error("Error removing product from cart:", error);
+            alert("Có lỗi xảy ra khi xóa sản phẩm khỏi giỏ hàng.");
+        }
+    };
+
     useEffect(() => {
         $("input[name='quantity']").TouchSpin({
             min: 0,
@@ -126,8 +142,8 @@ const ShoppingCartPage = () => {
                                                         <h6 className="mb-0">{item.product.sale_price * item.quantity} VND</h6>
                                                     </div>
                                                     <div className="col-md-1 text-end">
-                                                        <button className="btn btn-danger">
-                                                            <i className="fas fa-times"></i>
+                                                        <button className="btn btn-danger" onClick={() => handleRemoveFromCart(item.product._id)}>
+                                                            <FontAwesomeIcon icon={faTrash} />
                                                         </button>
                                                     </div>
                                                 </div>
