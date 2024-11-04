@@ -37,5 +37,19 @@ class ProductAPI {
         return axiosClient.get(url);
     }
 
+    static async updateProduct(id, product){
+        const url = `/product/${id}`;
+        return axiosPrivate.put(url, product, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+        });
+    }
+
+    static async deleteProduct(id){
+        const url = `/product/${id}`;
+        return axiosPrivate.delete(url);
+    }
+
 }
 export default ProductAPI;

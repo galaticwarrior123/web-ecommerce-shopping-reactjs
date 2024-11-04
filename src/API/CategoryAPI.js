@@ -14,6 +14,20 @@ class CategoryAPI {
             }
         });
     }
+
+    static async updateCategory(id, data) {
+        const url = `/category/${id}`;
+        return axiosPrivate.put(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
+
+    static async deleteCategory(id) {
+        const url = `/category/${id}`;
+        return axiosPrivate.delete(url);
+    }
 }
 
 export default CategoryAPI;

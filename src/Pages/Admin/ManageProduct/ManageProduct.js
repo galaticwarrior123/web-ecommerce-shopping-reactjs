@@ -4,12 +4,14 @@ import AddProduct from './AddProduct/AddProduct';
 import DefaultLayoutAdmin from '../../../Layouts/DefaultLayoutAdmin';
 import ProductAPI from '../../../API/ProductAPI';
 import ProductCard_2 from '../../../Components/ProductCard/ProductCard_2';
+import UpdateProduct from './UpdateProduct/UpdateProduct';
 
 
 const ManageProduct = () => {
     const [products, setProducts] = useState([]);
+    const [product, setProduct] = useState({});
     const [showAddProductModal, setShowAddProductModal] = useState(false);
-
+    const [showUpdateProductModal, setShowUpdateProductModal] = useState(false);
     const fetchProducts = async () => {
         try {
             const response = await ProductAPI.getAllProducts();
@@ -27,10 +29,28 @@ const ManageProduct = () => {
         setShowAddProductModal(true);
     };
 
+    const handleClicUpdateProduct = (product) => () => {
+        setProduct(product);
+        setShowUpdateProductModal(true);
+    };
+
+    const handleCloseAddProudct = () => {
+        setShowAddProductModal(false);
+        fetchProducts();
+    }
+
+    const handleCloseUpdateProduct = () => {
+        setShowUpdateProductModal(false);
+        fetchProducts();
+    }
+
     return (
         <>
             {showAddProductModal && (
-                <AddProduct handleCloseAddProduct={() => setShowAddProductModal(false)} />
+                <AddProduct handleCloseAddProduct={handleCloseAddProudct} />
+            )}
+            {showUpdateProductModal && (
+                <UpdateProduct product={product} handleCloseUpdateProduct={handleCloseUpdateProduct} />
             )}
             <DefaultLayoutAdmin>
                 <div className="container-body-manage_product">
@@ -56,7 +76,7 @@ const ManageProduct = () => {
                         <div className="wrapper"> {/* Use the wrapper here */}
                             {products.map((product) => (
                                 <div className="item" key={product._id}> {/* Use the item class here */}
-                                    <ProductCard_2 product={product} />
+                                    <ProductCard_2 product={product} onDelete={fetchProducts} onClickUpdateProduct={handleClicUpdateProduct(product)} />
                                 </div>
                             ))}
                         </div>

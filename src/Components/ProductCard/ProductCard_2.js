@@ -1,17 +1,18 @@
 import React, { useState } from 'react'; // Import useState
 import './ProductCard_2.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faHeart, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faHeart, faMagnifyingGlass, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ShoppingCartAPI from '../../API/ShoppingCartAPI'
 import ProductAPI from '../../API/ProductAPI';
 import ProductDetail from '../../Pages/Users/ProductDetail/ProductDetail';
+import { useLocation } from 'react-router-dom';
+import UpdateProduct from '../../Pages/Admin/ManageProduct/UpdateProduct/UpdateProduct';
 
-const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppingCartQuantity }) => {
+const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppingCartQuantity, onDelete, onClickUpdateProduct }) => {
+    const location = useLocation();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
-
-    const [seeDetail, setSeeDetail] = useState(false);
-    const toggleDetailProduct = () => setSeeDetail(prev => !prev);
+    const [showUpdateProduct, setShowUpdateProduct] = useState(false);
 
     if (!product) {
         return "Không có sản phẩm để hiển thị";
@@ -95,9 +96,18 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         window.location.href = `/product/${id}`;
     }
 
+    const handleDeleteProduct = async (id) => {
+        try {
+            ProductAPI.deleteProduct(id).then((response) => {
+                onDelete(id);
+            });
+        } catch (error) {
+            console.error('Lỗi khi xóa sản phẩm:', error);
+        }
+    }
+    
     return (
         <>
-            
             <div className='card product-card'>
                 <div className='image-container'>
                     <img
@@ -127,21 +137,39 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                         <div><span className="discounted-price">{product.sale_price}</span></div>
                     </p>
 
-                    <div className="d-flex justify-content-end ms-auto icon-buttons">
-                        <button
-                            className="btn btn-outline-secondary btn-cart"
-                            onClick={handleAddToCart}
-                            disabled={isLoading} // Disable button khi đang gọi API
-                        >
-                            {isLoading ? "Đang thêm..." : <FontAwesomeIcon icon={faCartShopping} />}
-                        </button>
-                        <button className="btn btn-outline-danger">
-                            <FontAwesomeIcon icon={faHeart} />
-                        </button>
-                        <button className="btn btn-outline-secondary" onClick={()=>handleProductDetail(product._id)}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </div>
+                    {location.pathname === '/admin/manager-product' ? (
+                        <div className="d-flex justify-content-center">
+                            <button className="btn btn-outline-warning me-2" aria-label="Edit Product" onClick={() => onClickUpdateProduct(product._id)} >
+                                <FontAwesomeIcon icon={faEdit} />
+                            </button>
+                            <button className="btn btn-outline-danger" aria-label="Delete Product" onClick={() => handleDeleteProduct(product._id)} >
+                                <FontAwesomeIcon icon={faTrash} />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="d-flex justify-content-end ms-auto icon-buttons">
+                            <button
+                                className="btn btn-outline-secondary btn-cart"
+                                onClick={handleAddToCart}
+                                disabled={isLoading}
+                                aria-label="Add to Cart"
+                            >
+                                {isLoading ? "Đang thêm..." : <FontAwesomeIcon icon={faCartShopping} />}
+                            </button>
+                            <button className="btn btn-outline-danger" aria-label="Add to Wishlist">
+                                <FontAwesomeIcon icon={faHeart} />
+                            </button>
+                            <button
+                                className="btn btn-outline-secondary"
+                                onClick={() => handleProductDetail(product._id)}
+                                aria-label="View Product Details"
+                            >
+                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            </button>
+                        </div>
+                    )}
+
+
 
                     {showProductCount && (
                         <p className="sold-count">

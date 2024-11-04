@@ -40,6 +40,7 @@ const AddProduct = ({handleCloseAddProduct}) => {
             const response = await ProductAPI.createProduct(data);
             if (response.status === 200) {
                 alert("Thêm sản phẩm thành công");
+                handleCloseAddProduct();
             }
             else {
                 alert("Thêm sản phẩm thất bại");
