@@ -20,15 +20,15 @@ const SidebarAdmin = ( {onMenuClick, activeMenu }) => {
                 <p>Chào mừng bạn trở lại</p>
             </div>
             <div className="menu">
-                <Link to="/admin/manager-customer" className="menu-item" onClick={()=>onMenuClick('Quản lý khách hàng')}>Quản lý khách hàng</Link>
-                <Link to="/admin/manager-category" className="menu-item" onClick={()=>onMenuClick('Quản lý danh mục')}>Quản lý danh mục</Link>
+                <Link to="/admin/manager-customer" className={`menu-item ${activeMenu==='Quản lý khách hàng' ? 'activeItem' : ''}`} onClick={()=>onMenuClick('Quản lý khách hàng')}>Quản lý khách hàng</Link>
+                <Link to="/admin/manager-category" className={`menu-item ${activeMenu==='Quản lý danh mục' ? 'activeItem' : ''}`} onClick={()=>onMenuClick('Quản lý danh mục')}>Quản lý danh mục</Link>
                 <Link className="menu-item d-flex  justify-content-between align-items-center" onClick={toggleProductDropdown}>Quản lý sản phẩm <FontAwesomeIcon icon={isProductDropdownOpen ? faAngleDown : faAngleUp}  /></Link>
                 {isProductDropdownOpen && <div className="sub-menu">
-                    <Link to="/admin/manager-product" className="sub-menu-item" onClick={()=>onMenuClick('Danh sách sản phẩm')}>Danh sách sản phẩm</Link>
-                    <Link to="/admin/manager-sale-product" className="sub-menu-item" onClick={()=>onMenuClick('Danh sách giảm giá')}>Danh sách giảm giá</Link>
+                    <Link to="/admin/manager-product" className={`sub-menu-item ${activeMenu==='Danh sách sản phẩm' ? 'activeItem' : ''}`} onClick={()=>onMenuClick('Danh sách sản phẩm')}>Danh sách sản phẩm</Link>
+                    <Link to="/admin/manager-sale-product"className={`sub-menu-item ${activeMenu==='Danh sách giảm giá' ? 'activeItem' : ''}`} onClick={()=>onMenuClick('Danh sách giảm giá')}>Danh sách giảm giá</Link>
                 </div>}
-                <Link to="/admin/manager-orders" className="menu-item" onClick={()=>onMenuClick('Quản lý đơn hàng')}>Quản lý đơn hàng</Link>
-                <Link to="/admin/dashboard" className="menu-item" onClick={()=>onMenuClick('Báo cáo doanh thu')}>Báo cáo doanh thu</Link>
+                <Link to="/admin/manager-orders" className={`menu-item ${activeMenu==='Quản lý đơn hàng' ? 'activeItem' : ''}`} onClick={()=>onMenuClick('Quản lý đơn hàng')}>Quản lý đơn hàng</Link>
+                <Link to="/admin/dashboard" className={`menu-item ${activeMenu==='Báo cáo doanh thu' ? 'activeItem' : ''}`} onClick={()=>onMenuClick('Báo cáo doanh thu')}>Báo cáo doanh thu</Link>
 
             </div>
         </div>

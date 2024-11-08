@@ -6,12 +6,13 @@ import ProductAPI from '../../../API/ProductAPI';
 import ProductCard_2 from '../../../Components/ProductCard/ProductCard_2';
 import UpdateProduct from './UpdateProduct/UpdateProduct';
 
-
 const ManageProduct = () => {
     const [products, setProducts] = useState([]);
     const [product, setProduct] = useState({});
     const [showAddProductModal, setShowAddProductModal] = useState(false);
     const [showUpdateProductModal, setShowUpdateProductModal] = useState(false);
+    const [searchValue, setSearchValue] = useState("");
+
     const fetchProducts = async () => {
         try {
             const response = await ProductAPI.getAllProducts();
@@ -37,12 +38,17 @@ const ManageProduct = () => {
     const handleCloseAddProudct = () => {
         setShowAddProductModal(false);
         fetchProducts();
-    }
+    };
 
     const handleCloseUpdateProduct = () => {
         setShowUpdateProductModal(false);
         fetchProducts();
-    }
+    };
+
+    // Lọc danh sách sản phẩm theo giá trị tìm kiếm
+    const filteredProducts = products.filter((product) =>
+        product.productName.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
     return (
         <>
@@ -54,7 +60,6 @@ const ManageProduct = () => {
             )}
             <DefaultLayoutAdmin>
                 <div className="container-body-manage_product">
-
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-12">
@@ -64,19 +69,29 @@ const ManageProduct = () => {
                             </div>
                         </div>
 
-                        {/* Search product */}
+                        {/* Tìm kiếm sản phẩm */}
                         <div className="row mt-3">
                             <div className="col-12">
                                 <div className="input-group mb-3">
-                                    <input type="text" className="form-control" placeholder="Tìm kiếm sản phẩm" />
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Tìm kiếm sản phẩm"
+                                        value={searchValue}
+                                        onChange={(e) => setSearchValue(e.target.value)}
+                                    />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="wrapper"> {/* Use the wrapper here */}
-                            {products.map((product) => (
-                                <div className="item" key={product._id}> {/* Use the item class here */}
-                                    <ProductCard_2 product={product} onDelete={fetchProducts} onClickUpdateProduct={handleClicUpdateProduct(product)} />
+                        <div className="wrapper">
+                            {filteredProducts.map((product) => (
+                                <div className="item" key={product._id}>
+                                    <ProductCard_2
+                                        product={product}
+                                        onDelete={fetchProducts}
+                                        onClickUpdateProduct={handleClicUpdateProduct(product)}
+                                    />
                                 </div>
                             ))}
                         </div>
@@ -84,8 +99,7 @@ const ManageProduct = () => {
                 </div>
             </DefaultLayoutAdmin>
         </>
-
-    )
-}
+    );
+};
 
 export default ManageProduct;

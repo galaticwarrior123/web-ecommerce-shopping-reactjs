@@ -11,6 +11,11 @@ class ProductAPI {
         return axiosClient.get(url);
     }
 
+    static async findProductsWithoutPromotion() {
+        const url = '/product/productWithoutPromotion';
+        return axiosClient.get(url);
+    }
+
     static async createProduct(product) {
         const url = '/product';
         return axiosPrivate.post(url, product,

@@ -27,7 +27,7 @@ const DefaultLayoutAdmin = ({ children }) => {
         <div className="d-flex">
             {/* Sidebar */}
             <SidebarAdmin 
-                onMenuClick={setActiveMenu}
+                onMenuClick={setActiveMenu} activeMenu={activeMenu}
             />
 
             <div className="flex-grow-1" style={{ zIndex: 0 }}>

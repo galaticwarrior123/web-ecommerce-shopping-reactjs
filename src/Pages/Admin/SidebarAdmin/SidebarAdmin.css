@@ -111,3 +111,8 @@
     background-color: #1a3d7a; /* Sub-menu item hover effect */
     text-decoration: none;
 }
+
+.activeItem {
+    background-color: #ffda43;
+    color: black;
+}
