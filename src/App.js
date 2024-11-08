@@ -31,6 +31,8 @@ import PurchasedProducts from './Pages/Users/ReviewPage/PurchasedProducts';
 import ProductDetail from './Pages/Users/ProductDetail/ProductDetail';
 import SaleProduct from './Pages/Admin/ManageProduct/SaleProduct/SaleProduct';
 
+import ManageOrder from './Pages/Admin/ManageOrder/ManageOrder';
+
 function App() {
   return (
     <>
@@ -62,6 +64,7 @@ function App() {
             <Route path="manager-category" element={<ManageCategory />} />
             <Route path="manager-product" element={<ManageProduct />} />
             <Route path="manager-sale-product" element={<SaleProduct />} />
+            <Route path="manager-orders" element={<ManageOrder />} />
           </Route>
         </Routes>
 
