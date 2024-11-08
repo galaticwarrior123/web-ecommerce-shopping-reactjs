@@ -1,6 +1,5 @@
-/* Custom tweaks to match the exact design */
 .cart-page .card {
-    bcart-radius: 8px;
+    border-radius: 8px;
 }
 
 .cart-page h5 {
@@ -9,7 +8,7 @@
 }
 
 .list-group-item {
-    bcart: none;
+    border: none;
 }
 
 .box-body {
@@ -19,9 +18,51 @@
 
 .btn-primary {
     background-color: #007bff;
-    bcart: none;
+    border: none;
 }
 
 .btn-primary:hover {
     background-color: #0056b3;
+}
+
+.cart-item-total {
+    display: block;
+    font-weight: bold;
+    color: #007bff;
+    margin-top: 5px;
+}
+
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-item-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.cart-item-name {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.cart-item-meta {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #555;
 }

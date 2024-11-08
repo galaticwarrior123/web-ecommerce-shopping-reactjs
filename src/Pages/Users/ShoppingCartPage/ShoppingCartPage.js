@@ -12,8 +12,8 @@ import ShoppingCartAPI from "../../../API/ShoppingCartAPI";
 
 const ShoppingCartPage = () => {
     const navigate = useNavigate();
-    const handleMoveToCheckout = () => {
-        navigate('/cart');
+    const handleMoveToCheckout = (cart) => {
+        navigate('/cart', { state: { cart , shoppingCartId } });
     };
     const [shoppingCartItems, setShoppingCartItems] = useState([]);
     const [shoppingCartId, setShoppingCartId] = useState(null);
@@ -166,7 +166,7 @@ const ShoppingCartPage = () => {
                                         <button
                                             type="button"
                                             className="btn btn-dark btn-block btn-lg"
-                                            onClick={handleMoveToCheckout}
+                                            onClick={() => handleMoveToCheckout(shoppingCartItems)}
                                         >
                                             Move to Checkout
                                         </button>
