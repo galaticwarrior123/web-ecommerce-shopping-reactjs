@@ -39,7 +39,7 @@ const Header = () => {
 
     const handleShoppingCartClick = () =>{
         if (userId) {
-            navigate(`/shopping-cart/${userId}`);
+            navigate(`/shopping-cart`);
         } else {
             // Nếu chưa đăng nhập thì điều hướng tới trang login
             navigate('/login');
@@ -48,7 +48,7 @@ const Header = () => {
 
     const handleWishlistClick = () =>{
         if (userId) {
-            navigate(`/wishlist/${userId}`);
+            navigate(`/wishlist`);
         } else {
             // Nếu chưa đăng nhập thì điều hướng tới trang login
             navigate('/login');

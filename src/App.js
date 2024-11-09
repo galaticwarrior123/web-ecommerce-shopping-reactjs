@@ -56,14 +56,13 @@ function App() {
           <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat />} />
           <Route path="/product_cart2" element={<ProductCard_2 />} />
           <Route path="/shopping-cart" element={<ShoppingCartPage />} />
-          <Route path="/shopping-cart/:userId" element={<ShoppingCartPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/purchased-products" element={<PurchasedProducts />} />
         </Routes>
 
         <Routes>
-          <Route path="/wishlist/:userId" element={<Wishlist />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
         
         {/* ******************** ADMIN ******************** */}
