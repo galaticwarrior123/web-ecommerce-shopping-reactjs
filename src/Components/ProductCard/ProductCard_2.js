@@ -134,7 +134,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                     </div>
                     <p className="price">
                         <div><del>{product.origin_price}</del></div>
-                        <div><span className="discounted-price">{product.sale_price}</span></div>
+                        <div><span className="discounted-price">{product.sale_price} VND</span></div>
                     </p>
 
                     {location.pathname === '/admin/manager-product' ? (
@@ -168,8 +168,6 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                             </button>
                         </div>
                     )}
-
-
 
                     {showProductCount && (
                         <p className="sold-count">

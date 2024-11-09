@@ -105,7 +105,7 @@ const ShoppingCartPage = () => {
                             <div className='shoppingcart'>
                                 <div className="card card-registration card-custom">
                                     <div className="card-body p-5">
-                                        <h1 className="fw-bold mb-4 text-center">Shopping Cart</h1>
+                                        <h1 className="fw-bold mb-4 text-center">Giỏ hàng</h1>
                                         {shoppingCartItems.length === 0 ? (
                                             <p className="text-center">Your shopping cart is empty</p>
                                         ) : (
@@ -151,17 +151,17 @@ const ShoppingCartPage = () => {
                                         )}
                                         <hr className="my-4" />
                                         <Link to="/product" className="text-body">
-                                            <FontAwesomeIcon icon={faArrowLeft} /> Back to shop
+                                            <FontAwesomeIcon icon={faArrowLeft} /> Tiếp tục mua sắm
                                         </Link>
                                     </div>
                                 </div>
 
                                 <div className="summary-card mt-4">
                                     <div className="p-5 bg-light rounded-3">
-                                        <h3 className="fw-bold mb-4">Summary</h3>
+                                        <h3 className="fw-bold mb-4">Tóm tắt đơn hàng</h3>
                                         <div className="d-flex justify-content-between mb-4">
-                                            <h5 className="text-uppercase">Total Items {shoppingCartItems.reduce((total, item) => total + item.quantity, 0)}</h5>
-                                            <h5>€ {shoppingCartItems.reduce((total, item) => total + item.product.sale_price * item.quantity, 0)}</h5>
+                                            <h5 className="text-uppercase">Tổng số lượng: {shoppingCartItems.reduce((total, item) => total + item.quantity, 0)}<span style={{textTransform: "none"}}> sản phẩm</span></h5>
+                                            <h5>{shoppingCartItems.reduce((total, item) => total + item.product.sale_price * item.quantity, 0)} VND</h5>
                                         </div>
                                         <button
                                             type="button"
