@@ -35,8 +35,9 @@ const SubHeader = () => {
 
                         
                         <li className='nav-item dropdown'>
-                            <Link to='/product' className='nav-link'>PRODUCTS <FontAwesomeIcon icon={faAngleDown} className="icon-spacing" /></Link>
-                            <div className="dropdown-menu">
+                            <Link to='/product' className='nav-link'>PRODUCTS</Link>
+                            {/* <FontAwesomeIcon icon={faAngleDown} className="icon-spacing" /> */}
+                            {/* <div className="dropdown-menu">
                                 <ul>
                                     {categories.map((category) => (
                                         <li key={category._id}>
@@ -44,7 +45,7 @@ const SubHeader = () => {
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
+                            </div> */}
                         </li>
 
                         <li className='nav-item'>

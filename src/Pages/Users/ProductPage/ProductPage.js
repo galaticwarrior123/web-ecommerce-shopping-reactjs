@@ -11,6 +11,7 @@ const ProductPage = () => {
     const [search, setSearch] = useState("");
     const [selectedCategoryId, setSelectedCategoryId] = useState([]);
     const [products, setProducts] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
 
@@ -19,7 +20,7 @@ const ProductPage = () => {
             const response = await ProductAPI.getAllProducts();
             if (response.data && response.data.DT && response.data.DT.products) {
                 setProducts(response.data.DT.products);
-                setTotalPages(Math.ceil(response.data.DT.products.length / PRODUCTS_PER_PAGE));
+                filterProducts(response.data.DT.products, selectedCategoryId, search);
             } else {
                 console.error('Không có sản phẩm nào được trả về hoặc cấu trúc dữ liệu không đúng:', response.data);
             }
@@ -28,9 +29,30 @@ const ProductPage = () => {
         }
     };
 
+    const filterProducts = (allProducts, categories, searchKeyword) => {
+        let filtered = allProducts;
+
+        if (categories.length > 0) {
+            
+            filtered = allProducts.filter(product => categories.includes(product.category));
+        }
+
+        if (searchKeyword) {
+            filtered = filtered.filter(product => product.productName.toLowerCase().includes(searchKeyword.toLowerCase()));
+        }
+
+        setFilteredProducts(filtered);
+        setTotalPages(Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
+    };
+
     useEffect(() => {
         fetchProducts();
-    }, [search, selectedCategoryId]);
+    }, []);
+
+    useEffect(() => {
+        filterProducts(products, selectedCategoryId, search);
+        setPage(1); 
+    }, [selectedCategoryId, search]);
 
     const handlePageChange = (newPage) => {
         setPage(newPage);
@@ -48,8 +70,7 @@ const ProductPage = () => {
         setSearch(input);
     };
 
-    // Get products for current page
-    const paginatedProducts = products.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
+    const paginatedProducts = filteredProducts.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
     return (
         <DefaultLayoutUserHomePage>
@@ -62,7 +83,6 @@ const ProductPage = () => {
                         ))}
                     </div>
 
-                    {/* Pagination */}
                     <div className="pagination mt-4 d-flex justify-content-center align-items-center">
                         <button
                             className="btn btn-primary me-2"
