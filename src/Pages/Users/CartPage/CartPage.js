@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePage';
 import './CartPage.css';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import OrderAPI from '../../../API/OrderAPI';
 
 const CartPage = () => {
@@ -19,6 +19,7 @@ const CartPage = () => {
     const [address, setAddress] = useState('');
     const [paymentMethod, setPaymentMethod] = useState('COD');
     const [listOrderUser, setListOrderUser] = useState([]);
+    const navigate = useNavigate();
 
     const fetchOrderUser = async () => {
         try {
@@ -84,6 +85,7 @@ const CartPage = () => {
         OrderAPI.CreateOrder(data).then((response) => {
             if (response.data && response.data.DT) {
                 alert('Đặt hàng thành công');
+                navigate('/order');
             } else {
                 alert('Đặt hàng thất bại');
             }
