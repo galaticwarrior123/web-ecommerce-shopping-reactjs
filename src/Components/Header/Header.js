@@ -62,10 +62,11 @@ const Header = () => {
         <div className="header">
             <Navbar>
                 {/* Logo */}
-                <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column">
+                <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column" onClick={() => navigate('/')}>
                     <img
                         src='/Images/logo-fruite.png'
                         alt="Logo"
+                        
                     />
                     <span>CLEAN AND FRESH FRUIT</span>
                 </Navbar.Brand>
@@ -102,7 +103,7 @@ const Header = () => {
                                     <div className="my-account">
                                         <span style={{ color: '#3a31c9' }}>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
                                     </div>
-                                    <div className="manage-orders">
+                                    <div className="manage-orders" onClick={() => navigate(`/order`)}>
                                         <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
                                     </div>
                                     <div className="favourite-products">

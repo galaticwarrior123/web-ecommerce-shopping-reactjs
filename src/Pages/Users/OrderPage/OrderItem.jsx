@@ -15,7 +15,7 @@ const OrderItem = ({ order, handleOnClickOrder }) => {
         <p className="fw-bold mb-0 me-3 text-primary">{order.status}</p>
       </div>
       <div>
-        {order.products.map((product) => (
+        {order.shoppingCart.products.map((product) => (
           <OrderProductItem
             key={product._id}
             product={product.product}

@@ -18,7 +18,7 @@ const OrderPage = () => {
     try {
       const response = await OrderAPI.GetOrders(user._id);
       const listOrder = response.data.DT;
-      // console.log(listOrder);
+      console.log(listOrder);
       setTotalOrder(listOrder);
     } catch (error) {
       console.error("Error:", error);
