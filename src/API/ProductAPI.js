@@ -56,5 +56,11 @@ class ProductAPI {
         return axiosPrivate.delete(url);
     }
 
+
+    static async getSimilarProducts(productId){
+        const url = `/product/similar/${productId}`;
+        return axiosClient.get(url);
+    }
+
 }
 export default ProductAPI;

@@ -13,6 +13,7 @@ const ProductDetail = () => {
     const location = useLocation();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
+    const [similarProducts, setSimilarProducts] = useState([]);
     const product_id = location.pathname.split('/').pop();
 
     const increaseQuantity = () => setQuantity(prev => prev + 1);
@@ -21,7 +22,8 @@ const ProductDetail = () => {
             setQuantity(prev => prev - 1);
         }
     };
-    const handleAddToCart = async() => {
+
+    const handleAddToCart = async () => {
         try {
             const response = await ShoppingCartAPI.AddProductToCart(product._id, quantity);
             console.log("Product added to cart:", response);
@@ -32,13 +34,10 @@ const ProductDetail = () => {
         }
     }
 
-    console.log('Product: ', product);
-
     useEffect(() => {
         const fetchProduct = async () => {
             try {
                 const response = await ProductAPI.getProductById(product_id);
-                console.log('API Response:', response);
                 if (response.data && response.data.DT) {
                     setProduct(response.data.DT);
                 } else {
@@ -49,7 +48,17 @@ const ProductDetail = () => {
             }
         };
 
+        const fetchSimilarProducts = async () => {
+            try {
+                const response = await ProductAPI.getSimilarProducts(product_id);
+                setSimilarProducts(response.data.DT || []);
+            } catch (error) {
+                console.error("Error fetching similar products:", error);
+            }
+        };
+
         fetchProduct();
+        fetchSimilarProducts();
     }, [product_id]);
 
     return (
@@ -108,6 +117,33 @@ const ProductDetail = () => {
                             </button>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* Similar Products Section */}
+            <div className="similar-products mt-5">
+                <h3>Sản phẩm tương tự</h3>
+                <div className="row">
+                    {similarProducts.map((similarProduct) => (
+                        <div key={similarProduct._id} className="col-md-3 mb-4">
+                            <div className="card">
+                                <img src={similarProduct.images[0]} alt={similarProduct.productName} className="card-img-top" />
+                                <div className="card-body">
+                                    <h5 className="card-title">{similarProduct.productName}</h5>
+                                    <p className="card-text">
+                                        {similarProduct.sale_price ? (
+                                            <>
+                                                <span className="text-decoration-line-through">{similarProduct.origin_price}</span>
+                                                <span className="text-danger ms-2">{similarProduct.sale_price}</span>
+                                            </>
+                                        ) : (
+                                            <span>{similarProduct.origin_price}</span>
+                                        )}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </DefaultLayoutUserHomePage>
