@@ -35,6 +35,14 @@ const ProductDetail = () => {
     }
 
     useEffect(() => {
+        const fetchSimilarProducts = async () => {
+            try {
+                const response = await ProductAPI.getSimilarProducts(product_id);
+                setSimilarProducts(response.data.data|| []);
+            } catch (error) {
+                console.error("Error fetching similar products:", error);
+            }
+        };
         const fetchProduct = async () => {
             try {
                 const response = await ProductAPI.getProductById(product_id);
@@ -48,14 +56,7 @@ const ProductDetail = () => {
             }
         };
 
-        const fetchSimilarProducts = async () => {
-            try {
-                const response = await ProductAPI.getSimilarProducts(product_id);
-                setSimilarProducts(response.data.DT || []);
-            } catch (error) {
-                console.error("Error fetching similar products:", error);
-            }
-        };
+        
 
         fetchProduct();
         fetchSimilarProducts();
@@ -65,7 +66,7 @@ const ProductDetail = () => {
         <DefaultLayoutUserHomePage>
             <div className="detail-product bg-white mt-5 p-4">
                 <div className="row w-100 h-100">
-                    <div className="col-md-6">
+                    <div className="col-md-6" style={{ zIndex: 0 }} >
                         <Swiper spaceBetween={1} slidesPerView={1} navigation pagination={{ clickable: true }} loop style={{ zIndex: 1051 }}>
                             {product.images && product.images.map((image, idx) => (
                                 <SwiperSlide key={idx} className="swiper-slide">
@@ -88,7 +89,7 @@ const ProductDetail = () => {
                             </>
                         ) : (
                             <p className="product-price fw-bold">
-                                Giá bán: {product.origin_price}
+                                Giá bán: {product.origin_price}đ
                             </p>
                         )}
                         <div className="d-flex "><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">{product.category?.name}</span></div>
@@ -125,19 +126,19 @@ const ProductDetail = () => {
                 <h3>Sản phẩm tương tự</h3>
                 <div className="row">
                     {similarProducts.map((similarProduct) => (
-                        <div key={similarProduct._id} className="col-md-3 mb-4">
+                        <div key={similarProduct._id} className="col-md-3 mb-4" onClick={() => window.location.href = `/product/${similarProduct._id}`}>
                             <div className="card">
-                                <img src={similarProduct.images[0]} alt={similarProduct.productName} className="card-img-top" />
+                                <img src={similarProduct.images[0] || "https://via.placeholder.com/150"} alt={similarProduct.productName} className="img-similar-product" />
                                 <div className="card-body">
                                     <h5 className="card-title">{similarProduct.productName}</h5>
-                                    <p className="card-text">
+                                    <p className="card-text-similar-product" style={{ fontSize: '1.2rem' }}>
                                         {similarProduct.sale_price ? (
                                             <>
-                                                <span className="text-decoration-line-through">{similarProduct.origin_price}</span>
-                                                <span className="text-danger ms-2">{similarProduct.sale_price}</span>
+                                                <span className="text-decoration-line-through">Giá bán: {similarProduct.origin_price}đ</span>
+                                                <span className="text-danger ms-2">Giá khuyến mãi: {similarProduct.sale_price}đ</span>
                                             </>
                                         ) : (
-                                            <span>{similarProduct.origin_price}</span>
+                                            <span>Giá bán: {similarProduct.origin_price}đ</span>
                                         )}
                                     </p>
                                 </div>

@@ -97,3 +97,46 @@
     background-color: #d9534f;
     color: #fff;
 }
+
+
+
+
+
+.similar-products h3 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.similar-products .card {
+    transition: transform 0.3s;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.similar-products .card:hover {
+    transform: scale(1.05);
+}
+
+.similar-products .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.similar-products .card-text .text-decoration-line-through {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.similar-products .card-text .text-danger {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.card-text-similar-product {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+
