@@ -1,0 +1,38 @@
+.wishListContainer{
+    margin-top: 50px;
+    border: solid 1px rgb(203, 203, 203);
+    border-radius: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.wishlist-table {
+    margin-top: 20px;
+}
+
+.product-name {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 5px;
+}
+
+.btn-add-to-cart {
+    background-color: #ff6600;
+    color: white;
+}
+
+.btn-add-to-cart:hover {
+    background-color: #cf5707;
+    color: white;
+}

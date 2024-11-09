@@ -1,10 +1,12 @@
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import ShoppingCartAPI from '../../API/ShoppingCartAPI'
+import WishlistAPI from '../../API/WishlistAPI'
+
 const Header = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState(null);
@@ -37,7 +39,16 @@ const Header = () => {
 
     const handleShoppingCartClick = () =>{
         if (userId) {
-            navigate(`/shopping-cart/${userId}`);
+            navigate(`/shopping-cart`);
+        } else {
+            // Nếu chưa đăng nhập thì điều hướng tới trang login
+            navigate('/login');
+        }
+    }
+
+    const handleWishlistClick = () =>{
+        if (userId) {
+            navigate(`/wishlist`);
         } else {
             // Nếu chưa đăng nhập thì điều hướng tới trang login
             navigate('/login');
@@ -106,7 +117,10 @@ const Header = () => {
                                     <div className="manage-orders" onClick={() => navigate(`/order`)}>
                                         <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
                                     </div>
-                                    <div className="favourite-products">
+                                    <div className="manage-orders" onClick={() => navigate(`/#`)}>
+                                        <span><FontAwesomeIcon icon={faFileInvoice} /> Quản lý tài khoản</span>
+                                    </div>
+                                    <div className="favourite-products" onClick={handleWishlistClick}>
                                         <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
                                     </div>
                                     <div className="logout" onClick={handleLogout}>
