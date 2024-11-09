@@ -1,11 +1,27 @@
 import './SubHeader.css';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-
+import CategoryAPI from '../../API/CategoryAPI';
 const SubHeader = () => {
+
+    const [categories, setCategories] = useState([]);
+
+    const fetchCategories = async () => {
+        try {
+            const response = await CategoryAPI.getCategories();
+            setCategories(response.data.DT);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
 
     return (
         <div className='d-flex align-items-center position-relative'>
@@ -22,10 +38,11 @@ const SubHeader = () => {
                             <Link to='/product' className='nav-link'>PRODUCTS <FontAwesomeIcon icon={faAngleDown} className="icon-spacing" /></Link>
                             <div className="dropdown-menu">
                                 <ul>
-                                    <li><a href='#grape'>Nho</a></li>
-                                    <li><a href='#apple'>Táo</a></li>
-                                    <li><a href='#orange'>Cam</a></li>
-                                    <li><a href='#juice'>Nước ép</a></li>
+                                    {categories.map((category) => (
+                                        <li key={category._id}>
+                                            <Link to={`/product/${category._id}`}>{category.name}</Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </li>

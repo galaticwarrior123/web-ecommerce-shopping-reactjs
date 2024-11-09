@@ -111,13 +111,13 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
             <div className='card product-card'>
                 <div className='image-container'>
                     <img
-                        src={product.images_1}
+                        src={product.images[0] || "https://via.placeholder.com/150"}
                         className="card-img-top"
                         alt={product.productName}
 
                     />
                     <img
-                        src={product.images_2}
+                        src={product.images[1] || "https://via.placeholder.com/150"}
                         className="card-img-top hover-img"
                         alt={product.productName}
                         style={{ opacity: 0 }}
