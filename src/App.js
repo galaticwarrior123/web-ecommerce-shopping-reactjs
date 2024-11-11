@@ -26,6 +26,14 @@ import SaleProduct from './Pages/Admin/ManageProduct/SaleProduct/SaleProduct';
 import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
 import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
 import ManageOrder from './Pages/Admin/ManageOrder/ManageOrder';
+import RequireAuth from './Utils/RequireAuth';
+
+const ROLES = {
+  'ADMIN': 'ADMIN',
+  'USER': 'USER'
+}
+
+
 
 function App() {
   return (
@@ -67,7 +75,7 @@ function App() {
         
         {/* ******************** ADMIN ******************** */}
         <Routes>
-          <Route path="/admin">
+          <Route path="/admin" element={<RequireAuth allowedRoles={[ROLES.ADMIN,ROLES.USER]} />}>
             <Route index element={<ManageCategory />} /> {/* Default route for /admin */}
             <Route path="manager-category" element={<ManageCategory />} />
             <Route path="manager-product" element={<ManageProduct />} />

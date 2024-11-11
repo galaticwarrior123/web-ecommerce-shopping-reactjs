@@ -27,6 +27,12 @@ const Login = () => {
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
+        if (response.data.user.isAdmin === true) {
+          localStorage.setItem('Role', 'ADMIN'); 
+        }
+        else {
+          localStorage.setItem('Role', 'USER');
+        }
         if (response.data.user.isVerified === true) {
           toast.success("Đăng nhập thành công");
           navigate('/');
