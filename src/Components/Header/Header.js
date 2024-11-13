@@ -12,6 +12,7 @@ const Header = () => {
     const [userName, setUserName] = useState(null);
     const [userId, setUserId] = useState(null);
     const [shoppingCartQuantity, setShoppingCartQuantity] = useState(0);
+    const [user, setUser] = useState(null); 
 
     useEffect (() =>{
         const storedUser  = localStorage.getItem('user');
@@ -20,6 +21,7 @@ const Header = () => {
             setUserName(user.username);
             setUserId(user._id);
             fetchShoppingCartQuantity(user._id);
+            setUser(user);
         }
     }, []);
 
@@ -32,9 +34,9 @@ const Header = () => {
     }
 
     const handleLogout = () => {
+        navigate('/');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-        window.location.reload();
     }
 
     const handleShoppingCartClick = () =>{
@@ -97,7 +99,7 @@ const Header = () => {
                             <Nav className="d-flex">
                                 <div className="user-circle d-flex flex-column align-items-left justify-content-center">
                                     <img
-                                        src='/Images/icon-avatar.png'
+                                        src={ user?.avatar ? user.avatar : './Images/icon-avatar.png'}
                                         alt="Avatar"
                                     // className="user-circle"
                                     />
@@ -117,7 +119,7 @@ const Header = () => {
                                     <div className="manage-orders" onClick={() => navigate(`/order`)}>
                                         <span><FontAwesomeIcon icon={faFileInvoiceDollar} /> Quản lý đơn hàng</span>
                                     </div>
-                                    <div className="manage-orders" onClick={() => navigate(`/#`)}>
+                                    <div className="manage-orders" onClick={() => navigate(`/profile`)}>
                                         <span><FontAwesomeIcon icon={faFileInvoice} /> Quản lý tài khoản</span>
                                     </div>
                                     <div className="favourite-products" onClick={handleWishlistClick}>

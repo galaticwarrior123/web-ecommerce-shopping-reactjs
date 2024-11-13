@@ -28,6 +28,7 @@ import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
 import ManageOrder from './Pages/Admin/ManageOrder/ManageOrder';
 import RequireAuth from './Utils/RequireAuth';
 import ManageCustomer from './Pages/Admin/ManageCustomer/ManageCustomer';
+import ProfileUser from './Pages/Users/ProfileUser/ProfileUser';
 
 const ROLES = {
   'ADMIN': 'ADMIN',
@@ -68,6 +69,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/order" element={<OrderPage />} />
           <Route path="/purchased-products" element={<PurchasedProducts />} />
+          <Route path="/profile" element={<ProfileUser />} />
         </Routes>
 
         <Routes>

@@ -43,6 +43,15 @@ class AuthAPI {
         return axiosPrivate.get(url);
     }
 
+    static async updateProfile(id, data) {
+        const url = '/user/update/' + id;
+        return axiosPrivate.put(url, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+    }
+
 }
 
 export default AuthAPI;
