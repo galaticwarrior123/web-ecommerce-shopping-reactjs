@@ -64,7 +64,7 @@ const Wishlist = () => {
                                         <tr>
                                             <td>
                                                 <div className="d-flex align-items-center">
-                                                    <img src="https://via.placeholder.com/60" alt="Product Image" className="mr-3"></img>
+                                                    <img src= {item.product.images[0] || "https://via.placeholder.com/60"} alt="Product Image" className="mr-3"></img>
                                                     <div>
                                                         <div className="product-category">{item.product.category?.name || 'Default Category Name'}</div>
                                                         <small>{item.product.productName || 'Default Product Name'}</small>
