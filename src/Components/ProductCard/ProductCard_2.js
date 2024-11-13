@@ -7,6 +7,9 @@ import ProductAPI from '../../API/ProductAPI';
 import ProductDetail from '../../Pages/Users/ProductDetail/ProductDetail';
 import { useLocation } from 'react-router-dom';
 import UpdateProduct from '../../Pages/Admin/ManageProduct/UpdateProduct/UpdateProduct';
+import WishlistAPI from '../../API/WishlistAPI';
+import { toast } from 'react-toastify';
+import { data } from 'jquery';
 
 const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppingCartQuantity, onDelete, onClickUpdateProduct }) => {
     const location = useLocation();
@@ -26,20 +29,42 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         try {
             // Xử lý thêm sản phẩm vào giỏ hàng (có thể bỏ qua phần này nếu không cần)
             const response = await ShoppingCartAPI.AddProductToCart(product._id, 1);
+            toast.success("Thêm sản phẩm vào giỏ hàng thành công!");
 
             // Sau khi thêm sản phẩm vào giỏ hàng, hiển thị hình ảnh
-            const imageToAnimate = product.images_1; // Lấy ảnh từ product
+            const imageToAnimate = product.images[0]; // Lấy ảnh từ product
             animateImage(imageToAnimate); // Gọi hàm animateImage để hiển thị ảnh
 
             console.log("Thêm sản phẩm vào giỏ hàng thành công:", response.data);
 
         } catch (error) {
             setErrorMessage("Lỗi khi thêm vào giỏ hàng");
+            toast.error("Thêm sản phẩm thất bại!");
             console.error("Thêm sản phẩm thất bại:", error);
         } finally {
             setIsLoading(false);
         }
     };
+
+    const handleAddToWishlist = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setErrorMessage(null);
+
+        try {
+            const response = await WishlistAPI.AddProductToWishlist(product._id);
+            toast.success("Thêm sản phẩm vào wishlist thành công!");
+            console.log("Thêm sản phẩm vào wishlist thành công:", response.data);
+
+        } catch (error) {
+            setErrorMessage("Lỗi khi thêm vào wishlist");
+            toast.error("Thêm sản phẩm thất bại!");
+            console.error("Thêm sản phẩm thất bại:", error);
+        } finally {
+            setIsLoading(false);
+        }
+
+    }
 
     const animateImage = (image) => {
         // Tạo một div chứa hình ảnh
@@ -105,7 +130,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
             console.error('Lỗi khi xóa sản phẩm:', error);
         }
     }
-    
+
     return (
         <>
             <div className='card product-card'>
@@ -151,14 +176,19 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                             <button
                                 className="btn btn-outline-secondary btn-cart"
                                 onClick={handleAddToCart}
-                                disabled={isLoading}
                                 aria-label="Add to Cart"
                             >
-                                {isLoading ? "Đang thêm..." : <FontAwesomeIcon icon={faCartShopping} />}
+                               <FontAwesomeIcon icon={faCartShopping} />
                             </button>
-                            <button className="btn btn-outline-danger" aria-label="Add to Wishlist">
+
+                            <button
+                                className="btn btn-outline-danger"
+                                onClick={handleAddToWishlist}
+                                aria-label="Add to Wishlist"
+                            >
                                 <FontAwesomeIcon icon={faHeart} />
                             </button>
+
                             <button
                                 className="btn btn-outline-secondary"
                                 onClick={() => handleProductDetail(product._id)}
