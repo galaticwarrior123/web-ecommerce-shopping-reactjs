@@ -92,17 +92,17 @@ const ProductPage = () => {
                             disabled={page === 1}
                             onClick={() => handlePageChange(page - 1)}
                         >
-                            Previous
+                            Trước
                         </button>
 
-                        <span>{page} of {totalPages}</span>
+                        <span>{page} của {totalPages}</span>
 
                         <button
                             className="btn btn-primary ms-2"
                             disabled={page === totalPages}
                             onClick={() => handlePageChange(page + 1)}
                         >
-                            Next
+                            Sau
                         </button>
                     </div>
                 </div>
