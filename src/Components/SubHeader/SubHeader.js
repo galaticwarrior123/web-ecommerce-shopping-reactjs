@@ -35,7 +35,7 @@ const SubHeader = () => {
 
                         
                         <li className='nav-item dropdown'>
-                            <Link to='/product' className='nav-link'>PRODUCTS</Link>
+                            <Link to='/product' className='nav-link' id="viewProducts">PRODUCTS</Link>
                             {/* <FontAwesomeIcon icon={faAngleDown} className="icon-spacing" /> */}
                             {/* <div className="dropdown-menu">
                                 <ul>

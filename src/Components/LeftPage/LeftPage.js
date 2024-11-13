@@ -44,6 +44,7 @@ const LeftPage = ({ onSelectCategory, onSearch }) => {
                     />
                     <button
                         type="button"
+                        id='search-btn'
                         className="btn btn-outline-first bg-white z-index-0"
                         onClick={() => onSearch(searchText)}
                     >
@@ -58,6 +59,7 @@ const LeftPage = ({ onSelectCategory, onSearch }) => {
                     {Array.isArray(categories) && categories.length > 0 ? (
                         categories.map((category) => (
                             <div
+                                id={`category-${category._id}`}
                                 key={category._id}
                                 className={`list-group-item list-group-item-action d-flex align-items-center ${selectedCategories.includes(category._id) ? 'active' : ''}`}
                                 onClick={() => handleCategorySelect(category._id)}

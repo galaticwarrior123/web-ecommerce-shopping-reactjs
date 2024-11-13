@@ -9,7 +9,7 @@ import Top10_BanChayNhat from '../Components/Top10_BanChayNhat/Top10_BanChayNhat
 
 const DefaultLayoutUserHomePage = ({ children }) => {
     return (
-        <div>
+        <div id="resultMessage">
             <Header />
             <SubHeader/>
             <div className="col-md-12">

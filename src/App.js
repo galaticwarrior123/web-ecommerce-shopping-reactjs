@@ -27,6 +27,7 @@ import ManageCategory from './Pages/Admin/ManageCategory/ManageCategory';
 import ManageProduct from './Pages/Admin/ManageProduct/ManageProduct';
 import ManageOrder from './Pages/Admin/ManageOrder/ManageOrder';
 import RequireAuth from './Utils/RequireAuth';
+import ManageCustomer from './Pages/Admin/ManageCustomer/ManageCustomer';
 
 const ROLES = {
   'ADMIN': 'ADMIN',
@@ -81,6 +82,7 @@ function App() {
             <Route path="manager-product" element={<ManageProduct />} />
             <Route path="manager-sale-product" element={<SaleProduct />} />
             <Route path="manager-orders" element={<ManageOrder />} />
+            <Route path="manager-customer" element={<ManageCustomer />} />
           </Route>
         </Routes>
 

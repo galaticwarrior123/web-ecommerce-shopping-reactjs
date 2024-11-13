@@ -8,7 +8,8 @@ import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePag
 import { useLocation } from 'react-router-dom';
 import ProductAPI from '../../../API/ProductAPI';
 import ShoppingCartAPI from '../../../API/ShoppingCartAPI';
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ProductDetail = () => {
     const location = useLocation();
     const [quantity, setQuantity] = useState(1);
@@ -27,10 +28,10 @@ const ProductDetail = () => {
         try {
             const response = await ShoppingCartAPI.AddProductToCart(product._id, quantity);
             console.log("Product added to cart:", response);
-            alert("Sản phẩm đã được thêm vào giỏ hàng!");
+            toast.success("Sản phẩm đã được thêm vào giỏ hàng.");
         } catch (error) {
             console.error("Error adding product to cart:", error);
-            alert("Có lỗi xảy ra khi thêm sản phẩm vào giỏ hàng.");
+            toast.error("Lỗi khi thêm sản phẩm vào giỏ hàng.");
         }
     }
 
@@ -64,6 +65,7 @@ const ProductDetail = () => {
 
     return (
         <DefaultLayoutUserHomePage>
+            <ToastContainer />
             <div className="detail-product bg-white mt-5 p-4">
                 <div className="row w-100 h-100">
                     <div className="col-md-6" style={{ zIndex: 0 }} >
@@ -103,14 +105,14 @@ const ProductDetail = () => {
                         <div className="quantity-selector d-flex align-items-center mt-3">
                             <label htmlFor="quantity" className="me-2 fw-bold">Số lượng:</label>
                             <div className="input-group">
-                                <button className="btn btn-outline-secondary" type="button" onClick={decreaseQuantity}>-</button>
+                                <button className="btn btn-outline-secondary" type="button" onClick={decreaseQuantity} id="decrease">-</button>
                                 <input type="text" className="form-control text-center h-100" value={quantity} id="quantity" readOnly />
-                                <button className="btn btn-outline-secondary" type="button" onClick={increaseQuantity}>+</button>
+                                <button className="btn btn-outline-secondary" type="button" onClick={increaseQuantity} id="increase">+</button>
                             </div>
                         </div>
 
                         <div className="button-group mt-4">
-                            <button className="btn btn-primary me-2" onClick={handleAddToCart}>
+                            <button className="btn btn-primary me-2" onClick={handleAddToCart} id="btn-addProductToCart">
                                 <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
                             </button>
                             <button className="btn btn-outline-danger me-2">

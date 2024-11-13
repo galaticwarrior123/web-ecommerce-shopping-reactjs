@@ -4,6 +4,9 @@ import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePag
 import './CartPage.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import OrderAPI from '../../../API/OrderAPI';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const CartPage = () => {
     let grandTotal = 0;
@@ -84,18 +87,19 @@ const CartPage = () => {
 
         OrderAPI.CreateOrder(data).then((response) => {
             if (response.data && response.data.DT) {
-                alert('Đặt hàng thành công');
+                toast.success('Đặt hàng thành công');
                 navigate('/order');
             } else {
-                alert('Đặt hàng thất bại');
+                toast.error('Đặt hàng thất bại');
             }
         }).catch((error) => {
-            alert('Đặt hàng thất bại');
+            toast.error('Đặt hàng thất bại');
         });
     };
 
     return (
         <DefaultLayoutUserHomePage>
+            <ToastContainer />
             <div className="mt-5 cart-page">
                 <div className="w-100 ">
                     <div >

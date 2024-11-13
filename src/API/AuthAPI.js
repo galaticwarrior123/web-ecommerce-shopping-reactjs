@@ -37,6 +37,12 @@ class AuthAPI {
         return axiosPrivate.post(url, data, config); // Gửi config vào đây
     }
 
+
+    static async getAllCustomers() {
+        const url = '/user/all';
+        return axiosPrivate.get(url);
+    }
+
 }
 
 export default AuthAPI;

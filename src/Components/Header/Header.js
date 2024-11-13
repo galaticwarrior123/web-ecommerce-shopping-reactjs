@@ -168,7 +168,7 @@ const Header = () => {
                             </div>
                         </>
                     )}
-                    <Nav.Link href="#" className="cart-info" onClick={handleShoppingCartClick}>
+                    <Nav.Link href="#" className="cart-info" onClick={handleShoppingCartClick} id='cartShopping'>
                         <div className="cart-circle">
                             <FontAwesomeIcon icon={faCartShopping} />
                         </div>

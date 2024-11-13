@@ -4,6 +4,8 @@ import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePag
 import ProductAPI from "../../../API/ProductAPI";
 import ProductCard_2 from "../../../Components/ProductCard/ProductCard_2";
 import "./ProductPage.css";
+import { useNavigate } from "react-router-dom";
+
 
 const PRODUCTS_PER_PAGE = 10;
 
@@ -14,6 +16,7 @@ const ProductPage = () => {
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const navigate = useNavigate();
 
     const fetchProducts = async () => {
         try {

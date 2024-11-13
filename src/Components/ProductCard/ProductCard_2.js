@@ -108,7 +108,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
     
     return (
         <>
-            <div className='card product-card'>
+            <div className='card product-card' id={`product${product._id}`} key={product._id}>
                 <div className='image-container'>
                     <img
                         src={product.images[0] || "https://via.placeholder.com/150"}
@@ -162,10 +162,11 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                             <button
                                 className="btn btn-outline-secondary"
                                 onClick={() => handleProductDetail(product._id)}
-                                aria-label="View Product Details"
+                                aria-label={`View ${product._id}`}
                             >
                                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </button>
+                            
                         </div>
                     )}
 

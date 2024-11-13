@@ -95,7 +95,7 @@ const Login = () => {
             </div>
             <Link to="/forgot-password" className="text-decoration-none">Quên mật khẩu</Link>
           </div>
-          <button type="button" onClick={handleClickLogin} className="btn btn-warning w-100">Đăng nhập</button>
+          <button type="button" id="loginButton" onClick={handleClickLogin} className="btn btn-warning w-100">Đăng nhập</button>
         </form>
         <div className="text-center mt-3">
           Bạn chưa có tài khoản? <Link to="/register" className="text-decoration-none">Đăng ký</Link>
