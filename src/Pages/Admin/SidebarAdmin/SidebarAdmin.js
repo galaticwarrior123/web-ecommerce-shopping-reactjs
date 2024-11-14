@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 const SidebarAdmin = ( {onMenuClick, activeMenu }) => {
+    const user = JSON.parse(localStorage.getItem('user'));
     const [isProductDropdownOpen, setProductDropdownOpen] = useState(false);
 
     const toggleProductDropdown = () => {
@@ -15,8 +16,8 @@ const SidebarAdmin = ( {onMenuClick, activeMenu }) => {
     return (
         <div className="sidebar">
             <div className="profile">
-                <img src="/images/icon-avatar.png" alt="Avatar" />
-                <h3>Admin</h3>
+                <img src={user.avatar ? user.avatar : 'https://www.w3schools.com/howto/img_avatar.png'} alt="avatar" />
+                <h3>{user.username}</h3>
                 <p>Chào mừng bạn trở lại</p>
             </div>
             <div className="menu">

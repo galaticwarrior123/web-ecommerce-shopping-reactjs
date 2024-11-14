@@ -164,9 +164,11 @@ const ShoppingCartPage = () => {
                                             <h5>{shoppingCartItems.reduce((total, item) => total + item.product.sale_price * item.quantity, 0)} VND</h5>
                                         </div>
                                         <button
+                                            id="move-to-checkout"
                                             type="button"
                                             className="btn btn-dark btn-block btn-lg"
                                             onClick={() => handleMoveToCheckout(shoppingCartItems)}
+
                                         >
                                             Move to Checkout
                                         </button>

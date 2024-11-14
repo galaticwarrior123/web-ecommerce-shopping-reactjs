@@ -107,6 +107,7 @@ const CartPage = () => {
                             <div className="box-body">
                                 <h5 className="box-body-title">Sản phẩm trong giỏ hàng</h5>
                                 {cartItems.map((item) => {
+                                    const imageProduct = item.product.images[0];
                                     const originalPrice = item.product.origin_price;
                                     const discountPrice = item.product.sale_price;
                                     const price = discountPrice ?? originalPrice;
@@ -115,7 +116,7 @@ const CartPage = () => {
 
                                     return (
                                         <div key={item._id} className="cart-item d-flex align-items-center mb-3">
-                                            <img src={item.img} alt={item.product.productName} className="cart-item-img" />
+                                            <img src={imageProduct} alt={item.product.productName} className="cart-item-img" />
                                             <div className="cart-item-details flex-grow-1 ms-3">
                                                 <h6 className="cart-item-name">{item.product.productName}</h6>
                                                 <div className="cart-item-meta">

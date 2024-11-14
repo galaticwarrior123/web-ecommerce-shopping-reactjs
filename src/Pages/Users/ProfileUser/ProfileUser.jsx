@@ -85,7 +85,7 @@ const ProfileUser = () => {
                             </div>
 
                             <div className="form-group mb-3">
-                                <label htmlFor="name" className="form-label">Name</label>
+                                <label htmlFor="name" className="form-label">Họ và tên</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -111,7 +111,7 @@ const ProfileUser = () => {
                             </div>
 
                             <div className="form-group mb-3">
-                                <label htmlFor="phone" className="form-label">Phone</label>
+                                <label htmlFor="phone" className="form-label">Số điện thoại</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -124,7 +124,7 @@ const ProfileUser = () => {
                             </div>
 
                             <div className="form-group mb-3">
-                                <label htmlFor="address" className="form-label">Address</label>
+                                <label htmlFor="address" className="form-label">Địa chỉ</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
@@ -147,7 +147,7 @@ const ProfileUser = () => {
                                         checked={formData.gender === "MALE"} 
                                         onChange={handleChange} 
                                     />
-                                    <label htmlFor="MALE" className="ms-2 me-3">Male</label>
+                                    <label htmlFor="MALE" className="ms-2 me-3">Nam</label>
 
                                     <input 
                                         type="radio" 
@@ -157,9 +157,9 @@ const ProfileUser = () => {
                                         checked={formData.gender === "FEMALE"} 
                                         onChange={handleChange} 
                                     />
-                                    <label htmlFor="FEMALE" className="ms-2 me-3">Female</label>
+                                    <label htmlFor="FEMALE" className="ms-2 me-3">Nữ</label>
 
-                                    <input 
+                                    {/* <input 
                                         type="radio" 
                                         id="other" 
                                         name="gender" 
@@ -167,11 +167,11 @@ const ProfileUser = () => {
                                         checked={formData.gender === "Other"} 
                                         onChange={handleChange} 
                                     />
-                                    <label htmlFor="other" className="ms-2">Other</label>
+                                    <label htmlFor="other" className="ms-2">Khác</label> */}
                                 </div>
                             </div>
 
-                            <button type="submit" className="btn btn-primary">Update</button>
+                            <button type="submit" className="btn btn-primary">Cập nhật</button>
                         </form>
                     </div>
 

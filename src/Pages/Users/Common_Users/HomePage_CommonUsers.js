@@ -34,7 +34,7 @@ const HomePage = () => {
     return (
         <DefaultLayoutUserHomePage>
             <div className="container-common">
-                <div className="row mt-5">
+                <div className="row mt-5 d-flex justify-content-center">
                     <LeftPage onSelectCategory={handleCategorySelect} onSearch={handleSearch} />
                     <div class="col-md-9 z-index-0">
                         <div class="row row-badge">

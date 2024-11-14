@@ -56,9 +56,16 @@ const ProductDetail = () => {
                 console.error('Lỗi khi lấy sản phẩm:', error);
             }
         };
+        const increaseViewCount = async () => {
+            try {
+                const response = await ProductAPI.increaseViewCount(product_id);
+                console.log("View count increased:", response);
+            } catch (error) {
+                console.error("Error increasing view count:", error);
+            }
+        };
 
-        
-
+        increaseViewCount();
         fetchProduct();
         fetchSimilarProducts();
     }, [product_id]);

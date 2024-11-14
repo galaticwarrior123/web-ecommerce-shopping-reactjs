@@ -4,8 +4,7 @@ import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePag
 import ProductAPI from "../../../API/ProductAPI";
 import ProductCard_2 from "../../../Components/ProductCard/ProductCard_2";
 import "./ProductPage.css";
-import { useNavigate } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 
 const PRODUCTS_PER_PAGE = 10;
 
@@ -17,62 +16,84 @@ const ProductPage = () => {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const navigate = useNavigate();
+    const location = useLocation();
+
+
+    // lấy params từ url
+    const params = new URLSearchParams(location.search);
+
+    useEffect(() => {
+        // Initialize filters from navigation state if available
+        if (params.get('categoryId') ) {
+            console.log('all: ', params.get('categoryId'));
+            fetchProducts();
+        } else {
+            if (params) {
+                if (params.get("categoryId")) setSelectedCategoryId([...params.get("categoryId").split(",")]);
+
+                if (params.get("search")) setSearch(params.get("search"));
+
+            }
+            else {
+                fetchProducts();
+            }
+        }
+
+    }, [params.get("categoryId"), params.get("search")]);
+
+
+    // Fetch products only once on component mount
+    useEffect(() => {
+
+        fetchProducts();
+    }, []);
 
     const fetchProducts = async () => {
         try {
             const response = await ProductAPI.getAllProducts();
-            if (response.data && response.data.DT && response.data.DT.products) {
+            if (response.data?.DT?.products) {
                 setProducts(response.data.DT.products);
-                filterProducts(response.data.DT.products, selectedCategoryId, search);
             } else {
-                console.error('Không có sản phẩm nào được trả về hoặc cấu trúc dữ liệu không đúng:', response.data);
+                console.error('No products returned or incorrect data structure:', response.data);
             }
         } catch (error) {
-            console.error('Lỗi khi lấy sản phẩm:', error);
+            console.error('Error fetching products:', error);
         }
     };
 
-    const filterProducts = (allProducts, categories, searchKeyword) => {
-        let filtered = allProducts;
-
-        if (categories.length > 0) {
-            
-            filtered = allProducts.filter(product => categories.includes(product.category));
-        }
-
-        if (searchKeyword) {
-            filtered = filtered.filter(product => product.productName.toLowerCase().includes(searchKeyword.toLowerCase()));
-        }
-
-        setFilteredProducts(filtered);
-        setTotalPages(Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
-    };
-
+    // Filter products whenever `products`, `selectedCategoryId`, or `search` changes
     useEffect(() => {
-        fetchProducts();
-    }, []);
+        const filterProducts = () => {
+            let filtered = products;
 
-    useEffect(() => {
-        filterProducts(products, selectedCategoryId, search);
-        setPage(1); 
-    }, [selectedCategoryId, search]);
+            if (selectedCategoryId.length > 0) {
+                filtered = filtered.filter(product => selectedCategoryId.includes(product.category));
+            }
 
-    const handlePageChange = (newPage) => {
-        setPage(newPage);
-    };
+            if (search) {
+                filtered = filtered.filter(product =>
+                    product.productName.toLowerCase().includes(search.toLowerCase())
+                );
+            }
+
+            setFilteredProducts(filtered);
+            setTotalPages(Math.ceil(filtered.length / PRODUCTS_PER_PAGE));
+            setPage(1); // Reset to first page on filter change
+        };
+        filterProducts();
+    }, [products, selectedCategoryId, search]);
+
+    const handlePageChange = (newPage) => setPage(newPage);
 
     const handleCategorySelect = (id) => {
-        if (selectedCategoryId.includes(id)) {
-            setSelectedCategoryId(prev => prev.filter(categoryId => categoryId !== id));
-        } else {
-            setSelectedCategoryId(prev => [...prev, id]);
-        }
+        setSelectedCategoryId(prev =>
+            prev.includes(id) ? prev.filter(categoryId => categoryId !== id) : [...prev, id]
+        );
     };
 
-    const handleSearch = (input) => {
-        setSearch(input);
-    };
+    const handleSearch = (input) => setSearch(input);
 
+    // Paginate products for current page
     const paginatedProducts = filteredProducts.slice((page - 1) * PRODUCTS_PER_PAGE, page * PRODUCTS_PER_PAGE);
 
     return (

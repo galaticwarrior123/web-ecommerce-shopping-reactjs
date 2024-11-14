@@ -62,5 +62,10 @@ class ProductAPI {
         return axiosClient.get(url);
     }
 
+    static async increaseViewCount(productId){
+        const url = `/product/view-count/${productId}`;
+        return axiosClient.put(url);
+    }
+
 }
 export default ProductAPI;
