@@ -52,9 +52,20 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         setErrorMessage(null);
 
         try {
+            // Call the backend API to add the product to the wishlist
             const response = await WishlistAPI.AddProductToWishlist(product._id);
-            toast.success("Thêm sản phẩm vào wishlist thành công!");
-            console.log("Thêm sản phẩm vào wishlist thành công:", response.data);
+            console.log("Add to wishlist full response:", response); // Debugging line
+            console.log("Add to wishlist data:", response.data); // Debugging line
+
+            // Access the `exists` field based on the actual structure
+            const { exists, message, success } = response.data;
+
+            if (exists) {
+                toast.info(message || "Sản phẩm này đã được yêu thích.");
+            } else {
+                toast.success(message || "Thêm sản phẩm vào wishlist thành công!");
+                console.log("Thêm sản phẩm vào wishlist thành công:", response.data);
+            }
 
         } catch (error) {
             setErrorMessage("Lỗi khi thêm vào wishlist");
@@ -63,8 +74,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         } finally {
             setIsLoading(false);
         }
-
-    }
+    };
 
     const animateImage = (image) => {
         // Tạo một div chứa hình ảnh
@@ -178,7 +188,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                                 onClick={handleAddToCart}
                                 aria-label="Add to Cart"
                             >
-                               <FontAwesomeIcon icon={faCartShopping} />
+                                <FontAwesomeIcon icon={faCartShopping} />
                             </button>
 
                             <button
@@ -196,7 +206,7 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                             >
                                 <FontAwesomeIcon icon={faMagnifyingGlass} />
                             </button>
-                            
+
                         </div>
                     )}
 

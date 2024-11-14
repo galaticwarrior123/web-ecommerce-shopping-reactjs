@@ -13,6 +13,22 @@ const Wishlist = () => {
     const [wishlistId, setWishlistId] = useState(null);
     const [wishlistItemCreatedAt, setWishlistItemCreatedAt] = useState(null);
 
+    const handleRemoveFromWishlist = async (itemId) => {
+        try {
+            const response = await WishlistAPI.DeleteProduct(wishlistId, String(itemId));
+            console.log("Product removed from wishlist:", response);
+            alert("Sản phẩm đã được xóa khỏi danh sách yêu thích!");
+
+            // Update the wishlist items by filtering out the removed item
+            setWishlistItems((prevItems) =>
+                prevItems.filter((item) => item.product._id !== itemId)
+            );
+        } catch (error) {
+            console.error("Error removing product from wishlist:", error);
+            alert("Có lỗi xảy ra khi xóa sản phẩm khỏi danh sách yêu thích.");
+        }
+    };
+
     useEffect(() => {
         const fetchWishlist = async () => {
             try {
@@ -40,7 +56,7 @@ const Wishlist = () => {
             <div class="wishListContainer">
                 <div className="row">
                     <div className="col-12 text-center">
-                        <h3 className="mt-4">DANH SÁCH SẢN PHẨM YÊU THÍCH <span className="text-muted">(<span>SL</span> sản phẩm)</span></h3>
+                        <h3 className="mt-4" style={{ color: 'black' }}>DANH SÁCH SẢN PHẨM YÊU THÍCH <span className="text-muted">(<span>SL</span> sản phẩm)</span></h3>
                     </div>
                 </div>
                 {wishlistItems.length === 0 ? (
@@ -64,10 +80,10 @@ const Wishlist = () => {
                                         <tr>
                                             <td>
                                                 <div className="d-flex align-items-center">
-                                                    <img src= {item.product.images[0] || "https://via.placeholder.com/60"} alt="Product Image" className="mr-3"></img>
+                                                    <img src={item.product.images[0] || "https://via.placeholder.com/60"} alt="Product Image" className="mr-3"></img>
                                                     <div>
                                                         <div className="product-category">{item.product.category?.name || 'Default Category Name'}</div>
-                                                        <small>{item.product.productName || 'Default Product Name'}</small>
+                                                        <small style={{ fontSize: '15px', fontWeight: '450' }}>{item.product.productName || 'Default Product Name'}</small>
                                                     </div>
                                                 </div>
                                             </td>
@@ -85,8 +101,14 @@ const Wishlist = () => {
                                                 <span className="old-price">{item.product.origin_price || 'Default Original Price'} VND</span>
                                             </td>
                                             <td>
-                                                <a href ={`/product/${item.product._id}`} className="text-primary">Xem chi tiết</a> | <FontAwesomeIcon icon={faTrash} style={{ color: '#ea6975' }} />
-                                                <br /><button className="btn btn-sm btn-add-to-cart" style={{ marginTop: '10px' }}>Thêm vào giỏ hàng</button>
+                                                <a
+                                                    href={`/product/${item.product._id}`}
+                                                    className="text-primary"><button className='btn-view-detail'>Xem chi tiết</button>
+                                                </a>
+                                                <button className='remove-item' onClick={() => handleRemoveFromWishlist(item.product._id)}>
+                                                    <FontAwesomeIcon icon={faTrash} style={{ color: '#ea6975' }} />
+                                                </button>
+                                                {/* <br /><button className="btn btn-sm btn-add-to-cart" style={{ marginTop: '10px' }}>Thêm vào giỏ hàng</button> */}
                                             </td>
                                         </tr>
 
