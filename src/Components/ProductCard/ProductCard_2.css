@@ -55,9 +55,10 @@ span.badge.best-badge {
 }
 
 .card-text p {
-  font-size: 18px;
+  font-size: 20px;
   color: #333;
   margin: 0.5rem 0;
+  font-weight: 500;
 }
 
 .price {
@@ -187,16 +188,19 @@ span.badge.best-badge {
 }
 
 .image-animation-container {
-  pointer-events: none; /* Không cho phép tương tác với hình ảnh */
+  pointer-events: none;
+  /* Không cho phép tương tác với hình ảnh */
   position: fixed;
   z-index: 1000;
 }
 
 .animated-image {
-  max-width: 50px; /* Kích thước của hình ảnh */
+  max-width: 50px;
+  /* Kích thước của hình ảnh */
   max-height: 50px;
   border-radius: 50%;
   opacity: 1;
-  transition: transform 1s ease, opacity 0.5s ease; /* Hiệu ứng mờ dần */
+  transition: transform 1s ease, opacity 0.5s ease;
+  /* Hiệu ứng mờ dần */
 
 }
