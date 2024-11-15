@@ -4,13 +4,14 @@ import ShoppingCartAPI from "../API/ShoppingCartAPI";
 
 const CartContext = createContext();
 
-const listPathName =[ "/login", "/register", "/forgot-password", "/verifyOTP-forgot-password", "/reset-password"];
+const listPathName =["/login", "/register", "/forgot-password", "/verifyOTP-forgot-password", "/reset-password"];
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
     const [shoppingCartQuantity, setShoppingCartQuantity] = useState(0);
     const [loading, setLoading] = useState(false);
     const location = useLocation();  // Get the current route location
+    const user = JSON.parse(localStorage.getItem("user"));
 
     const fetchShoppingCartQuantity = async () => {
         try {
@@ -19,6 +20,8 @@ export const CartProvider = ({ children }) => {
             if (response.data.success) {
                 const totalQuantity = response.data.shoppingcart.products.reduce((acc, item) => acc + item.quantity, 0);
                 setShoppingCartQuantity(totalQuantity);
+            } else {
+                console.error('No products returned or incorrect data structure:', response.data);
             }
         } catch (error) {
             console.error('Error fetching shopping cart:', error);
@@ -29,10 +32,10 @@ export const CartProvider = ({ children }) => {
 
     // Only fetch shopping cart quantity if not on login or register pages
     useEffect(() => {
-        if (!listPathName.includes(location.pathname)) {
+        if (user && !loading && !listPathName.includes(location.pathname)) {
             fetchShoppingCartQuantity();
         }
-    }, [location.pathname, loading]);  // Dependencies include location.pathname to trigger on route change
+    }, []);
 
     return (
         <CartContext.Provider value={{ shoppingCartQuantity, fetchShoppingCartQuantity }}>

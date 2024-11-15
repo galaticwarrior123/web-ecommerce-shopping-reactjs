@@ -84,6 +84,7 @@ const Header = () => {
         navigate('/');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        window.location.reload();
     };
 
     const handleShoppingCartClick = () => {
@@ -163,7 +164,7 @@ const Header = () => {
                                                             Giá gốc: {product.origin_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                                         </p>
                                                     </div>
-                                                    
+
                                                 </>
                                             ) : (
                                                 <p className="text-dark fw-bold mb-0">
@@ -224,13 +225,13 @@ const Header = () => {
 
                         <>
                             <Nav className="d-flex">
-                                <div className="user-circle d-flex flex-column align-items-left justify-content-center">
+                                {/* <div className="user-circle d-flex flex-column align-items-left justify-content-center">
                                     <img
                                         src='./Images/icon-avatar.png'
                                         alt="Avatar"
                                     // className="user-circle"
                                     />
-                                </div>
+                                </div> */}
                                 <div className="user-info d-flex flex-column align-items-left justify-content-center">
                                     <span>Chào bạn! <br></br>Hãy trở thành thành viên của FRUITE để nhận nhiều ưu đãi nhé</span>
                                     <span style={{ color: '#3a31c9' }}>Tài khoản <FontAwesomeIcon icon={faAngleDown} /></span>
@@ -260,9 +261,13 @@ const Header = () => {
                         <div className="cart-circle">
                             <FontAwesomeIcon icon={faCartShopping} />
                         </div>
+
                         <div className="cart-quantity">
                             <span>{shoppingCartQuantity}</span>
                         </div>
+
+
+
 
                     </Nav.Link>
                 </Nav>

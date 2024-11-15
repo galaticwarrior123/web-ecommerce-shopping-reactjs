@@ -12,6 +12,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCart } from '../../../context/CartContext';
 const ProductDetail = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const [isUser, setIsUser] = useState(false);
     const location = useLocation();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
@@ -24,6 +26,12 @@ const ProductDetail = () => {
             setQuantity(prev => prev - 1);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            setIsUser(true);
+        }
+    }, [user]);
 
     const handleAddToCart = async () => {
         try {
@@ -120,14 +128,17 @@ const ProductDetail = () => {
                             </div>
                         </div>
 
-                        <div className="button-group mt-4">
+                        {user ? (
+                            <div className="button-group mt-4">
                             <button className="btn btn-primary me-2" onClick={handleAddToCart} id="btn-addProductToCart">
                                 <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
                             </button>
                             <button className="btn btn-outline-danger me-2">
                                 <FontAwesomeIcon icon={faHeart} /> Yêu thích
                             </button>
-                        </div>
+                        </div>) : (
+                            <span className="text-danger mt-3">Đăng nhập để thêm sản phẩm vào giỏ hàng</span>
+                        )}
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ import 'bootstrap-touchspin'; // Import JS
 import $ from 'jquery';
 import { useNavigate, Link } from 'react-router-dom';
 import ShoppingCartAPI from "../../../API/ShoppingCartAPI";
+import { useCart } from '../../../context/CartContext';
 
 const ShoppingCartPage = () => {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ const ShoppingCartPage = () => {
     };
     const [shoppingCartItems, setShoppingCartItems] = useState([]);
     const [shoppingCartId, setShoppingCartId] = useState(null);
+    const { fetchShoppingCartQuantity } = useCart();
 
     useEffect(() => {
         const fetchShoppingCart = async () => {
@@ -46,11 +48,14 @@ const ShoppingCartPage = () => {
                     const newQuantity = Math.max(item.quantity - 1, 1);
                     // Gọi API để cập nhật số lượng
                     ShoppingCartAPI.UpdateProductQuantity(shoppingCartId, itemId, newQuantity);
+                    fetchShoppingCartQuantity();
                     return { ...item, quantity: newQuantity };
                 }
+                fetchShoppingCartQuantity();
                 return item;
             })
         );
+
     };
 
     //Increase quantity
@@ -61,11 +66,15 @@ const ShoppingCartPage = () => {
                     const newQuantity = item.quantity + 1;
                     // Gọi API để cập nhật số lượng
                     ShoppingCartAPI.UpdateProductQuantity(shoppingCartId, itemId, newQuantity);
+                    fetchShoppingCartQuantity();
                     return { ...item, quantity: newQuantity };
                 }
+                fetchShoppingCartQuantity();
                 return item;
             })
         );
+
+        
     };
 
     const handleRemoveFromCart = async (itemId) => {
@@ -78,6 +87,8 @@ const ShoppingCartPage = () => {
             setShoppingCartItems((prevItems) =>
                 prevItems.filter((item) => item.product._id !== itemId)
             );
+
+            fetchShoppingCartQuantity();
         } catch (error) {
             console.error("Error removing product from cart:", error);
             alert("Có lỗi xảy ra khi xóa sản phẩm khỏi giỏ hàng.");
