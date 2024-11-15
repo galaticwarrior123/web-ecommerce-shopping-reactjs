@@ -70,7 +70,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                         <h1 className="text-center fw-bold fs-3">Cập nhật sản phẩm</h1>
                     </div>
                     <div className="col-12">
-                        <form action="" method="post" encType="multipart/form-data">
+                        <form action="" encType="multipart/form-data">
                             <div className="mb-3">
                                 <label htmlFor="productName" className="form-label">Tên sản phẩm</label>
                                 <input type="text" className="form-control" id="productName" value={productName} onChange={(e) => setProductName(e.target.value)} />

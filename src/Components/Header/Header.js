@@ -6,12 +6,13 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { useEffect, useState, useRef } from 'react';
 import ShoppingCartAPI from '../../API/ShoppingCartAPI';
 import ProductAPI from '../../API/ProductAPI';
+import { useCart } from '../../context/CartContext';
 
 const Header = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState(null);
     const [userId, setUserId] = useState(null);
-    const [shoppingCartQuantity, setShoppingCartQuantity] = useState(0);
+    //const [shoppingCartQuantity, setShoppingCartQuantity] = useState(0);
     const [user, setUser] = useState(null);
     const [listProduct, setListProduct] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -19,6 +20,8 @@ const Header = () => {
     const [showResults, setShowResults] = useState(false);
     const searchRef = useRef(null);
     const resultRef = useRef(null);
+
+    const { shoppingCartQuantity } = useCart();
 
     useEffect(() => {
         fetchProduct();
@@ -42,7 +45,7 @@ const Header = () => {
             const user = JSON.parse(storedUser);
             setUserName(user.username);
             setUserId(user._id);
-            fetchShoppingCartQuantity(user._id);
+            //fetchShoppingCartQuantity(user._id);
             setUser(user);
         }
     }, []);
@@ -93,17 +96,17 @@ const Header = () => {
         else navigate('/login');
     };
 
-    const fetchShoppingCartQuantity = async (userId) => {
-        try {
-            const response = await ShoppingCartAPI.GetShoppingCart();
-            if (response.data.success) {
-                const totalQuantity = response.data.shoppingcart.products.reduce((acc, item) => acc + item.quantity, 0);
-                setShoppingCartQuantity(totalQuantity);
-            }
-        } catch (error) {
-            console.error('Error fetching shopping cart:', error);
-        }
-    };
+    // const fetchShoppingCartQuantity = async (userId) => {
+    //     try {
+    //         const response = await ShoppingCartAPI.GetShoppingCart();
+    //         if (response.data.success) {
+    //             const totalQuantity = response.data.shoppingcart.products.reduce((acc, item) => acc + item.quantity, 0);
+    //             setShoppingCartQuantity(totalQuantity);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error fetching shopping cart:', error);
+    //     }
+    // };
 
     const token = localStorage.getItem('token');
 

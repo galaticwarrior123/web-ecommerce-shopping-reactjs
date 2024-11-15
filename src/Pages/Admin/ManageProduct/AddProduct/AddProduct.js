@@ -89,7 +89,7 @@ const AddProduct = ({handleCloseAddProduct}) => {
                                 <label htmlFor="description" className="form-label">Mô tả</label>
                                 <textarea className="form-control" id="description" rows="3" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary" onClick={handleSubmit}>Thêm sản phẩm</button>
+                            <button type="button" className="btn btn-primary" onClick={handleSubmit}>Thêm sản phẩm</button>
                         </form>
                     </div>
                 </div>

@@ -29,6 +29,7 @@ import ManageOrder from './Pages/Admin/ManageOrder/ManageOrder';
 import RequireAuth from './Utils/RequireAuth';
 import ManageCustomer from './Pages/Admin/ManageCustomer/ManageCustomer';
 import ProfileUser from './Pages/Users/ProfileUser/ProfileUser';
+import { CartProvider } from './context/CartContext';
 
 const ROLES = {
   'ADMIN': 'ADMIN',
@@ -41,54 +42,44 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <CartProvider>
+          <Routes>
+            {/* ******************** USER ******************** */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/verify" element={<Verify />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
 
-        {/* ******************** USER ******************** */}
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/verify" element={<Verify />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/verifyOTP-forgot-password" element={<VerifyOTP />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          {/* <Route path="/homepage_members" element={<HomePage_Members />} />
-          <Route path="/homepage_commonusers" element={<HomePage_CommonUsers />} /> */}
-        </Routes>
+            {/* Common user routes */}
+            <Route path="/" element={<HomePage_CommonUsers />} />
+            <Route path="/product" element={<ProductPage />} />
+            <Route path="/product/:productId" element={<ProductDetail />} />
+            <Route path="/sub" element={<SubHeader />} />
+            <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat />} />
+            <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat />} />
+            <Route path="/product_cart2" element={<ProductCard_2 />} />
+            <Route path="/shopping-cart" element={<ShoppingCartPage />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/order" element={<OrderPage />} />
+            <Route path="/purchased-products" element={<PurchasedProducts />} />
+            <Route path="/profile" element={<ProfileUser />} />
+            <Route path="/wishlist" element={<Wishlist />} />
 
-        <Routes>
-          <Route path="/" element={<HomePage_CommonUsers />} />
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/product/:productId" element={<ProductDetail />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/sub" element={<SubHeader />} />
-          <Route path="/top10_banchaynhat" element={<Top10_BanChayNhat />} />
-          <Route path="/top10_xemnhieunhat" element={<Top10_XemNhieuNhatNhat />} />
-          <Route path="/product_cart2" element={<ProductCard_2 />} />
-          <Route path="/shopping-cart" element={<ShoppingCartPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/order" element={<OrderPage />} />
-          <Route path="/purchased-products" element={<PurchasedProducts />} />
-          <Route path="/profile" element={<ProfileUser />} />
-        </Routes>
-
-        <Routes>
-          <Route path="/wishlist" element={<Wishlist />} />
-        </Routes>
-        
-        {/* ******************** ADMIN ******************** */}
-        <Routes>
-          <Route path="/admin" element={<RequireAuth allowedRoles={[ROLES.ADMIN,ROLES.USER]} />}>
-            <Route index element={<ManageCategory />} /> {/* Default route for /admin */}
-            <Route path="manager-category" element={<ManageCategory />} />
-            <Route path="manager-product" element={<ManageProduct />} />
-            <Route path="manager-sale-product" element={<SaleProduct />} />
-            <Route path="manager-orders" element={<ManageOrder />} />
-            <Route path="manager-customer" element={<ManageCustomer />} />
-          </Route>
-        </Routes>
-
+            {/* ******************** ADMIN ******************** */}
+            <Route path="/admin" element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.USER]} />}>
+              <Route index element={<ManageCategory />} /> {/* Default route for /admin */}
+              <Route path="manager-category" element={<ManageCategory />} />
+              <Route path="manager-product" element={<ManageProduct />} />
+              <Route path="manager-sale-product" element={<SaleProduct />} />
+              <Route path="manager-orders" element={<ManageOrder />} />
+              <Route path="manager-customer" element={<ManageCustomer />} />
+            </Route>
+          </Routes>
+        </CartProvider>
       </BrowserRouter>
+
       <ToastContainer
         position="top-right"
         autoClose={3000}
@@ -101,7 +92,7 @@ function App() {
         pauseOnHover
       />
     </>
-  )
+  );
 }
 
 export default App;

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import OrderAPI from '../../../API/OrderAPI';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useCart } from '../../../context/CartContext';
 
 
 const CartPage = () => {
@@ -16,7 +17,7 @@ const CartPage = () => {
     const cartID = location.state?.shoppingCartId || '';
     const [cartItems, setCartItems] = useState(cart);
     const [totalAmount, setTotalAmount] = useState(0);
-
+    const { fetchShoppingCartQuantity } = useCart();
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
@@ -88,6 +89,7 @@ const CartPage = () => {
         OrderAPI.CreateOrder(data).then((response) => {
             if (response.data && response.data.DT) {
                 toast.success('Đặt hàng thành công');
+                fetchShoppingCartQuantity();
                 navigate('/order');
             } else {
                 toast.error('Đặt hàng thất bại');
