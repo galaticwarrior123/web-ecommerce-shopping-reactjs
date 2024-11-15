@@ -137,7 +137,7 @@ const ProfileUser = () => {
                             </div>
 
                             <div className="form-group mb-3">
-                                <label className="form-label">Gender</label>
+                                <label className="form-label">Giới tính</label>
                                 <div>
                                     <input 
                                         type="radio" 

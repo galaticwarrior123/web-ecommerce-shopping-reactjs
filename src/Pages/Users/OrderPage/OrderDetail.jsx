@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import CheckoutItem from "../Checkout/CheckoutItem";
-import OrderAPI from "../../../api/OrderAPI";
+import OrderAPI from "../../../API/OrderAPI";
 import { useEffect, useState } from "react";
 import { MdArrowBackIos } from "react-icons/md";
 

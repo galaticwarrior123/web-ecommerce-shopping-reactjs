@@ -186,3 +186,17 @@
     .ml-auto.d-flex.align-items-center.position-relative.navbar-nav {
         padding-left: 50px;
     }
+
+
+    .search-result::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .search-result::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .search-result::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }

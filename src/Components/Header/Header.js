@@ -1,22 +1,44 @@
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
-import ShoppingCartAPI from '../../API/ShoppingCartAPI'
-import WishlistAPI from '../../API/WishlistAPI'
+import { Navbar, Nav } from 'react-bootstrap';
+import { useEffect, useState, useRef } from 'react';
+import ShoppingCartAPI from '../../API/ShoppingCartAPI';
+import ProductAPI from '../../API/ProductAPI';
 
 const Header = () => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState(null);
     const [userId, setUserId] = useState(null);
     const [shoppingCartQuantity, setShoppingCartQuantity] = useState(0);
-    const [user, setUser] = useState(null); 
+    const [user, setUser] = useState(null);
+    const [listProduct, setListProduct] = useState([]);
+    const [filteredProducts, setFilteredProducts] = useState([]);
+    const [search, setSearch] = useState("");
+    const [showResults, setShowResults] = useState(false);
+    const searchRef = useRef(null);
+    const resultRef = useRef(null);
 
-    useEffect (() =>{
-        const storedUser  = localStorage.getItem('user');
-        if(storedUser){
+    useEffect(() => {
+        fetchProduct();
+    }, []);
+
+    const fetchProduct = async () => {
+        try {
+            const response = await ProductAPI.getAllProducts();
+            if (response.data?.DT?.products) {
+                setListProduct(response.data.DT.products);
+                setFilteredProducts(response.data.DT.products); // Khởi tạo danh sách sản phẩm hiển thị
+            }
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
             const user = JSON.parse(storedUser);
             setUserName(user.username);
             setUserId(user._id);
@@ -25,41 +47,55 @@ const Header = () => {
         }
     }, []);
 
-    const handleLogin = () => {
-        navigate('/login');
-    }
+    const handleSearch = (event) => {
+        const keyword = event.target.value;
+        setSearch(keyword);
 
-    const handleRegister = () => {
-        navigate('/register');
-    }
+        const filtered = listProduct.filter(product =>
+            product.productName.toLowerCase().includes(keyword.toLowerCase())
+        );
+        setFilteredProducts(filtered);
+    };
 
+    const handleClickOutside = (event) => {
+        // Nếu click không phải trong ô tìm kiếm hoặc khung kết quả thì ẩn khung kết quả
+        if (searchRef.current && !searchRef.current.contains(event.target) &&
+            resultRef.current && !resultRef.current.contains(event.target)) {
+            setShowResults(false);
+        }
+    };
+
+    useEffect(() => {
+        // Lắng nghe sự kiện khi click bên ngoài
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    const handleFocus = () => setShowResults(true);
+
+    const handleLogin = () => navigate('/login');
+    const handleRegister = () => navigate('/register');
     const handleLogout = () => {
         navigate('/');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
-    }
+    };
 
-    const handleShoppingCartClick = () =>{
-        if (userId) {
-            navigate(`/shopping-cart`);
-        } else {
-            // Nếu chưa đăng nhập thì điều hướng tới trang login
-            navigate('/login');
-        }
-    }
+    const handleShoppingCartClick = () => {
+        if (userId) navigate(`/shopping-cart`);
+        else navigate('/login');
+    };
 
-    const handleWishlistClick = () =>{
-        if (userId) {
-            navigate(`/wishlist`);
-        } else {
-            // Nếu chưa đăng nhập thì điều hướng tới trang login
-            navigate('/login');
-        }
-    }
+    const handleWishlistClick = () => {
+        if (userId) navigate(`/wishlist`);
+        else navigate('/login');
+    };
 
     const fetchShoppingCartQuantity = async (userId) => {
         try {
-            const response = await ShoppingCartAPI.GetShoppingCart(); 
+            const response = await ShoppingCartAPI.GetShoppingCart();
             if (response.data.success) {
                 const totalQuantity = response.data.shoppingcart.products.reduce((acc, item) => acc + item.quantity, 0);
                 setShoppingCartQuantity(totalQuantity);
@@ -68,7 +104,7 @@ const Header = () => {
             console.error('Error fetching shopping cart:', error);
         }
     };
-    
+
     const token = localStorage.getItem('token');
 
     return (
@@ -76,20 +112,67 @@ const Header = () => {
             <Navbar>
                 {/* Logo */}
                 <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center flex-column" onClick={() => navigate('/')}>
-                    <img
-                        src='/Images/logo-fruite.png'
-                        alt="Logo"
-                        
-                    />
+                    <img src='/Images/logo-fruite.png' alt="Logo" />
                     <span>CLEAN AND FRESH FRUIT</span>
                 </Navbar.Brand>
 
                 {/* Search */}
-                <div className="input-group">
-                    <input type="text" className="form-control search-text" id="password" placeholder="Tìm kiếm..." />
-                    <button type="button" className="btn btn-outline-first bg-white button-click-search" >
+                <div className="input-group position-relative" ref={searchRef}>
+                    <input
+                        type="text"
+                        className="form-control search-text"
+                        placeholder="Tìm kiếm..."
+                        value={search}
+                        onChange={handleSearch}
+                        onFocus={handleFocus}
+                    />
+                    <button type="button" className="btn btn-outline-first bg-white button-click-search">
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
+                    {showResults && (
+                        <div
+                            className="p-3 mt-5 bg-light rounded shadow-sm position-absolute w-100 search-result"
+                            style={{ height: 200, overflowY: 'auto' }}
+                            ref={resultRef} // Thêm ref để kiểm tra vị trí click
+                        >
+                            {filteredProducts.map((product) => (
+                                <div
+                                    key={product._id}
+                                    className="d-flex align-items-center border-bottom border-2 p-2"
+                                    onClick={() => navigate(`/product/${product._id}`)}
+                                >
+                                    <img
+                                        src={product.images[0] || "https://via.placeholder.com/150"}
+                                        alt="product"
+                                        style={{ width: "60px", height: "60px" }}
+                                        className="ms-1"
+                                    />
+                                    <div className="ms-3">
+                                        <p className="fw-bold mb-0">{product.productName}</p>
+                                        <div className="d-flex flex-column">
+                                            {product.sale_price !== 0 ? (
+                                                <>
+                                                    <div className="d-flex  flex-column">
+                                                        <p className="text-danger fw-bold mb-0 me-2">
+                                                            Giá bán: {product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                                        </p>
+                                                        <p className="text-muted text-decoration-line-through mb-0">
+                                                            Giá gốc: {product.origin_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                                        </p>
+                                                    </div>
+                                                    
+                                                </>
+                                            ) : (
+                                                <p className="text-dark fw-bold mb-0">
+                                                    Giá bán: {product.origin_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                                </p>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* User and Cart icons */}
@@ -99,7 +182,7 @@ const Header = () => {
                             <Nav className="d-flex">
                                 <div className="user-circle d-flex flex-column align-items-left justify-content-center">
                                     <img
-                                        src={ user?.avatar ? user.avatar : './Images/icon-avatar.png'}
+                                        src={user?.avatar ? user.avatar : './Images/icon-avatar.png'}
                                         alt="Avatar"
                                     // className="user-circle"
                                     />
@@ -126,7 +209,7 @@ const Header = () => {
                                         <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
                                     </div>
                                     <div className="logout" onClick={handleLogout}>
-                                        <span><FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogout}/> Đăng xuất</span>
+                                        <span><FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogout} /> Đăng xuất</span>
                                     </div>
                                 </div>
                             </div>
