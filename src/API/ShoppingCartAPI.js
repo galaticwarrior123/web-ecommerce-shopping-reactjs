@@ -3,7 +3,7 @@ import axiosClient, { axiosPrivate } from "./AxiosClient";
 class ShoppingCartAPI {
   static async GetShoppingCart() {
     const url = '/shopping-cart';
-    console.log(`Making GET request to: ${url}`);
+    //console.log(`Making GET request to: ${url}`);
     return axiosPrivate.get(url);
   }
 

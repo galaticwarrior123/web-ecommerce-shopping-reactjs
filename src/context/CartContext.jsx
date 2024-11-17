@@ -30,12 +30,13 @@ export const CartProvider = ({ children }) => {
         }
     };
 
+
     // Only fetch shopping cart quantity if not on login or register pages
     useEffect(() => {
         if (user && !loading && !listPathName.includes(location.pathname)) {
             fetchShoppingCartQuantity();
         }
-    }, []);
+    }, [user, location, loading]);
 
     return (
         <CartContext.Provider value={{ shoppingCartQuantity, fetchShoppingCartQuantity }}>

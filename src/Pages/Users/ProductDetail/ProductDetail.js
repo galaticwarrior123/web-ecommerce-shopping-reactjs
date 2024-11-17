@@ -100,20 +100,20 @@ const ProductDetail = () => {
                         {product.sale_price ? (
                             <>
                                 <p className="product-price fw-bold text-danger text-decoration-line-through">
-                                    Giá bán: {product.origin_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}đ
+                                    Giá bán: {product.origin_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
                                 </p>
                                 <p className="product-price fw-bold">
-                                    Giá khuyến mãi: {product.sale_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}đ
+                                    Giá khuyến mãi: {product.sale_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
                                 </p>
                             </>
                         ) : (
                             <p className="product-price fw-bold">
-                                Giá bán: {product.origin_price}đ
+                                Giá bán: {product.origin_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ
                             </p>
                         )}
-                        <div className="d-flex "><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2">{product.category?.name}</span></div>
-                        <div className="d-flex "><p className="product-origin fw-bold">Xuất xứ:</p> <span className="ml-2">Việt Nam</span></div>
-                        <div className="d-flex "><p className="product-supplier fw-bold">Nhà cung cấp:</p><span className="ml-2">Cửa hàng trái cây sạch</span></div>
+                        <div className="d-flex "><p className="product-category fw-bold">Danh mục: </p> <span className="ml-2 mb-1 d-flex align-items-center">{product.category?.name}</span></div>
+                        <div className="d-flex "><p className="product-origin fw-bold">Xuất xứ:</p> <span className="ml-2 mb-1 d-flex align-items-center">{product.origin}</span></div>
+                        <div className="d-flex "><p className="product-supplier fw-bold">Nhà cung cấp:</p><span className="ml-2 mb-1 d-flex align-items-center">{product.supplier}</span></div>
                         <div className="d-flex "><p className="product-in-stock fw-bold">Trạng thái: {product.quantity > 0 ? 'Còn ' + product.quantity + ' sản phẩm còn trong kho' : 'Hết hàng'}</p></div>
                         <div className="d-flex "><p className="product-description m-0"><span className="fw-bold">Mô tả:</span> <span className="ml-2">
                             {product.description ? product.description : 'Không có mô tả'}
@@ -156,11 +156,11 @@ const ProductDetail = () => {
                                     <p className="card-text-similar-product" style={{ fontSize: '1.2rem' }}>
                                         {similarProduct.sale_price ? (
                                             <>
-                                                <span className="text-decoration-line-through">Giá bán: {similarProduct.origin_price}đ</span>
-                                                <span className="text-danger ms-2">Giá khuyến mãi: {similarProduct.sale_price}đ</span>
+                                                <span className="text-decoration-line-through">Giá bán: {similarProduct.origin_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
+                                                <span className="text-danger">Giá khuyến mãi: {similarProduct.sale_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
                                             </>
                                         ) : (
-                                            <span>Giá bán: {similarProduct.origin_price}đ</span>
+                                            <span>Giá bán: {similarProduct.origin_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
                                         )}
                                     </p>
                                 </div>

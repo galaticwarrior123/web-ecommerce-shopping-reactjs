@@ -12,6 +12,8 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
     const [category, setCategory] = useState(product.category);
     const [description, setDescription] = useState(product.description);
     const [categories, setCategories] = useState([]);
+    const [origin, setOrigin] = useState(product.origin);
+    const [supplier, setSupplier] = useState(product.supplier);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -78,6 +80,14 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                             <div className="mb-3">
                                 <label htmlFor="price" className="form-label">Giá bán</label>
                                 <input type="text" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="origin" className="form-label">Xuất xứ</label>
+                                <input type="text" className="form-control" id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="price" className="form-label">Nhà cung cấp</label>
+                                <input type="text" className="form-control" id="price" value={supplier} onChange={(e) => setSupplier(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="quantity" className="form-label">Số lượng</label>

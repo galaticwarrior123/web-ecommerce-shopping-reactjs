@@ -21,3 +21,7 @@
 .mb-2 {
     margin-bottom: 0.5rem;
 }
+
+.input-product{
+   padding: 0 5px !important;
+}

@@ -20,7 +20,7 @@ axiosPrivate.interceptors.request.use(async (config) => {
     if (token) {
         //config.headers.Authorization = `Bearer ${token}`;
         config.headers['Authorization'] = `Bearer ${token}`;
-        console.log("Authorization Header set:", config.headers['Authorization']); // Log token
+        // console.log("Authorization Header set:", config.headers['Authorization']); // Log token
     }
     return config;
 });

@@ -10,6 +10,8 @@ const AddProduct = ({handleCloseAddProduct}) => {
     const [image, setImage] = useState([]);
     const [category, setCategory] = useState("");   
     const [description, setDescription] = useState("");
+    const [origin, setOrigin] = useState("");
+    const [supplier, setSupplier] = useState("");
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -32,6 +34,8 @@ const AddProduct = ({handleCloseAddProduct}) => {
         data.append("quantity", quantity);
         data.append("category", category);
         data.append("description", description);
+        data.append("origin", origin);
+        data.append("supplier", supplier);
         for (let i = 0; i < image.length; i++) {
             console.log(image[i]);
             data.append("images", image[i]);
@@ -62,16 +66,25 @@ const AddProduct = ({handleCloseAddProduct}) => {
                         <form>
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">Tên sản phẩm</label>
-                                <input type="text" className="form-control" id="name" value={productName} onChange={(e) => setProductName(e.target.value)} />
+                                <input type="text" className="form-control " id="name" value={productName} onChange={(e) => setProductName(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="price" className="form-label">Giá bán</label>
                                 <input type="text" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
                             </div>
                             <div className="mb-3">
+                                <label htmlFor="origin" className='form-label'>Xuất xứ</label>
+                                <input type="text" className="form-control" id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="supplier" className="form-label">Nhà cung cấp</label>
+                                <input type="text" className="form-control" id="supplier" value={supplier} onChange={(e) => setSupplier(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
                                 <label htmlFor="price" className="form-label">Số lượng</label>
                                 <input type="number" className="form-control" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                             </div>
+                            
                             <div className="mb-3">
                                 <label htmlFor="image" className="form-label">Hình ảnh</label>
                                 <input type="file" className="form-control" id="image" multiple onChange={(e) => setImage(e.target.files)} />
