@@ -30,6 +30,7 @@ import RequireAuth from './Utils/RequireAuth';
 import ManageCustomer from './Pages/Admin/ManageCustomer/ManageCustomer';
 import ProfileUser from './Pages/Users/ProfileUser/ProfileUser';
 import { CartProvider } from './context/CartContext';
+import Report from './Pages/Admin/Report/Report';
 
 const ROLES = {
   'ADMIN': 'ADMIN',
@@ -75,6 +76,7 @@ function App() {
               <Route path="manager-sale-product" element={<SaleProduct />} />
               <Route path="manager-orders" element={<ManageOrder />} />
               <Route path="manager-customer" element={<ManageCustomer />} />
+              <Route path="report" element={<Report />} />
             </Route>
           </Routes>
         </CartProvider>
