@@ -3,7 +3,6 @@ import { Button, Modal } from "react-bootstrap";
 import OrderViewItem from "./OrderViewItem";
 
 const ModalViewOrder = ({ show, setShowView, order }) => {
-  console.log(order);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -21,7 +20,7 @@ const ModalViewOrder = ({ show, setShowView, order }) => {
       setName(order.name);
       setPhone(order.phone);
       setAddress(order.address);
-      setProducts(order.products);
+      setProducts(order.shoppingCart?.products);
       setTotalAmount(order.totalAmount);
       setPaymentMethod(order.paymentMethod);
       setDiscountCode(order.discountCode);

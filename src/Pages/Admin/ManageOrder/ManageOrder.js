@@ -10,6 +10,22 @@ const ManageOrder = () => {
   const [showViewOrder, setShowViewOrder] = useState(false);
   const [order, setOrder] = useState({});
 
+  useEffect(() => {
+    fetchDataOrders();
+  }, [page]);
+
+  const fetchDataOrders = async () => {
+    try {
+      const res = await OrderAPI.GetOrderByAdmin({ page });
+      if (res.status === 200) {
+        setOrders(res.data.DT.orders);
+        setTotalPages(res.data.DT.totalPages);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleViewOrder = (order) => {
     setOrder(order);
     setShowViewOrder(true);
@@ -29,22 +45,6 @@ const ManageOrder = () => {
     }
   };
 
-  const fetchDataOrders = async () => {
-    try {
-      const res = await OrderAPI.GetOrderByAdmin({ page });
-      if (res.status === 200) {
-        setOrders(res.data.DT.orders);
-        console.log(res.data.DT.orders);
-        setTotalPages(res.data.DT.totalPages);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchDataOrders();
-  }, [page]);
   return (
     <DefaultLayoutAdmin>
       <OrderTable
