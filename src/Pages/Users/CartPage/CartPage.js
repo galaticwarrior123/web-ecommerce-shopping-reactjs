@@ -244,7 +244,7 @@ const CartPage = () => {
                                         Thanh toán khi nhận hàng
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100" onClick={handleOrder}>Đặt hàng</button>
+                                <button className="btn btn-primary w-100" onClick={handleOrder} id='btn-order'>Đặt hàng</button>
                             </div>
                         </div>
                     </div>

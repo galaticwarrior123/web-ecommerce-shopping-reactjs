@@ -14,6 +14,24 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
     const [categories, setCategories] = useState([]);
     const [origin, setOrigin] = useState(product.origin);
     const [supplier, setSupplier] = useState(product.supplier);
+    const [national, setNational] = useState([]);
+    const [selectedNational, setSelectedNational] = useState(product.origin);
+
+    useEffect(() => {
+        const fetchNational = async () => {
+            try {
+                fetch('https://restcountries.com/v3.1/all')
+                    .then(response => response.json())
+                    .then(data => {
+                        setNational(data);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchNational();
+    }, []);
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -36,6 +54,8 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
         data.append("quantity", quantity);
         data.append("category", category);
         data.append("description", description);
+        data.append("origin", selectedNational);
+        data.append("supplier", supplier);
         for (let i = 0; i < newImages.length; i++) {
             data.append("images", newImages[i]);
         }
@@ -81,13 +101,22 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                                 <label htmlFor="price" className="form-label">Giá bán</label>
                                 <input type="text" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
                             </div>
-                            <div className="mb-3">
+                            {/* <div className="mb-3">
                                 <label htmlFor="origin" className="form-label">Xuất xứ</label>
                                 <input type="text" className="form-control" id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} />
+                            </div> */}
+                            <div className="mb-3">
+                                <label htmlFor="national" className="form-label">Xuất xứ</label>
+                                <select className="form-control" id="national" value={selectedNational} onChange={(e) => setSelectedNational(e.target.value)}>
+                                    <option value="">Chọn quốc gia</option>
+                                    {national.map((nation, idx) => (
+                                        <option key={idx} value={nation.name.common}>{nation.name.common}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="price" className="form-label">Nhà cung cấp</label>
-                                <input type="text" className="form-control" id="price" value={supplier} onChange={(e) => setSupplier(e.target.value)} />
+                                <label htmlFor="supplier" className="form-label">Nhà cung cấp</label>
+                                <input type="text" className="form-control" id="supplier" value={supplier} onChange={(e) => setSupplier(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="quantity" className="form-label">Số lượng</label>
