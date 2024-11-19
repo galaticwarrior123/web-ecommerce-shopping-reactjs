@@ -1,6 +1,6 @@
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faUser, faFileInvoiceDollar, faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faMoneyBill, faFileInvoiceDollar, faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { useEffect, useState, useRef } from 'react';
@@ -211,6 +211,9 @@ const Header = () => {
                                     </div>
                                     <div className="favourite-products" onClick={handleWishlistClick}>
                                         <span><FontAwesomeIcon icon={faHeart} /> Sản phẩm yêu thích</span>
+                                    </div>
+                                    <div className="favourite-products" onClick={() => navigate(`/purchased-products`)}>
+                                        <span><FontAwesomeIcon icon={faMoneyBill} /> Đánh giá sản phẩm</span>
                                     </div>
                                     <div className="logout" onClick={handleLogout}>
                                         <span><FontAwesomeIcon icon={faRightFromBracket} onClick={handleLogout} /> Đăng xuất</span>
