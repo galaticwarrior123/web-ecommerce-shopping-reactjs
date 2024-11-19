@@ -14,7 +14,7 @@ const PurchasedProductItem = ({ product, handleShowReviewModal }) => {
         <p className="fw-bold mb-0 ms-3">{product.productName}</p>{" "}
       </div>
 
-      <p className="mb-0">Phân loại: Size {product.size}</p>
+      <p className="mb-0">Phân loại: {product.category.name}</p>
       <button
         className="btn btn-primary"
         onClick={() => handleShowReviewModal(product)}

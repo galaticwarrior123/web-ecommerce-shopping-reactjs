@@ -1,5 +1,4 @@
 const OrderViewItem = ({ item }) => {
-    console.log(item);
     return (
         <div
             className="shadow border w-100 border-primary mb-2 border-2 p-2 d-flex align-items-center justify-content-between"
@@ -15,12 +14,14 @@ const OrderViewItem = ({ item }) => {
                 <p className="fw-bold mb-0 ms-3">{item.product.productName}</p>{" "}
             </div>
 
-            <p className="mb-0">Phân loại: Size {item.product.size}</p>
+            <p className="mb-0">Phân loại: {item.product.category.name}</p>
 
             <div className="d-flex flex-row gap-5 align-items-center pe-5">
-                <p className="mb-0">{item.product.price}</p>
-                <p className="mb-0">{item.quantity}</p>
-                <p className="mb-0">{item.product.price * item.quantity}</p>
+                <p className="mb-0">Đơn giá: {item.product.sale_price}</p>
+                <p className="mb-0">SL: {item.quantity}</p>
+                <p className="mb-0">
+                    Thành tiền: {item.product.sale_price * item.quantity} đ
+                </p>
             </div>
         </div>
     );

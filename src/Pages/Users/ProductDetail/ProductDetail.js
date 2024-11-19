@@ -11,12 +11,15 @@ import ShoppingCartAPI from '../../../API/ShoppingCartAPI';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCart } from '../../../context/CartContext';
+import ReviewAPI from '../../../API/ReviewAPI';
+import Review from '../ReviewPage/Review';
 const ProductDetail = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const [isUser, setIsUser] = useState(false);
     const location = useLocation();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
+    const [reviews, setReviews] = useState([]);
     const [similarProducts, setSimilarProducts] = useState([]);
     const product_id = location.pathname.split('/').pop();
     const { fetchShoppingCartQuantity } = useCart();
@@ -75,14 +78,25 @@ const ProductDetail = () => {
             }
         };
 
+        const fetchReviews = async () => {
+            try {
+                const response = await ReviewAPI.GetReviewByProduct(product_id);
+                setReviews(response.data.DT);
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+            }
+        };
+        fetchReviews();
         increaseViewCount();
         fetchProduct();
         fetchSimilarProducts();
     }, [product_id]);
 
+
+
     return (
         <DefaultLayoutUserHomePage>
-            
+
             <div className="detail-product bg-white mt-5 p-4">
                 <div className="row w-100 h-100">
                     <div className="col-md-6" style={{ zIndex: 0 }} >
@@ -130,18 +144,25 @@ const ProductDetail = () => {
 
                         {user ? (
                             <div className="button-group mt-4">
-                            <button className="btn btn-primary me-2" onClick={handleAddToCart} id="btn-addProductToCart">
-                                <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
-                            </button>
-                            <button className="btn btn-outline-danger me-2">
-                                <FontAwesomeIcon icon={faHeart} /> Yêu thích
-                            </button>
-                        </div>) : (
+                                <button className="btn btn-primary me-2" onClick={handleAddToCart} id="btn-addProductToCart">
+                                    <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
+                                </button>
+                                <button className="btn btn-outline-danger me-2">
+                                    <FontAwesomeIcon icon={faHeart} /> Yêu thích
+                                </button>
+                            </div>) : (
                             <span className="text-danger mt-3">Đăng nhập để thêm sản phẩm vào giỏ hàng</span>
                         )}
                     </div>
                 </div>
             </div>
+
+            {/* Reviews Section */}
+            <h3>Đánh giá sản phẩm</h3>
+            {reviews.length === 0 && <h4>Chưa có đánh giá nào</h4>}
+            {reviews.length > 0 && <h4>Số lượng đánh giá: ({reviews.length})</h4>}
+            {reviews.length > 0 && <Review reviews={reviews} />}
+
 
             {/* Similar Products Section */}
             <div className="similar-products mt-5">
@@ -170,6 +191,8 @@ const ProductDetail = () => {
                     }
                 </div>
             </div>
+
+
         </DefaultLayoutUserHomePage>
     );
 }

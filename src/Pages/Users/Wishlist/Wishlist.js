@@ -13,6 +13,8 @@ const Wishlist = () => {
     const [wishlistId, setWishlistId] = useState(null);
     const [wishlistItemCreatedAt, setWishlistItemCreatedAt] = useState(null);
 
+    const totalItems = wishlistItems.length;
+
     const handleRemoveFromWishlist = async (itemId) => {
         try {
             const response = await WishlistAPI.DeleteProduct(wishlistId, String(itemId));
@@ -38,8 +40,15 @@ const Wishlist = () => {
                     const products = data.data.wishlist.products || [];
                     console.log("Wishlist: ", data);
                     setWishlistItems(products);
+
+                    const createdAtDates = products.map((item) =>
+                        item.createdAt ? item.createdAt.split('T')[0] : "No date available"
+                    );
+                    console.log("Created At Dates: ", createdAtDates);
+                    
+                    setWishlistItemCreatedAt(createdAtDates);
                     setWishlistId(data.data.wishlist._id); // Lưu _id của giỏ hàng
-                    setWishlistItemCreatedAt(data.data.wishlist.createdAt.split('T')[0]);
+                    //setWishlistItemCreatedAt(data.data.wishlist.products.createdAt.split('T')[0]);
                     setWishlistItems(data.data.wishlist.products); // Giả sử products chứa danh sách sản phẩm
                 }
             } catch (error) {
@@ -56,7 +65,7 @@ const Wishlist = () => {
             <div class="wishListContainer">
                 <div className="row">
                     <div className="col-12 text-center">
-                        <h3 className="mt-4" style={{ color: 'black' }}>DANH SÁCH SẢN PHẨM YÊU THÍCH <span className="text-muted">(<span>SL</span> sản phẩm)</span></h3>
+                        <h3 className="mt-4" style={{ color: 'black' }}>DANH SÁCH SẢN PHẨM YÊU THÍCH <span className="text-muted">(<span>{totalItems}</span> sản phẩm)</span></h3>
                     </div>
                 </div>
                 {wishlistItems.length === 0 ? (
@@ -87,7 +96,7 @@ const Wishlist = () => {
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>{wishlistItemCreatedAt || 'YYYY/MM/DD'}</td>
+                                            <td>{item.createdAt ? item.createdAt.split('T')[0] : "No date available"}</td>
 
                                             <td className="status" style={{ color: item.product.quantity > 0 ? 'green' : 'red' }}>
                                                 <i>
