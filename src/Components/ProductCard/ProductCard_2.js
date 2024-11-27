@@ -141,6 +141,15 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         }
     }
 
+    const formatDate = (isoDate) => {
+        const date = new Date(isoDate);
+        const day = date.getDate().toString().padStart(2, '0'); // Lấy ngày
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Lấy tháng (0-indexed)
+        const year = date.getFullYear(); // Lấy năm
+
+        return `${day}-${month}-${year}`; // Định dạng dd-MM-yyyy
+    };
+
     return (
         <>
             <div className='card product-card' id={`product${product._id}`} key={product._id}>
@@ -167,20 +176,42 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                     <div className="card-text">
                         <p>{product.productName}</p>
                     </div>
-                    <p className="price">
-                        <div><del>{product.origin_price}</del></div>
-                        <div><span className="discounted-price">{product.sale_price} VND</span></div>
+                    <p className="price ">
+                        {product.sale_price ? (
+                            <>
+                                <div><del>{product.origin_price.toLocaleString()}đ</del></div>
+                                <div><span className="discounted-price">{product.sale_price.toLocaleString()}đ</span></div>
+                            </>
+                        ) : (
+                            <span className="origin-price">{product.origin_price.toLocaleString()}đ</span>
+                        )}
                     </p>
 
                     {location.pathname === '/admin/manager-product' ? (
-                        <div className="d-flex justify-content-center">
-                            <button className="btn btn-outline-warning me-2" aria-label="Edit Product" onClick={() => onClickUpdateProduct(product._id)} >
-                                <FontAwesomeIcon icon={faEdit} />
-                            </button>
-                            <button className="btn btn-outline-danger" aria-label="Delete Product" onClick={() => handleDeleteProduct(product._id)} >
-                                <FontAwesomeIcon icon={faTrash} />
-                            </button>
-                        </div>
+                        <>
+                            <div>
+                                {product.quantity > 0 ? (
+                                    <p className="card-text mb-2">Số lượng: {product.quantity} sản phẩm</p>
+                                ) : (
+                                    <p className="card-text mb-2 text-danger">Hết hàng</p>
+                                )}
+
+                            </div>
+
+                            <div className="d-flex ">
+                                <p className="card-text mb-2">Hạn sử dụng: {formatDate(product.expired)}</p>
+                            </div>
+
+                            <div className="d-flex justify-content-center">
+                                <button className="btn btn-outline-warning me-2" aria-label="Edit Product" onClick={() => onClickUpdateProduct(product._id)} >
+                                    <FontAwesomeIcon icon={faEdit} />
+                                </button>
+                                <button className="btn btn-outline-danger" aria-label="Delete Product" onClick={() => handleDeleteProduct(product._id)} >
+                                    <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                            </div>
+                        </>
+
                     ) : (
                         <div className="d-flex justify-content-end ms-auto icon-buttons">
                             <button

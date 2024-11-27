@@ -45,7 +45,7 @@ const Wishlist = () => {
                         item.createdAt ? item.createdAt.split('T')[0] : "No date available"
                     );
                     console.log("Created At Dates: ", createdAtDates);
-                    
+
                     setWishlistItemCreatedAt(createdAtDates);
                     setWishlistId(data.data.wishlist._id); // Lưu _id của giỏ hàng
                     //setWishlistItemCreatedAt(data.data.wishlist.products.createdAt.split('T')[0]);
@@ -106,8 +106,13 @@ const Wishlist = () => {
                                             </td>
 
                                             <td>
-                                                <span className="price">{item.product.sale_price || 'Default Sale Price'} VND</span>
-                                                <span className="old-price">{item.product.origin_price || 'Default Original Price'} VND</span>
+                                                {item.product.sale_price > 0 ? (
+                                                    <>
+                                                        <span className="price">{item.product.sale_price.toLocaleString() || 'Default Sale Price'} đ</span>
+                                                        <span className="old-price">{item.product.origin_price.toLocaleString() || 'Default Origin Price'} đ</span>
+                                                    </>) : (
+                                                    <span className="price">{item.product.origin_price.toLocaleString() || 'Default Origin Price'} đ</span>
+                                                )}
                                             </td>
                                             <td>
                                                 <a

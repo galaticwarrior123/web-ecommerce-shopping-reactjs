@@ -13,6 +13,7 @@ const AddProduct = ({handleCloseAddProduct}) => {
     const [origin, setOrigin] = useState("");
     const [supplier, setSupplier] = useState("");
     const [national, setNational] = useState([]);
+    const [expired, setExpired] = useState("");
     const [selectedNational, setSelectedNational] = useState("");
 
     useEffect(() => {
@@ -54,6 +55,7 @@ const AddProduct = ({handleCloseAddProduct}) => {
         data.append("description", description);
         data.append("origin", selectedNational);
         data.append("supplier", supplier);
+        data.append("expired", expired);
         for (let i = 0; i < image.length; i++) {
             console.log(image[i]);
             data.append("images", image[i]);
@@ -110,6 +112,13 @@ const AddProduct = ({handleCloseAddProduct}) => {
                                 <label htmlFor="price" className="form-label">Số lượng</label>
                                 <input type="number" className="form-control" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                             </div>
+
+
+                            <div className="mb-3">
+                                <label htmlFor="expired" className="form-label">Hạn sử dụng</label>
+                                <input type="date" className="form-control" id="expired" value={expired} onChange={(e) => setExpired(e.target.value)} />
+                            </div>
+
                             
                             <div className="mb-3">
                                 <label htmlFor="image" className="form-label">Hình ảnh</label>

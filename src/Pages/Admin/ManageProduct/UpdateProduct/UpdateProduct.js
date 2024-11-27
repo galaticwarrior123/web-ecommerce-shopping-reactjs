@@ -59,7 +59,8 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
         for (let i = 0; i < newImages.length; i++) {
             data.append("images", newImages[i]);
         }
-        data.append("images", images);
+        
+        
         try {
             const response = await ProductAPI.updateProduct(product._id, data);
             if (response.status === 200) {
@@ -92,7 +93,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                         <h1 className="text-center fw-bold fs-3">Cập nhật sản phẩm</h1>
                     </div>
                     <div className="col-12">
-                        <form action="" encType="multipart/form-data">
+                        <form  encType="multipart/form-data">
                             <div className="mb-3">
                                 <label htmlFor="productName" className="form-label">Tên sản phẩm</label>
                                 <input type="text" className="form-control" id="productName" value={productName} onChange={(e) => setProductName(e.target.value)} />
@@ -107,7 +108,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                             </div> */}
                             <div className="mb-3">
                                 <label htmlFor="national" className="form-label">Xuất xứ</label>
-                                <select className="form-control" id="national" value={selectedNational} onChange={(e) => setSelectedNational(e.target.value)}>
+                                <select className="form-control selection" id="national" value={selectedNational} onChange={(e) => setSelectedNational(e.target.value)}>
                                     <option value="">Chọn quốc gia</option>
                                     {national.map((nation, idx) => (
                                         <option key={idx} value={nation.name.common}>{nation.name.common}</option>
@@ -124,7 +125,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Danh mục</label>
-                                <select className="form-control" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+                                <select className="form-control selection" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                                     <option value="">Chọn danh mục</option>
                                     {categories.map((category, idx) => (
                                         <option key={idx} value={category._id}>{category.name}</option>

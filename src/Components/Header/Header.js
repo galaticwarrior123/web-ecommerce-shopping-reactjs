@@ -197,7 +197,7 @@ const Header = () => {
                                 </div>
                             </Nav>
 
-                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5 h-auto z-2">
+                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x custom-margin-left h-auto z-2">
 
                                 <div className="manage-info-customer">
                                     <div className="my-account">

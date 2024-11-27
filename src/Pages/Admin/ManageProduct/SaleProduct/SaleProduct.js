@@ -99,7 +99,7 @@ const SaleProduct = () => {
                     <div className="sale-product-grid">
                         {saleProducts.map((productPromotion, index) => (
                             <div key={index} className="sale-product-card">
-                                <img alt={productPromotion.product.productName} className="sale-product-image" />
+                                <img alt={productPromotion.product.productName} className="sale-product-image" src={productPromotion.product.images[0]} />
                                 <h2 className="sale-product-name">{productPromotion.product.productName}</h2>
                                 <p className="sale-product-origin-price">Giá gốc: {productPromotion.product.origin_price} đ</p>
                                 <p className="sale-product-sale-price">Giá khuyến mãi: {productPromotion.product.sale_price} đ</p>

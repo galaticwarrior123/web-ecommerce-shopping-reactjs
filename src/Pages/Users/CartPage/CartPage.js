@@ -44,6 +44,15 @@ const CartPage = () => {
     };
 
     useEffect(() => {
+        setSelectedAddress(listOrderUser[0]?.phone);
+        setName(listOrderUser[0]?.name);
+        setPhone(listOrderUser[0]?.phone);
+        setAddress(listOrderUser[0]?.address);
+
+            
+    }, [listOrderUser]);
+
+    useEffect(() => {
         const calculateTotal = () => {
             const total = cartItems.reduce((sum, item) => {
                 const price = item.product.sale_price ?? item.product.origin_price;
@@ -239,8 +248,8 @@ const CartPage = () => {
                                     </label>
                                 </div>
                                 <div className="form-check mb-3">
-                                    <input className="form-check-input" type="radio" name="payment" id="cod" />
-                                    <label className="form-check-label" htmlFor="cod" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                                    <input className="form-check-input" type="radio" name="payment" id="cod" checked={paymentMethod === 'COD'} />
+                                    <label className="form-check-label" htmlFor="cod" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} >
                                         Thanh toán khi nhận hàng
                                     </label>
                                 </div>
