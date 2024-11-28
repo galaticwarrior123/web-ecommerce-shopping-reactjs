@@ -12,7 +12,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
     const [category, setCategory] = useState(product.category);
     const [description, setDescription] = useState(product.description);
     const [categories, setCategories] = useState([]);
-    const [expired, setExpired] = useState(product.expired);
+    const [expired, setExpired] = useState(product.expired ? new Date(product.expired).toISOString().split('T')[0] : '');
     const [supplier, setSupplier] = useState(product.supplier);
     const [national, setNational] = useState([]);
     const [selectedNational, setSelectedNational] = useState(product.origin);
@@ -66,6 +66,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
             const response = await ProductAPI.updateProduct(product._id, data);
             if (response.status === 200) {
                 alert("Cập nhật sản phẩm thành công");
+                
                 handleCloseUpdateProduct();
             }
             else {

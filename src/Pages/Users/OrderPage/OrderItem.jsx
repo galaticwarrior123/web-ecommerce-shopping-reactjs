@@ -1,6 +1,7 @@
 import OrderProductItem from "./OrderProductItem";
 
 const OrderItem = ({ order, handleOnClickOrder }) => {
+
   return (
     <div
       className="bg-white w-100 border border-2 border-primary d-flex flex-column justify-content-center mb-2"
@@ -20,6 +21,7 @@ const OrderItem = ({ order, handleOnClickOrder }) => {
             key={product._id}
             product={product.product}
             quantity={product.quantity}
+            priceAtOrder={product.priceAtOrder}
           />
         ))}
       </div>

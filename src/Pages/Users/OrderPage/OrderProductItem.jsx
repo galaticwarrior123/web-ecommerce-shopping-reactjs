@@ -1,4 +1,4 @@
-const OrderProductItem = ({ product, quantity }) => {
+const OrderProductItem = ({ product, quantity, priceAtOrder }) => {
   return (
     <div
       className="w-100 mb-2 border-2 p-2 d-flex align-items-center justify-content-between"
@@ -19,7 +19,7 @@ const OrderProductItem = ({ product, quantity }) => {
       <div className="d-flex flex-row gap-5 align-items-center pe-5">
         <p className="mb-0">Số lượng: {quantity}</p>
         <p className="mb-0">
-          Thành tiền: {(product.sale_price * quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+          Thành tiền: {(priceAtOrder * quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
         </p>
       </div>
     </div>
