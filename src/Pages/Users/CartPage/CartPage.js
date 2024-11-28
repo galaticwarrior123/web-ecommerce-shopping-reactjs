@@ -81,7 +81,7 @@ const CartPage = () => {
 
     const handleOrder = () => {
         if (selectedAddress === 'shipDifferent' && (!name || !phone || !address)) {
-            alert('Vui lòng nhập đầy đủ thông tin giao hàng');
+            toast.error('Vui lòng nhập đầy đủ thông tin giao hàng');
             return;
         }
         const data = {
@@ -91,9 +91,11 @@ const CartPage = () => {
             phone: selectedAddress === 'shipDifferent' ? phone : phone,
             name: selectedAddress === 'shipDifferent' ? name : name,
             paymentMethod,
+            selectedProducts: cartItems.map((item) => ({
+                product: item.product._id,
+                quantity: item.quantity,
+            })),
         };
-
-        console.log('Data:', data);
 
         OrderAPI.CreateOrder(data).then((response) => {
             if (response.data && response.data.DT) {
