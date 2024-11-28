@@ -55,7 +55,7 @@ const CartPage = () => {
     useEffect(() => {
         const calculateTotal = () => {
             const total = cartItems.reduce((sum, item) => {
-                const price = item.product.sale_price ?? item.product.origin_price;
+                const price = item.product.sale_price !== 0 ? item.product.sale_price : item.product.origin_price;
                 return sum + (price * item.quantity);
             }, 0);
             setTotalAmount(total);
@@ -123,7 +123,7 @@ const CartPage = () => {
                                     const imageProduct = item.product.images[0];
                                     const originalPrice = item.product.origin_price;
                                     const discountPrice = item.product.sale_price;
-                                    const price = discountPrice ?? originalPrice;
+                                    const price = discountPrice !== 0 ? discountPrice : originalPrice;
                                     const itemTotal = price * item.quantity;
                                     grandTotal += itemTotal;
 
@@ -136,7 +136,7 @@ const CartPage = () => {
                                                     <span className="cart-item-price">
                                                         Giá gốc: {originalPrice.toLocaleString('vi-VN')}₫
                                                     </span>
-                                                    {discountPrice && (
+                                                    {discountPrice !==0 && (
                                                         <span className="cart-item-discount-price">
                                                             Giá giảm: {discountPrice.toLocaleString('vi-VN')}₫
                                                         </span>

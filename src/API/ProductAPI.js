@@ -52,8 +52,8 @@ class ProductAPI {
     }
 
     static async deleteProduct(id){
-        const url = `/product/${id}`;
-        return axiosPrivate.delete(url);
+        const url = `/product/remove/${id}`;
+        return axiosPrivate.put(url);
     }
 
 

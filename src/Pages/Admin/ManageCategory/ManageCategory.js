@@ -4,6 +4,9 @@ import './ManageCategory.css';
 import CategoryAPI from '../../../API/CategoryAPI';
 import { useEffect, useState } from 'react';
 import UpdateCategory from './UpdateCategory/UpdateCategory';
+import { toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ManageCategory = () => {
     const [categories, setCategories] = useState([]);
@@ -45,11 +48,20 @@ const ManageCategory = () => {
         try {
             const response = await CategoryAPI.deleteCategory(id);
             if (response.status === 200) {
-                alert('Category deleted successfully');
-                const newCategories = categories.filter(category => category._id !== id);
-                setCategories(newCategories);
+                // alert('Category deleted successfully');
+                // const newCategories = categories.filter(category => category._id !== id);
+                // setCategories(newCategories);
+                if (response.data.DT.success === false) {
+                    toast.error(response.data.DT.message);
+
+                } else {
+                    const newCategories = categories.filter(category => category._id !== id);
+                    setCategories(newCategories);
+                    fetchCategories();
+                    toast.success(response.data.DT.message);
+                }
             } else {
-                alert('Failed to delete category');
+                toast.error('Xóa danh mục thất bại');
             }
         }
         catch (error) {
@@ -67,6 +79,7 @@ const ManageCategory = () => {
     }
     return (
         <>
+            
             {showAddCategoryModal && (
                 <AddCategory handleCloseAddCategory={handleCloseAddCategory} />
             )}

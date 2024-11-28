@@ -52,7 +52,12 @@ const ShoppingCartPage = () => {
     const calculateTotalPrice = () => {
         return shoppingCartItems
             .filter((item) => item.checkedSelect)
-            .reduce((total, item) => total + item.product.sale_price * item.quantity, 0);
+            .reduce((total, item) => {
+                const price = item.product.sale_price > 0 
+                    ? item.product.sale_price 
+                    : item.product.origin_price; // Sử dụng origin_price nếu sale_price === 0
+                return total + price * item.quantity;
+            }, 0);
     };
 
     const [totalPrice, setTotalPrice] = useState(0);
@@ -195,7 +200,7 @@ const ShoppingCartPage = () => {
                                                     </div>
                                                     <div className="col-md-2 text-center">
                                                         <img
-                                                            src={item.product.images_1 || "default-image-url"}
+                                                            src={item.product.images[0] || 'https://via.placeholder.com/150'}
                                                             className="img-fluid rounded-3"
                                                             alt={item.product.productName}
                                                         />
@@ -221,7 +226,11 @@ const ShoppingCartPage = () => {
                                                         </button>
                                                     </div>
                                                     <div className="col-md-2 text-end">
-                                                        <h6 className="mb-0">{(item.product.sale_price * item.quantity).toLocaleString()}đ</h6>
+                                                        {item.product.sale_price !== 0 ? (
+                                                            <h6 className="mb-0">{(item.product.sale_price * item.quantity).toLocaleString()}đ</h6>
+                                                        ) : (
+                                                            <h6 className="mb-0">{(item.product.origin_price * item.quantity).toLocaleString()}đ</h6>
+                                                        )}
                                                     </div>
                                                     <div className="col-md-1 text-end">
                                                         <button className="btn btn-danger" onClick={() => handleRemoveFromCart(item.product._id)}>

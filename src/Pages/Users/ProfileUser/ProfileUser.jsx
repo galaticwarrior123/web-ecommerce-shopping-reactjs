@@ -262,7 +262,7 @@ const ProfileUser = () => {
                                         id="newPassword"
                                         value={newPassword}
                                         onChange={(e) => setNewPassword(e.target.value)}
-                                        placeholder="Enter new password"
+                                        placeholder="Nhập mật khẩu mới"
                                     />
                                 </div>
                                 <div className="form-group mb-3">
@@ -273,7 +273,7 @@ const ProfileUser = () => {
                                         id="confirmPassword"
                                         value={confirmPassword}
                                         onChange={(e) => setConfirmPassword(e.target.value)}
-                                        placeholder="Confirm new password"
+                                        placeholder="Xác nhận mật khẩu"
                                     />
                                 </div>
                                 <button type="submit" className="btn btn-primary">Đổi mật khẩu</button>

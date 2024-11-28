@@ -12,7 +12,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
     const [category, setCategory] = useState(product.category);
     const [description, setDescription] = useState(product.description);
     const [categories, setCategories] = useState([]);
-    const [origin, setOrigin] = useState(product.origin);
+    const [expired, setExpired] = useState(product.expired);
     const [supplier, setSupplier] = useState(product.supplier);
     const [national, setNational] = useState([]);
     const [selectedNational, setSelectedNational] = useState(product.origin);
@@ -56,6 +56,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
         data.append("description", description);
         data.append("origin", selectedNational);
         data.append("supplier", supplier);
+        data.append("expired", expired);
         for (let i = 0; i < newImages.length; i++) {
             data.append("images", newImages[i]);
         }
@@ -122,6 +123,10 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                             <div className="mb-3">
                                 <label htmlFor="quantity" className="form-label">Số lượng</label>
                                 <input type="number" className="form-control" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="expedite" className="form-label">Hạn sử dụng</label>
+                                <input type="date" className="form-control" id="expedite" value={expired} onChange={(e) => setExpired(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Danh mục</label>
