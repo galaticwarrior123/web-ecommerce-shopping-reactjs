@@ -1,6 +1,6 @@
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faMoneyBill, faFileInvoiceDollar, faHeart, faRightFromBracket, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faMoneyBill, faFileInvoiceDollar, faHeart, faRightFromBracket, faBell, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import { useEffect, useState, useRef, useContext } from 'react';
@@ -27,10 +27,12 @@ const Header = () => {
 
     const { shoppingCartQuantity } = useCart();
     const { notifications } = useContext(SocketContext);
-
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     useEffect(() => {
         fetchProduct();
-        fetchNotifications();
+        if (currentUser) {
+            fetchNotifications();
+        }
     }, []);
 
     useEffect(() => {
@@ -76,7 +78,7 @@ const Header = () => {
         setShowNotifications(!showNotifications);
     };
 
-    const handleMarkAsRead = async (notificationId) => {
+    const handleMarkAsRead = async (notificationId, link) => {
         try {
             await NotificationAPI.markAsRead(notificationId); // Gửi API đánh dấu đã đọc
             // Cập nhật trạng thái đã đọc trong danh sách thông báo
@@ -85,6 +87,9 @@ const Header = () => {
                     n._id === notificationId ? { ...n, isRead: true } : n
                 )
             );
+
+            navigate(`${link}`); // Chuyển hướng đến trang thông báo
+            
         } catch (error) {
             console.error('Error marking notification as read:', error);
         }
@@ -313,6 +318,11 @@ const Header = () => {
                     )}
                     {/* User and Cart icons */}
                     <Nav className="ml-auto d-flex align-items-center ">
+                        {currentUser && currentUser.isAdmin && (
+                            <Nav.Link href="/admin" className="admin-link">
+                                <FontAwesomeIcon icon={faUserTie} />
+                            </Nav.Link>
+                        )}
                         {/* Notifications */}
                         <div className="notification-wrapper ">
                             <FontAwesomeIcon
@@ -332,17 +342,30 @@ const Header = () => {
                                             <li
                                                 key={notification._id}
                                                 className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
-                                                onClick={() => handleMarkAsRead(notification._id)}
+                                                onClick={() => handleMarkAsRead(notification._id, notification.link)}
                                             >
-                                                <p className="mb-0">{notification.content}</p>
-                                                <small className="text-muted">{new Intl.DateTimeFormat('vi-VN', {
-                                                    year: 'numeric',
-                                                    month: '2-digit',
-                                                    day: '2-digit',
-                                                    hour: '2-digit',
-                                                    minute: '2-digit',
-                                                    second: '2-digit',
-                                                }).format(new Date(notification.createdAt))}</small>
+                                                <div className="d-flex align-items-center ">
+                                                    {/* Hình ảnh bên trái thông báo */}
+                                                    <img
+                                                        src={notification.image || 'https://via.placeholder.com/150'} // Thay đường dẫn hình ảnh mặc định
+                                                        alt="Notification"
+                                                        className="notification-image me-3"
+                                                        style={{ width: '50px', height: '70px', borderRadius: '10px' }}
+                                                    />
+                                                    <div>
+                                                        <p className="mb-0">{notification.content}</p>
+                                                        <small className="text-muted">
+                                                            {new Intl.DateTimeFormat('vi-VN', {
+                                                                year: 'numeric',
+                                                                month: '2-digit',
+                                                                day: '2-digit',
+                                                                hour: '2-digit',
+                                                                minute: '2-digit',
+                                                                second: '2-digit',
+                                                            }).format(new Date(notification.createdAt))}
+                                                        </small>
+                                                    </div>
+                                                </div>
                                             </li>
                                         ))}
                                     </ul>

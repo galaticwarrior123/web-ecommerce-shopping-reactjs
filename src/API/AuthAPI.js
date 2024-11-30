@@ -57,6 +57,11 @@ class AuthAPI {
         return axiosPrivate.put(url, data);
     }
 
+
+    static async getShoppingHistory(id) {
+        const url = '/user/shopping-history/' + id;
+        return axiosPrivate.get(url);
+    }
 }
 
 export default AuthAPI;

@@ -89,18 +89,26 @@
   padding: 0;
 }
 
-.notifications-dropdown li {
+.notifications-dropdown ul li {
+  display: flex;
+  align-items: center;
   padding: 10px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd;
 }
 
-.notifications-dropdown li.unread {
+.notifications-dropdown ul li.unread {
   font-weight: bold;
-  background-color: #f9f9f9;
 }
 
-.notifications-dropdown li.read {
-  font-weight: normal;
-  background-color: #fff;
+.notifications-dropdown ul li .notification-item {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa ảnh và nội dung */
+}
+
+.notification-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Tạo hình ảnh tròn */
+  object-fit: cover; /* Đảm bảo ảnh không bị méo */
 }

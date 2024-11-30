@@ -45,8 +45,6 @@ function App() {
     <>
       <BrowserRouter>
         <SocketProvider>
-
-
           <CartProvider>
             <Routes>
               {/* ******************** USER ******************** */}
@@ -73,7 +71,7 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
 
               {/* ******************** ADMIN ******************** */}
-              <Route path="/admin" element={<RequireAuth allowedRoles={[ROLES.ADMIN, ROLES.USER]} />}>
+              <Route path="/admin" element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
                 <Route index element={<ManageCategory />} /> {/* Default route for /admin */}
                 <Route path="manager-category" element={<ManageCategory />} />
                 <Route path="manager-product" element={<ManageProduct />} />

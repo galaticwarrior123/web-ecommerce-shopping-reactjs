@@ -26,6 +26,13 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
         setIsLoading(true);
         setErrorMessage(null);
 
+        // Nếu sản phẩm hết hàng thì không thể thêm vào giỏ hàng
+        if (product.quantity <= 0) {
+            toast.error("Sản phẩm này đã hết hàng!");
+            setIsLoading(false);
+            return;
+        }
+
         try {
             // Xử lý thêm sản phẩm vào giỏ hàng (có thể bỏ qua phần này nếu không cần)
             const response = await ShoppingCartAPI.AddProductToCart(product._id, 1);

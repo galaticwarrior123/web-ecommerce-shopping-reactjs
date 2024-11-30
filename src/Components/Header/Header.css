@@ -199,3 +199,8 @@
         background: #888;
         border-radius: 10px;
     }
+
+    .admin-link {
+        color: white;
+        text-decoration: none;
+    }

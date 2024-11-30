@@ -46,6 +46,7 @@ const ManageOrder = () => {
               recipient: userId,
               content: `Đơn hàng ${id} đã được cập nhật trạng thái thành ${status}`,
               type: "ORDER",
+              link: `/order/${id}`,
             });
           }
         }

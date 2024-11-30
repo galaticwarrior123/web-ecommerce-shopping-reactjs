@@ -9,11 +9,12 @@ const DefaultLayoutAdmin = ({ children }) => {
     const [activeMenu, setActiveMenu] = useState('Quản lý khách hàng');
     const location = useLocation();
     const menuNames = {
-        '/admin/manager-customer': 'Quản lý khách hàng',
+        
         '/admin/manager-category': 'Quản lý danh mục',
         '/admin/manager-product': 'Danh sách sản phẩm',
         '/admin/manager-sale-product': 'Danh sách giảm giá',
         '/admin/manager-orders': 'Quản lý đơn hàng',
+        '/admin/manager-customer': 'Quản lý khách hàng',
         '/admin/dashboard': 'Báo cáo doanh thu',
         // Add more paths and their corresponding names as needed
     };
