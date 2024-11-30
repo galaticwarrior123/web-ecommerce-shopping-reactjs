@@ -64,7 +64,7 @@ const OrderTable = ({
                       (option) => option.value === order.status
                     )}
                     onChange={(selected) =>
-                      UpdateOrderStatus(order._id, selected.value)
+                      UpdateOrderStatus(order._id, selected.value, order.user._id)
                     }
                   />
                 </td>

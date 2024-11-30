@@ -1,8 +1,16 @@
-# Getting Started with Create React App
+# Fruits Ecommerce Website
+## About the project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The website brings a convinent platform, help customers purchase easier with all convinent such as cart, online payment and following order. The website optimizes experience's customer and help manager monitor revenue, manage products. The main purpose is advance utilities shopping and promote develop agriculture
+### Built with
 
-## Available Scripts
+- NodeJS
+- ReactJS
+- MongoDB
+- Firebase Storage
+
+
+## Getting started (ReactJS only)
 
 In the project directory, you can run:
 

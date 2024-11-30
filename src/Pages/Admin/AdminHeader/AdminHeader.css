@@ -26,3 +26,81 @@
   color: #343a40;
 }
 
+
+
+.notification-wrapper {
+  position: relative;
+  margin-right: 20px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -10px; /* Điều chỉnh vị trí dọc */
+  right: -15px; /* Điều chỉnh vị trí ngang */
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.3em 0.6em;
+  font-size: 0.8em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  min-width: 20px; /* Đảm bảo hình tròn nếu số lượng thông báo ít */
+  height: 20px;
+}
+
+.notifications-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  width: 300px;
+  z-index: 10;
+  padding: 10px;
+  overflow-y: scroll;
+  height: 250px;
+}
+
+.notifications-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+
+.notifications-dropdown::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.notifications-dropdown::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.notifications-dropdown h6 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.notifications-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notifications-dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.notifications-dropdown li.unread {
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
+
+.notifications-dropdown li.read {
+  font-weight: normal;
+  background-color: #fff;
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePage';
 import './CartPage.css';
@@ -7,7 +7,8 @@ import OrderAPI from '../../../API/OrderAPI';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCart } from '../../../context/CartContext';
-
+import { SocketContext } from '../../../context/SocketContext';
+import NotificationAPI from '../../../API/NotificationAPI';
 
 const CartPage = () => {
     let grandTotal = 0;
@@ -24,6 +25,7 @@ const CartPage = () => {
     const [paymentMethod, setPaymentMethod] = useState('COD');
     const [listOrderUser, setListOrderUser] = useState([]);
     const navigate = useNavigate();
+    const { socket } = useContext(SocketContext);
 
     const fetchOrderUser = async () => {
         try {
@@ -49,7 +51,7 @@ const CartPage = () => {
         setPhone(listOrderUser[0]?.phone);
         setAddress(listOrderUser[0]?.address);
 
-            
+
     }, [listOrderUser]);
 
     useEffect(() => {
@@ -67,7 +69,7 @@ const CartPage = () => {
     const handleAddressChange = (event) => {
         setSelectedAddress(event.target.value);
         const selectedOrder = listOrderUser.find(order => order.phone === event.target.value);
-        
+
         if (selectedOrder) {
             setName(selectedOrder.name);
             setPhone(selectedOrder.phone);
@@ -97,18 +99,47 @@ const CartPage = () => {
             })),
         };
 
-        OrderAPI.CreateOrder(data).then((response) => {
-            if (response.data && response.data.DT) {
-                toast.success('Đặt hàng thành công');
-                fetchShoppingCartQuantity();
-                navigate('/order');
-            } else {
+        OrderAPI.CreateOrder(data)
+            .then((response) => {
+                if (response.data && response.data.DT) {
+                    toast.success('Đặt hàng thành công');
+                    console.log('Đặt hàng:', response.data.DT);
+                    fetchShoppingCartQuantity();
+
+                    // Tạo thông báo
+                    const dataNotification = {
+                        content: `Bạn có một đơn hàng mới từ ${name} - ${phone} - ${address}
+                                    Mã đơn hàng: ${response.data.DT.order._id}`,
+                        type: 'order',
+                        recipient: 'admin',
+                    };
+
+                   
+
+                    // Gửi thông báo qua API
+                    NotificationAPI.createNotification(dataNotification)
+                        .then((notificationResponse) => {
+                            console.log('Tạo thông báo:', notificationResponse);
+
+                        })
+                        .catch((error) => {
+                            console.error('Lỗi khi tạo thông báo:', error);
+                            toast.error('Lỗi khi tạo thông báo');
+                        });
+
+                    // Điều hướng tới trang đơn hàng
+                    navigate('/order');
+                } else {
+                    toast.error('Đặt hàng thất bại');
+                }
+            })
+            .catch((error) => {
+                console.error('Lỗi khi đặt hàng:', error);
                 toast.error('Đặt hàng thất bại');
-            }
-        }).catch((error) => {
-            toast.error('Đặt hàng thất bại');
-        });
+            });
+
     };
+
 
     return (
         <DefaultLayoutUserHomePage>
@@ -136,7 +167,7 @@ const CartPage = () => {
                                                     <span className="cart-item-price">
                                                         Giá gốc: {originalPrice.toLocaleString('vi-VN')}₫
                                                     </span>
-                                                    {discountPrice !==0 && (
+                                                    {discountPrice !== 0 && (
                                                         <span className="cart-item-discount-price">
                                                             Giá giảm: {discountPrice.toLocaleString('vi-VN')}₫
                                                         </span>
