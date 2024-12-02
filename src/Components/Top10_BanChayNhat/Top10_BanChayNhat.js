@@ -70,10 +70,8 @@ const Top10_BanChayNhat = () => {
   const [products, setProducts] = useState([]);
 
   const fetchTop10BestSellingProducts = async () => {
-    console.log("Fetching top 10 best selling products...");
     try {
       const response = await ProductAPI.getTop10BestSellingProducts();
-      console.log('API Response:', response); // Thêm log này để kiểm tra phản hồi
       // Kiểm tra sự tồn tại của DT và products
       if (response.data && response.data.DT && response.data.DT.products) {
         setProducts(response.data.DT.products);

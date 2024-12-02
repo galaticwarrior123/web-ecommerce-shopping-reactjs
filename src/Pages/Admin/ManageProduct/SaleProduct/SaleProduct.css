@@ -94,3 +94,10 @@
     color: #e63946;
 }
 
+.sale-product-expired {
+    font-size: 1rem;
+    color: #f40f0f;
+    font-style: italic;
+    margin-top: 1rem;
+}
+

@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
         if (user && !loading && !listPathName.includes(location.pathname)) {
             fetchShoppingCartQuantity();
         }
-    }, [user, location, loading]);
+    }, [location, user, loading]);
 
     return (
         <CartContext.Provider value={{ shoppingCartQuantity, fetchShoppingCartQuantity }}>

@@ -25,3 +25,13 @@
 .input-product{
    padding: 0 5px !important;
 }
+.selection{
+    padding: 5px !important;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    height: 40px;
+}
+
+.update-product{
+    border-radius: 10px;
+}

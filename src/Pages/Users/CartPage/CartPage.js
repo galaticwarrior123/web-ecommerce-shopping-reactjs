@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import DefaultLayoutUserHomePage from '../../../Layouts/DefaultLayoutUserHomePage';
 import './CartPage.css';
@@ -7,7 +7,8 @@ import OrderAPI from '../../../API/OrderAPI';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useCart } from '../../../context/CartContext';
-
+import { SocketContext } from '../../../context/SocketContext';
+import NotificationAPI from '../../../API/NotificationAPI';
 
 const CartPage = () => {
     let grandTotal = 0;
@@ -24,6 +25,7 @@ const CartPage = () => {
     const [paymentMethod, setPaymentMethod] = useState('COD');
     const [listOrderUser, setListOrderUser] = useState([]);
     const navigate = useNavigate();
+    const { socket } = useContext(SocketContext);
 
     const fetchOrderUser = async () => {
         try {
@@ -44,9 +46,18 @@ const CartPage = () => {
     };
 
     useEffect(() => {
+        setSelectedAddress(listOrderUser[0]?.phone);
+        setName(listOrderUser[0]?.name);
+        setPhone(listOrderUser[0]?.phone);
+        setAddress(listOrderUser[0]?.address);
+
+
+    }, [listOrderUser]);
+
+    useEffect(() => {
         const calculateTotal = () => {
             const total = cartItems.reduce((sum, item) => {
-                const price = item.product.sale_price ?? item.product.origin_price;
+                const price = item.product.sale_price !== 0 ? item.product.sale_price : item.product.origin_price;
                 return sum + (price * item.quantity);
             }, 0);
             setTotalAmount(total);
@@ -58,7 +69,7 @@ const CartPage = () => {
     const handleAddressChange = (event) => {
         setSelectedAddress(event.target.value);
         const selectedOrder = listOrderUser.find(order => order.phone === event.target.value);
-        
+
         if (selectedOrder) {
             setName(selectedOrder.name);
             setPhone(selectedOrder.phone);
@@ -72,7 +83,7 @@ const CartPage = () => {
 
     const handleOrder = () => {
         if (selectedAddress === 'shipDifferent' && (!name || !phone || !address)) {
-            alert('Vui lòng nhập đầy đủ thông tin giao hàng');
+            toast.error('Vui lòng nhập đầy đủ thông tin giao hàng');
             return;
         }
         const data = {
@@ -82,22 +93,54 @@ const CartPage = () => {
             phone: selectedAddress === 'shipDifferent' ? phone : phone,
             name: selectedAddress === 'shipDifferent' ? name : name,
             paymentMethod,
+            selectedProducts: cartItems.map((item) => ({
+                product: item.product._id,
+                quantity: item.quantity,
+            })),
         };
 
-        console.log('Data:', data);
+        OrderAPI.CreateOrder(data)
+            .then((response) => {
+                if (response.data && response.data.DT) {
+                    toast.success('Đặt hàng thành công');
+                    console.log('Đặt hàng:', response.data.DT);
+                    fetchShoppingCartQuantity();
 
-        OrderAPI.CreateOrder(data).then((response) => {
-            if (response.data && response.data.DT) {
-                toast.success('Đặt hàng thành công');
-                fetchShoppingCartQuantity();
-                navigate('/order');
-            } else {
+                    // Tạo thông báo
+                    const dataNotification = {
+                        content: `Bạn có một đơn hàng mới từ ${name} - ${phone} - ${address}
+                                    Mã đơn hàng: ${response.data.DT.order._id}`,
+                        type: 'order',
+                        recipient: 'admin',
+                        link: `/admin/manager-orders`,
+                    };
+
+                   
+
+                    // Gửi thông báo qua API
+                    NotificationAPI.createNotification(dataNotification)
+                        .then((notificationResponse) => {
+                            console.log('Tạo thông báo:', notificationResponse);
+
+                        })
+                        .catch((error) => {
+                            console.error('Lỗi khi tạo thông báo:', error);
+                            toast.error('Lỗi khi tạo thông báo');
+                        });
+
+                    // Điều hướng tới trang đơn hàng
+                    navigate('/order');
+                } else {
+                    toast.error('Đặt hàng thất bại');
+                }
+            })
+            .catch((error) => {
+                console.error('Lỗi khi đặt hàng:', error);
                 toast.error('Đặt hàng thất bại');
-            }
-        }).catch((error) => {
-            toast.error('Đặt hàng thất bại');
-        });
+            });
+
     };
+
 
     return (
         <DefaultLayoutUserHomePage>
@@ -112,7 +155,7 @@ const CartPage = () => {
                                     const imageProduct = item.product.images[0];
                                     const originalPrice = item.product.origin_price;
                                     const discountPrice = item.product.sale_price;
-                                    const price = discountPrice ?? originalPrice;
+                                    const price = discountPrice !== 0 ? discountPrice : originalPrice;
                                     const itemTotal = price * item.quantity;
                                     grandTotal += itemTotal;
 
@@ -125,7 +168,7 @@ const CartPage = () => {
                                                     <span className="cart-item-price">
                                                         Giá gốc: {originalPrice.toLocaleString('vi-VN')}₫
                                                     </span>
-                                                    {discountPrice && (
+                                                    {discountPrice !== 0 && (
                                                         <span className="cart-item-discount-price">
                                                             Giá giảm: {discountPrice.toLocaleString('vi-VN')}₫
                                                         </span>
@@ -233,18 +276,18 @@ const CartPage = () => {
                             <div className="box-body">
                                 <h5 className="card-title">Phương thức thanh toán</h5>
                                 <div className="form-check mb-3">
-                                    <input className="form-check-input" type="radio" name="payment" id="paypal" />
+                                    <input className="form-check-input" type="radio" name="payment" id="paypal" checked={paymentMethod === 'PayPal'} />
                                     <label className="form-check-label" htmlFor="paypal" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
                                         PayPal
                                     </label>
                                 </div>
                                 <div className="form-check mb-3">
-                                    <input className="form-check-input" type="radio" name="payment" id="cod" />
-                                    <label className="form-check-label" htmlFor="cod" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                                    <input className="form-check-input" type="radio" name="payment" id="cod" checked={paymentMethod === 'COD'} />
+                                    <label className="form-check-label" htmlFor="cod" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)} >
                                         Thanh toán khi nhận hàng
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100" onClick={handleOrder}>Đặt hàng</button>
+                                <button className="btn btn-primary w-100" onClick={handleOrder} id='btn-order'>Đặt hàng</button>
                             </div>
                         </div>
                     </div>

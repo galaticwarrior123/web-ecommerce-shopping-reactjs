@@ -3,7 +3,7 @@ import axiosClient, { axiosPrivate } from "./AxiosClient";
 class AuthAPI {
     static async login(data) {
         const url = '/user/login';
-        console.log(`Making GET request to: ${url}`);
+        //console.log(`Making GET request to: ${url}`);
         return axiosClient.post(url, data);
     }
 
@@ -32,9 +32,9 @@ class AuthAPI {
         return axiosClient.post(url, data);
     }
 
-    static async resetPassword(data, config) {
+    static async resetPassword(data) {
         const url = '/user/change-password'; 
-        return axiosPrivate.post(url, data, config); // Gửi config vào đây
+        return axiosPrivate.post(url, data); // Gửi config vào đây
     }
 
 
@@ -52,6 +52,16 @@ class AuthAPI {
         });
     }
 
+    static async changePassword(data) {
+        const url = '/user/change-password/';
+        return axiosPrivate.put(url, data);
+    }
+
+
+    static async getShoppingHistory(id) {
+        const url = '/user/shopping-history/' + id;
+        return axiosPrivate.get(url);
+    }
 }
 
 export default AuthAPI;

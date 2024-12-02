@@ -97,36 +97,58 @@ const SaleProduct = () => {
                         </button>
                     </div>
                     <div className="sale-product-grid">
-                        {saleProducts.map((productPromotion, index) => (
-                            <div key={index} className="sale-product-card">
-                                <img alt={productPromotion.product.productName} className="sale-product-image" />
-                                <h2 className="sale-product-name">{productPromotion.product.productName}</h2>
-                                <p className="sale-product-origin-price">Giá gốc: {productPromotion.product.origin_price} đ</p>
-                                <p className="sale-product-sale-price">Giá khuyến mãi: {productPromotion.product.sale_price} đ</p>
-                                <p className="sale-product-promotion">Khuyến mãi: {productPromotion.discount}%</p>
-                                <p className="sale-product-description">Mô tả khuyến mãi: {productPromotion.description}</p>
-                                <p className="sale-product-start-date">Ngày bắt đầu: {new Date(productPromotion.startDate).toLocaleDateString('vi-VN', {
-                                    day: '2-digit',
-                                    month: '2-digit',
-                                    year: 'numeric'
-                                })}</p>
-                                <p className="sale-product-end-date">
-                                    Ngày kết thúc: {new Date(productPromotion.endDate).toLocaleDateString('vi-VN', {
-                                        day: '2-digit',
-                                        month: '2-digit',
-                                        year: 'numeric'
-                                    })}
-                                </p>
-                                <div className="sale-product-actions">
-                                    <button className="btn btn-warning" onClick={() => handleUpdateProductPromotion(productPromotion)}>
-                                        <FontAwesomeIcon icon={faEdit} /> Cập Nhật
-                                    </button>
-                                    <button className="btn btn-danger" onClick={() => handleDeleteProductPromotion(productPromotion._id)}>
-                                        <FontAwesomeIcon icon={faTrash} /> Xóa
-                                    </button>
+                        {saleProducts.map((productPromotion, index) => {
+                            const isPromotionExpired = new Date(productPromotion.endDate) < new Date(); // Kiểm tra ngày kết thúc
+
+                            return (
+                                <div key={index} className="sale-product-card">
+                                    <img
+                                        alt={productPromotion.product.productName}
+                                        className="sale-product-image"
+                                        src={productPromotion.product.images[0]}
+                                    />
+                                    <h2 className="sale-product-name">{productPromotion.product.productName}</h2>
+                                    <p className="sale-product-origin-price">Giá gốc: {productPromotion.product.origin_price.toLocaleString()} đ</p>
+                                    <p className="sale-product-sale-price">Giá khuyến mãi: {productPromotion.product.sale_price.toLocaleString()} đ</p>
+                                    <p className="sale-product-promotion">Khuyến mãi: {productPromotion.discount}%</p>
+                                    <p className="sale-product-description">Mô tả khuyến mãi: {productPromotion.description}</p>
+                                    <p className="sale-product-start-date">
+                                        Ngày bắt đầu: {new Date(productPromotion.startDate).toLocaleDateString('vi-VN', {
+                                            day: '2-digit',
+                                            month: '2-digit',
+                                            year: 'numeric',
+                                        })}
+                                    </p>
+                                    <p className="sale-product-end-date">
+                                        Ngày kết thúc: {new Date(productPromotion.endDate).toLocaleDateString('vi-VN', {
+                                            day: '2-digit',
+                                            month: '2-digit',
+                                            year: 'numeric',
+                                        })}
+                                    </p>
+
+                                    {isPromotionExpired && (
+                                        <p className="sale-product-expired">Đã kết thúc thời gian giảm giá</p>
+                                    )}
+
+                                    <div className="sale-product-actions">
+                                        <button
+                                            className="btn btn-warning"
+                                            onClick={() => handleUpdateProductPromotion(productPromotion)}
+                                            // disabled={isPromotionExpired} // Vô hiệu hóa nút cập nhật nếu khuyến mãi đã hết
+                                        >
+                                            <FontAwesomeIcon icon={faEdit} /> Cập Nhật
+                                        </button>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => handleDeleteProductPromotion(productPromotion._id)}
+                                        >
+                                            <FontAwesomeIcon icon={faTrash} /> Xóa
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </div>
             </DefaultLayoutAdmin>

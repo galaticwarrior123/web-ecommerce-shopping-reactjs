@@ -1,26 +1,32 @@
 import './AddCategory.css';
 import { useState } from 'react';
 import CategoryAPI from '../../../../API/CategoryAPI';
+import { toast } from 'react-toastify';
 const AddCategory = ({handleCloseAddCategory}) => {
     const [categoryName, setCategoryName] = useState('');
     const [logo, setLogo] = useState(null);
 
     const handleCreateCategory = (e) => {
         e.preventDefault();
+        if (!categoryName) {
+            toast.error("Vui lòng nhập đầy đủ thông tin");
+            return;
+        }
         const data = new FormData();
         data.append('name', categoryName);
         data.append('logo', logo);
         CategoryAPI.createCategory(data)
             .then(response => {
                 if (response.status === 200) {
-                    alert('Category created successfully');
+                    toast.success("Thêm danh mục thành công");
+                    handleCloseAddCategory();
                 } else {
-                    alert('Failed to create category');
+                    toast.error("Thêm danh mục thất bại");
+                    
                 }
             })
             .catch(error => {
-                console.error('Error creating category:', error);
-                alert('Failed to create category');
+                toast.error("Thêm danh mục thất bại");
             });
     }
 

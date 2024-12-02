@@ -119,10 +119,9 @@
         font-size: 18px;
         width: 250px;
         height: 120px;
-        margin-top: 200px;
         margin-left: 195px !important;
-        /* margin-top: -250px;
-        margin-left: 330px; */
+        margin-top: 280px;
+        margin-left: 330px;
         box-shadow: 0 10px 16px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
         border: 1px solid #9c9c9c;
         /* position: fixed; */
@@ -199,4 +198,9 @@
     .search-result::-webkit-scrollbar-thumb {
         background: #888;
         border-radius: 10px;
+    }
+
+    .admin-link {
+        color: white;
+        text-decoration: none;
     }

@@ -38,7 +38,6 @@ class ProductAPI {
 
     static async getProductById(id){
         const url = `/product/${id}`;
-        console.log(`Making GET request to: ${url} with productId: ${id}`);
         return axiosClient.get(url);
     }
 
@@ -52,8 +51,8 @@ class ProductAPI {
     }
 
     static async deleteProduct(id){
-        const url = `/product/${id}`;
-        return axiosPrivate.delete(url);
+        const url = `/product/remove/${id}`;
+        return axiosPrivate.put(url);
     }
 
 

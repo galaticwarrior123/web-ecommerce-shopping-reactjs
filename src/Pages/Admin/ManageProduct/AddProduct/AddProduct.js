@@ -12,6 +12,25 @@ const AddProduct = ({handleCloseAddProduct}) => {
     const [description, setDescription] = useState("");
     const [origin, setOrigin] = useState("");
     const [supplier, setSupplier] = useState("");
+    const [national, setNational] = useState([]);
+    const [expired, setExpired] = useState("");
+    const [selectedNational, setSelectedNational] = useState("");
+
+    useEffect(() => {
+        const fetchNational = async () => { 
+            try {
+                fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then(data => {
+                    setNational(data);
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchNational();
+    }, []);
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -34,8 +53,9 @@ const AddProduct = ({handleCloseAddProduct}) => {
         data.append("quantity", quantity);
         data.append("category", category);
         data.append("description", description);
-        data.append("origin", origin);
+        data.append("origin", selectedNational);
         data.append("supplier", supplier);
+        data.append("expired", expired);
         for (let i = 0; i < image.length; i++) {
             console.log(image[i]);
             data.append("images", image[i]);
@@ -72,9 +92,17 @@ const AddProduct = ({handleCloseAddProduct}) => {
                                 <label htmlFor="price" className="form-label">Giá bán</label>
                                 <input type="text" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
                             </div>
-                            <div className="mb-3">
+                            {/* <div className="mb-3">
                                 <label htmlFor="origin" className='form-label'>Xuất xứ</label>
                                 <input type="text" className="form-control" id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} />
+                            </div> */}
+                            <div className="mb-3">
+                                <label htmlFor="national" className="form-label">Quốc gia</label>
+                                <select className="form-select" id="national" value={selectedNational} onChange={(e) => setSelectedNational(e.target.value)}>
+                                    {national.map((national) => (
+                                        <option key={national.name.common} value={national.name.common}>{national.name.common}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="supplier" className="form-label">Nhà cung cấp</label>
@@ -84,6 +112,13 @@ const AddProduct = ({handleCloseAddProduct}) => {
                                 <label htmlFor="price" className="form-label">Số lượng</label>
                                 <input type="number" className="form-control" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                             </div>
+
+
+                            <div className="mb-3">
+                                <label htmlFor="expired" className="form-label">Hạn sử dụng</label>
+                                <input type="date" className="form-control" id="expired" value={expired} onChange={(e) => setExpired(e.target.value)} />
+                            </div>
+
                             
                             <div className="mb-3">
                                 <label htmlFor="image" className="form-label">Hình ảnh</label>
@@ -97,6 +132,8 @@ const AddProduct = ({handleCloseAddProduct}) => {
                                     ))}
                                 </select>
                             </div>
+
+                            
 
                             <div className="mb-3">
                                 <label htmlFor="description" className="form-label">Mô tả</label>

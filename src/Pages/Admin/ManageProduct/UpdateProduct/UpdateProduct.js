@@ -12,8 +12,26 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
     const [category, setCategory] = useState(product.category);
     const [description, setDescription] = useState(product.description);
     const [categories, setCategories] = useState([]);
-    const [origin, setOrigin] = useState(product.origin);
+    const [expired, setExpired] = useState(product.expired ? new Date(product.expired).toISOString().split('T')[0] : '');
     const [supplier, setSupplier] = useState(product.supplier);
+    const [national, setNational] = useState([]);
+    const [selectedNational, setSelectedNational] = useState(product.origin);
+
+    useEffect(() => {
+        const fetchNational = async () => {
+            try {
+                fetch('https://restcountries.com/v3.1/all')
+                    .then(response => response.json())
+                    .then(data => {
+                        setNational(data);
+                    });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchNational();
+    }, []);
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -36,14 +54,19 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
         data.append("quantity", quantity);
         data.append("category", category);
         data.append("description", description);
+        data.append("origin", selectedNational);
+        data.append("supplier", supplier);
+        data.append("expired", expired);
         for (let i = 0; i < newImages.length; i++) {
             data.append("images", newImages[i]);
         }
-        data.append("images", images);
+        
+        
         try {
             const response = await ProductAPI.updateProduct(product._id, data);
             if (response.status === 200) {
                 alert("Cập nhật sản phẩm thành công");
+                
                 handleCloseUpdateProduct();
             }
             else {
@@ -72,7 +95,7 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                         <h1 className="text-center fw-bold fs-3">Cập nhật sản phẩm</h1>
                     </div>
                     <div className="col-12">
-                        <form action="" encType="multipart/form-data">
+                        <form  encType="multipart/form-data">
                             <div className="mb-3">
                                 <label htmlFor="productName" className="form-label">Tên sản phẩm</label>
                                 <input type="text" className="form-control" id="productName" value={productName} onChange={(e) => setProductName(e.target.value)} />
@@ -81,21 +104,34 @@ const UpdateProduct = ({ product, handleCloseUpdateProduct }) => {
                                 <label htmlFor="price" className="form-label">Giá bán</label>
                                 <input type="text" className="form-control" id="price" value={price} onChange={(e) => setPrice(e.target.value)} />
                             </div>
-                            <div className="mb-3">
+                            {/* <div className="mb-3">
                                 <label htmlFor="origin" className="form-label">Xuất xứ</label>
                                 <input type="text" className="form-control" id="origin" value={origin} onChange={(e) => setOrigin(e.target.value)} />
+                            </div> */}
+                            <div className="mb-3">
+                                <label htmlFor="national" className="form-label">Xuất xứ</label>
+                                <select className="form-control selection" id="national" value={selectedNational} onChange={(e) => setSelectedNational(e.target.value)}>
+                                    <option value="">Chọn quốc gia</option>
+                                    {national.map((nation, idx) => (
+                                        <option key={idx} value={nation.name.common}>{nation.name.common}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="price" className="form-label">Nhà cung cấp</label>
-                                <input type="text" className="form-control" id="price" value={supplier} onChange={(e) => setSupplier(e.target.value)} />
+                                <label htmlFor="supplier" className="form-label">Nhà cung cấp</label>
+                                <input type="text" className="form-control" id="supplier" value={supplier} onChange={(e) => setSupplier(e.target.value)} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="quantity" className="form-label">Số lượng</label>
                                 <input type="number" className="form-control" id="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                             </div>
                             <div className="mb-3">
+                                <label htmlFor="expedite" className="form-label">Hạn sử dụng</label>
+                                <input type="date" className="form-control" id="expedite" value={expired} onChange={(e) => setExpired(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
                                 <label htmlFor="category" className="form-label">Danh mục</label>
-                                <select className="form-control" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+                                <select className="form-control selection" id="category" value={category} onChange={(e) => setCategory(e.target.value)}>
                                     <option value="">Chọn danh mục</option>
                                     {categories.map((category, idx) => (
                                         <option key={idx} value={category._id}>{category.name}</option>

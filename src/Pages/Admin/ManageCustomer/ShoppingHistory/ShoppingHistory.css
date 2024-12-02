@@ -1,0 +1,111 @@
+.manage-customer-container {
+    z-index: 1050; /* Đảm bảo modal hiển thị trên cùng */
+    background-color: rgba(0, 0, 0, 0.5); /* Làm mờ nền */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    padding: 20px;
+}
+
+.manage-customer-card {
+    width: 100%;
+    max-width: 900px; /* Giới hạn chiều rộng tối đa */
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.manage-customer-card-header {
+    background: #007bff; /* Màu xanh Bootstrap */
+    color: #ffffff;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.manage-customer-card-body {
+    padding: 20px;
+    overflow-y: scroll;
+    max-height: 400px; /* Giới hạn chiều cao tối đa */
+}
+
+.manage-customer-card-body::-webkit-scrollbar {
+    width: 8px; /* Chiều rộng thanh cuộn */
+}
+
+.manage-customer-card-body::-webkit-scrollbar-thumb {
+    background-color: #007bff; /* Màu của thanh cuộn */
+    border-radius: 4px; /* Bo tròn viền thanh cuộn */
+}
+
+.manage-customer-card-body::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Màu nền của thanh cuộn */
+}
+
+.manage-customer-card-footer {
+    padding: 15px;
+    text-align: center;
+}
+.manage-customer-table {
+    margin-bottom: 0; /* Loại bỏ khoảng cách phía dưới */
+}
+
+.manage-customer-table-bordered th, 
+.manage-customer-table-bordered td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.manage-customer-table-bordered th {
+    background-color: #f8f9fa; /* Màu nền nhẹ cho tiêu đề bảng */
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+.badge-success {
+    background-color: #28a745; /* Màu xanh lá nhạt */
+    color: #fff; /* Màu chữ trắng */
+    font-weight: bold; /* Chữ đậm */
+    border-radius: 8px; /* Bo tròn viền */
+    padding: 5px 10px; /* Khoảng cách trong */
+}
+
+/* Badge cho trạng thái Đang xử lý */
+.badge-warning {
+    background-color: #ffc107; /* Màu vàng */
+    color: #212529; /* Màu chữ đen */
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+/* Badge cho trạng thái Đã hủy */
+.badge-danger {
+    background-color: #dc3545; /* Màu đỏ */
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 5px 10px;
+}
+
+/* Hiệu ứng hover cho badge */
+.badge:hover {
+    filter: brightness(0.9); /* Tăng độ tối nhẹ khi hover */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

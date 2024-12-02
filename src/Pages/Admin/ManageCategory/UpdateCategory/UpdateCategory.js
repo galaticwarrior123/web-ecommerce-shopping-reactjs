@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CategoryAPI from "../../../../API/CategoryAPI";
-
+import { toast } from "react-toastify";
 const UpdateCategory = ({ handleCloseUpdateCategory, category }) => {
     const [categoryName, setCategoryName] = useState(category.name);
     const [logo, setLogo] = useState(category.logo);
@@ -15,16 +15,15 @@ const UpdateCategory = ({ handleCloseUpdateCategory, category }) => {
         CategoryAPI.updateCategory(category._id, data)
             .then(response => {
                 if (response.status === 200) {
-                    alert('Category updated successfully');
+                    toast.success(response.data.DT.message);
                     handleCloseUpdateCategory();
                     
                 } else {
-                    alert('Failed to update category');
+                    toast.error(response.data.DT.message);
                 }
             })
             .catch(error => {
-                console.error('Error updating category:', error);
-                alert('Failed to update category');
+                toast.error('Cập nhật danh mục thất bại');
             });
     }
 

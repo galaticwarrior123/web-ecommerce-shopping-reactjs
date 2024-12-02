@@ -9,7 +9,7 @@ class ShoppingCartAPI {
 
   static async AddProductToCart(productId, quantity) {
     const url = '/shopping-cart/add';
-    console.log(`Making POST request to: ${url} with productId: ${productId} and quantity: ${quantity}`);
+    //console.log(`Making POST request to: ${url} with productId: ${productId} and quantity: ${quantity}`);
 
     return axiosPrivate.post(url, { productId, quantity });
   }

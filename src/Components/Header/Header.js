@@ -1,12 +1,14 @@
 import './Header.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faMoneyBill, faFileInvoiceDollar, faHeart, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faFileInvoice, faMagnifyingGlass, faAngleDown, faCartShopping, faMoneyBill, faFileInvoiceDollar, faHeart, faRightFromBracket, faBell, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import ShoppingCartAPI from '../../API/ShoppingCartAPI';
 import ProductAPI from '../../API/ProductAPI';
 import { useCart } from '../../context/CartContext';
+import NotificationAPI from '../../API/NotificationAPI';
+import { SocketContext } from '../../context/SocketContext';
 
 const Header = () => {
     const navigate = useNavigate();
@@ -20,12 +22,31 @@ const Header = () => {
     const [showResults, setShowResults] = useState(false);
     const searchRef = useRef(null);
     const resultRef = useRef(null);
+    const [listNotifications, setListNotifications] = useState([]);
+    const [showNotifications, setShowNotifications] = useState(false);
 
     const { shoppingCartQuantity } = useCart();
-
+    const { notifications } = useContext(SocketContext);
+    const currentUser = JSON.parse(localStorage.getItem('user'));
     useEffect(() => {
         fetchProduct();
+        if (currentUser) {
+            fetchNotifications();
+        }
     }, []);
+
+    useEffect(() => {
+        if (notifications.length) {
+            setListNotifications((prev) => {
+                const merged = [...notifications, ...prev];
+                // Loại bỏ thông báo trùng (theo _id)
+                return merged.filter(
+                    (notification, index, self) =>
+                        index === self.findIndex((n) => n._id === notification._id)
+                );
+            });
+        }
+    }, [notifications]);
 
     const fetchProduct = async () => {
         try {
@@ -36,6 +57,41 @@ const Header = () => {
             }
         } catch (error) {
             console.error('Error fetching products:', error);
+        }
+    };
+
+    const fetchNotifications = async () => {
+        try {
+            const response = await NotificationAPI.getNotifications();
+            if (response.data?.DT) {
+                setListNotifications(response.data.DT);
+            }
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        }
+    };
+
+    // Tính số lượng thông báo chưa đọc
+    const unreadCount = listNotifications.filter((n) => !n.isRead).length;
+
+    const handleToggleNotifications = () => {
+        setShowNotifications(!showNotifications);
+    };
+
+    const handleMarkAsRead = async (notificationId, link) => {
+        try {
+            await NotificationAPI.markAsRead(notificationId); // Gửi API đánh dấu đã đọc
+            // Cập nhật trạng thái đã đọc trong danh sách thông báo
+            setListNotifications((prev) =>
+                prev.map((n) =>
+                    n._id === notificationId ? { ...n, isRead: true } : n
+                )
+            );
+
+            navigate(`${link}`); // Chuyển hướng đến trang thông báo
+            
+        } catch (error) {
+            console.error('Error marking notification as read:', error);
         }
     };
 
@@ -181,7 +237,7 @@ const Header = () => {
                 </div>
 
                 {/* User and Cart icons */}
-                <Nav className="ml-auto d-flex align-items-center position-relative " >
+                <Nav className="ml-auto d-flex align-items-center " >
                     {token ? (
                         <>
                             <Nav className="d-flex">
@@ -198,7 +254,7 @@ const Header = () => {
                                 </div>
                             </Nav>
 
-                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x mt-10 custom-margin-left ms-5 h-auto z-2">
+                            <div className="info-border d-flex flex-column align-items-left justify-content-center position-fixed translate-middle-x custom-margin-left h-auto z-2">
 
                                 <div className="manage-info-customer">
                                     <div className="my-account">
@@ -261,19 +317,75 @@ const Header = () => {
                             </div>
                         </>
                     )}
-                    <Nav.Link href="#" className="cart-info" onClick={handleShoppingCartClick} id='cartShopping'>
-                        <div className="cart-circle">
-                            <FontAwesomeIcon icon={faCartShopping} />
+                    {/* User and Cart icons */}
+                    <Nav className="ml-auto d-flex align-items-center ">
+                        {currentUser && currentUser.isAdmin && (
+                            <Nav.Link href="/admin" className="admin-link">
+                                <FontAwesomeIcon icon={faUserTie} />
+                            </Nav.Link>
+                        )}
+                        {/* Notifications */}
+                        <div className="notification-wrapper ">
+                            <FontAwesomeIcon
+                                icon={faBell}
+                                className="icon-admin-page"
+                                onClick={handleToggleNotifications}
+                            />
+                            {unreadCount > 0 && (
+                                <span className="notification-badge">{unreadCount}</span>
+                            )}
+
+                            {listNotifications.length > 0 && showNotifications && (
+                                <div className="notifications-dropdown ">
+                                    <h6>Thông báo</h6>
+                                    <ul className="list-unstyled">
+                                        {listNotifications.map((notification) => (
+                                            <li
+                                                key={notification._id}
+                                                className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
+                                                onClick={() => handleMarkAsRead(notification._id, notification.link)}
+                                            >
+                                                <div className="d-flex align-items-center ">
+                                                    {/* Hình ảnh bên trái thông báo */}
+                                                    <img
+                                                        src={notification.image || 'https://via.placeholder.com/150'} // Thay đường dẫn hình ảnh mặc định
+                                                        alt="Notification"
+                                                        className="notification-image me-3"
+                                                        style={{ width: '50px', height: '70px', borderRadius: '10px' }}
+                                                    />
+                                                    <div>
+                                                        <p className="mb-0">{notification.content}</p>
+                                                        <small className="text-muted">
+                                                            {new Intl.DateTimeFormat('vi-VN', {
+                                                                year: 'numeric',
+                                                                month: '2-digit',
+                                                                day: '2-digit',
+                                                                hour: '2-digit',
+                                                                minute: '2-digit',
+                                                                second: '2-digit',
+                                                            }).format(new Date(notification.createdAt))}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
 
-                        <div className="cart-quantity">
-                            <span>{shoppingCartQuantity}</span>
-                        </div>
+                        {/* Cart */}
+                        <Nav.Link href="#" className="cart-info" onClick={handleShoppingCartClick} id='cartShopping'>
+                            <div className="cart-circle">
+                                <FontAwesomeIcon icon={faCartShopping} />
+                            </div>
 
+                            <div className="cart-quantity">
+                                <span>{shoppingCartQuantity}</span>
+                            </div>
 
-
-
-                    </Nav.Link>
+                        </Nav.Link>
+                    </Nav>
                 </Nav>
             </Navbar>
         </div>
