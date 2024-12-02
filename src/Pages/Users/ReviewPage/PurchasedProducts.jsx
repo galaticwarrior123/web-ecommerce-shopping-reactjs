@@ -29,6 +29,7 @@ const PurchasedProducts = () => {
     if (response.status === 200) {
       toast.success("Review successfully added");
       setShowReviewModal(false);
+      await fetchaProductsPurchased();
     } else {
       toast.error("Error: " + response.data.EM);
     }
@@ -51,24 +52,27 @@ const PurchasedProducts = () => {
   useEffect(() => {
     fetchaProductsPurchased();
   }, []);
+
   return (
     <DefaultLayoutUserHomePage>
-      <h1 className="text-center">Sản phẩm chưa đánh giá</h1>
-      {products.length === 0 && <p>No purchased products</p>}
-      {products &&
-        products.length > 0 &&
-        products.map((product) => (
-          <PurchasedProductItem
-            key={product._id}
-            product={product}
-            handleShowReviewModal={handleShowReviewModal}
-          />
-        ))}
-      <ModalAddReview
-        show={showReviewModal}
-        setShow={setShowReviewModal}
-        handleSubmitReview={handleSubmitReview}
-      />
+      <h3 className="text-center fs-1 mt-4">Đánh giá sản phẩm</h3>
+      <div className="row mt-3 border border-2 rounded-3 px-3 mx-5 ">
+        {products.length === 0 && <p className="text-center mt-4">Không còn sản phẩm để đánh giá</p>}
+        {products &&
+          products.length > 0 &&
+          products.map((product) => (
+            <PurchasedProductItem
+              key={product._id}
+              product={product}
+              handleShowReviewModal={handleShowReviewModal}
+            />
+          ))}
+        <ModalAddReview
+          show={showReviewModal}
+          setShow={setShowReviewModal}
+          handleSubmitReview={handleSubmitReview}
+        />
+      </div>
     </DefaultLayoutUserHomePage>
   );
 };

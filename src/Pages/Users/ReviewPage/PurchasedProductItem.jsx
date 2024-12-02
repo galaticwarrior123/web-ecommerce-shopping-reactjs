@@ -1,7 +1,7 @@
 const PurchasedProductItem = ({ product, handleShowReviewModal }) => {
   return (
     <div
-      className="w-100 mb-2 border border-2 p-2 d-flex align-items-center justify-content-between shadow border-primary"
+      className="w-100 mt-3 mb-3 border border-2 d-flex align-items-center justify-content-between shadow border-primary"
       style={{ height: "75px", margin: "0 auto" }}
     >
       <div className="d-flex align-items-center">
