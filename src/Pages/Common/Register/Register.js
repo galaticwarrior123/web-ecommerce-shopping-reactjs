@@ -31,13 +31,17 @@ function Register() {
             toast.error("Mật khẩu không khớp");
             return;
         }
-
+        if (password.length < 6) {
+            toast.error("Mật khẩu phải có ít nhất 6 ký tự");
+            return;
+        }
         try {
             await AuthAPI.signup({ email, password, username, gender, phone, address });
             await AuthAPI.sendOTP({ email });
             navigate('/verify', { state: { email } });
         } catch (err) {
-            toast.error("Đăng ký thất bại: " + err.response.data.message);
+            console.log(err)
+            toast.error("Đăng ký thất bại: " + err.response.data);
         }
     };
 

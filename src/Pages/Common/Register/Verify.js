@@ -15,18 +15,16 @@ const Verify = () => {
     const email = location.state?.email;
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         if (!otp) {
             toast.error('Vui lòng nhập mã OTP.');
             return;
         }
-
         try {
             await AuthAPI.verified({ email, otp });
-            toast.success('Xác thực thành công!');
+            toast.success('Xác thực thành công !');
             navigate('/login');
         } catch (err) {
-            toast.error('Xác thực thất bại!');
+            toast.error('Xác thực thất bại: ' + err.response.data);
         }
     };
 
