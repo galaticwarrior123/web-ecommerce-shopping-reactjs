@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useCart } from '../../../context/CartContext';
 import ReviewAPI from '../../../API/ReviewAPI';
 import Review from '../ReviewPage/Review';
+import WishlistAPI from '../../../API/WishlistAPI';
 const ProductDetail = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const location = useLocation();
@@ -46,7 +47,7 @@ const ProductDetail = () => {
 
     const handleAddToCart = async () => {
         try {
-            if(product.quantity < quantity){
+            if (product.quantity < quantity) {
                 toast.error("Số lượng sản phẩm trong kho không đủ.");
                 return;
             }
@@ -58,6 +59,27 @@ const ProductDetail = () => {
             toast.error("Lỗi khi thêm sản phẩm vào giỏ hàng.");
         }
     }
+
+    const handleAddToWishlist = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await WishlistAPI.AddProductToWishlist(product._id);
+            console.log("Add to wishlist full response:", response); // Debugging line
+            console.log("Add to wishlist data:", response.data); // Debugging line
+
+            const { exists, message, success } = response.data;
+
+            if (exists) {
+                toast.info(message || "Sản phẩm này đã được yêu thích.");
+            } else {
+                toast.success(message || "Thêm sản phẩm vào wishlist thành công!");
+                console.log("Thêm sản phẩm vào wishlist thành công:", response.data);
+            }
+        } catch (error) {
+            toast.error("Thêm sản phẩm thất bại!");
+            console.error("Thêm sản phẩm thất bại:", error);
+        }
+    };
 
     useEffect(() => {
         const fetchSimilarProducts = async () => {
@@ -159,7 +181,7 @@ const ProductDetail = () => {
                                 <button className="btn btn-primary me-2" onClick={handleAddToCart} id="btn-addProductToCart">
                                     <FontAwesomeIcon icon={faBagShopping} /> Thêm vào giỏ hàng
                                 </button>
-                                <button className="btn btn-outline-danger me-2">
+                                <button className="btn btn-outline-danger me-2" onClick={handleAddToWishlist}>
                                     <FontAwesomeIcon icon={faHeart} /> Yêu thích
                                 </button>
                             </div>) : (
