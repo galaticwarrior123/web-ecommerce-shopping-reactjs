@@ -4,27 +4,39 @@ import OrderTable from "./OrderTable";
 import ModalViewOrder from "./ModalViewOrder";
 import DefaultLayoutAdmin from "../../../Layouts/DefaultLayoutAdmin";
 import NotificationAPI from "../../../API/NotificationAPI";
-import { type } from "jquery";
+import OrderStatusBar from "../../Users/OrderPage/OrderStatusBar";
+
 const ManageOrder = () => {
   const [orders, setOrders] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [filteredOrders, setFilteredOrders] = useState([]);
+  const [status, setStatus] = useState("ALL");
   const [showViewOrder, setShowViewOrder] = useState(false);
   const [order, setOrder] = useState({});
 
   useEffect(() => {
     fetchDataOrders();
-  }, [page]);
+  }, []);
+
+  useEffect(() => {
+    filterOrders();
+  }, [orders, status]);
 
   const fetchDataOrders = async () => {
     try {
-      const res = await OrderAPI.GetOrderByAdmin({ page });
+      const res = await OrderAPI.GetOrderByAdmin();
       if (res.status === 200) {
         setOrders(res.data.DT.orders);
-        setTotalPages(res.data.DT.totalPages);
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const filterOrders = () => {
+    if (status === "ALL") {
+      setFilteredOrders(orders);
+    } else {
+      setFilteredOrders(orders.filter((order) => order.status === status));
     }
   };
 
@@ -38,24 +50,27 @@ const ManageOrder = () => {
       const data = {
         status: status,
       };
-      await OrderAPI.UpdateOrderStatus(id, data).then(
-        async (res) => {
-          if (res.status === 200) {
-            fetchDataOrders();
-            await NotificationAPI.createNotification({
-              recipient: userId,
-              content: `Đơn hàng ${id} đã được cập nhật trạng thái thành ${status === "CANCELLED" ? "Đã hủy" : status === "DELIVERED" ? "Đã giao" : status === "SHIPPED" ? "Đang giao" : status === "CONFIRMED" ? "Đã xác nhận" : "Đang xử lý"}`,
-              type: "ORDER",
-              link: `/order/${id}`,
-              image: image,
-            });
-          }
+      await OrderAPI.UpdateOrderStatus(id, data).then(async (res) => {
+        if (res.status === 200) {
+          fetchDataOrders();
+          await NotificationAPI.createNotification({
+            recipient: userId,
+            content: `Đơn hàng ${id} đã được cập nhật trạng thái thành ${status === "CANCELLED"
+              ? "Đã hủy"
+              : status === "DELIVERED"
+                ? "Đã giao"
+                : status === "SHIPPED"
+                  ? "Đang giao"
+                  : status === "CONFIRMED"
+                    ? "Đã xác nhận"
+                    : "Chờ xác nhận"
+              }`,
+            type: "ORDER",
+            link: `/order/${id}`,
+            image: image,
+          });
         }
-      );
-      
-      // if (res.status === 200) {
-      //   fetchDataOrders();
-      // }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -63,10 +78,13 @@ const ManageOrder = () => {
 
   return (
     <DefaultLayoutAdmin>
+      <OrderStatusBar
+        status={status}
+        setStatus={setStatus}
+        totalOrder={orders}
+      />
       <OrderTable
-        orders={orders}
-        setPage={setPage}
-        totalPages={totalPages}
+        orders={filteredOrders}
         UpdateOrderStatus={UpdateOrderStatus}
         handleViewOrder={handleViewOrder}
       />
@@ -76,7 +94,6 @@ const ManageOrder = () => {
         order={order}
       />
     </DefaultLayoutAdmin>
-
   );
 };
 

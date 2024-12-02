@@ -17,10 +17,10 @@ const OrderViewItem = ({ item }) => {
             <p className="mb-0">Phân loại: {item.product.category.name}</p>
 
             <div className="d-flex flex-row gap-5 align-items-center pe-5">
-                <p className="mb-0">Đơn giá: {item.priceAtOrder} đ</p>
+                <p className="mb-0">Đơn giá: {item.priceAtOrder.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
                 <p className="mb-0">SL: {item.quantity}</p>
                 <p className="mb-0">
-                    Thành tiền: {item.priceAtOrder * item.quantity} đ
+                    Thành tiền: {(item.priceAtOrder * item.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                 </p>
             </div>
         </div>

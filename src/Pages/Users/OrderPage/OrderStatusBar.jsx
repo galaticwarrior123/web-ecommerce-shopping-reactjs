@@ -5,7 +5,7 @@ const OrderStatusBar = ({ status, setStatus, totalOrder }) => {
     { label: "Tất cả", value: "ALL" },
     { label: "Chờ xác nhận", value: "PENDING" },
     { label: "Đã xác nhận", value: "CONFIRMED" },
-    { label: "Đang giao", value: "SHIPPING" },
+    { label: "Đang giao", value: "SHIPPED" },
     { label: "Đã giao", value: "DELIVERED" },
     { label: "Đã hủy", value: "CANCELLED" },
   ];

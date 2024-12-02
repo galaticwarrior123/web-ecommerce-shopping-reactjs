@@ -1,39 +1,32 @@
 import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import Select from "react-select";
+import { useState } from "react";
 
 const OrderTable = ({
   orders,
-  totalPages,
-  setPage,
   UpdateOrderStatus,
   handleViewOrder,
 }) => {
   const options = [
-    {
-      value: "PENDING",
-      label: "Đang xử lý",
-    },
-    {
-      value: "CONFIRMED",
-      label: "Đã xác nhận",
-    },
-    {
-      value: "SHIPPED",
-      label: "Đang giao",
-    },
-    {
-      value: "DELIVERED",
-      label: "Đã giao",
-    },
-    {
-      value: "CANCELLED",
-      label: "Đã hủy",
-    },
+    { value: "PENDING", label: "Chờ xác nhận" },
+    { value: "CONFIRMED", label: "Đã xác nhận" },
+    { value: "SHIPPED", label: "Đang giao" },
+    { value: "DELIVERED", label: "Đã giao" },
+    { value: "CANCELLED", label: "Đã hủy" },
   ];
 
+  // State cho phân trang
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10; // Số đơn hàng mỗi trang
+
+  // Tính toán các đơn hàng hiển thị
+  const offset = currentPage * itemsPerPage;
+  const currentOrders = orders.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(orders.length / itemsPerPage);
+
   const handlePageClick = (data) => {
-    setPage(data.selected + 1);
+    setCurrentPage(data.selected);
   };
 
   return (
@@ -51,8 +44,8 @@ const OrderTable = ({
           </tr>
         </thead>
         <tbody>
-          {orders && orders.length > 0 ? (
-            orders.map((order) => (
+          {currentOrders && currentOrders.length > 0 ? (
+            currentOrders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{new Date(order.createdAt).toLocaleString()}</td>
@@ -64,11 +57,16 @@ const OrderTable = ({
                       (option) => option.value === order.status
                     )}
                     onChange={(selected) =>
-                      UpdateOrderStatus(order._id, selected.value, order.user._id, order.shoppingCart.products[0].product.images[0])
+                      UpdateOrderStatus(
+                        order._id,
+                        selected.value,
+                        order.user._id,
+                        order.shoppingCart.products[0].product.images[0]
+                      )
                     }
                   />
                 </td>
-                <td>{order.totalAmount}</td>
+                <td>{order.totalAmount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                 <td>{order.paymentMethod}</td>
                 <td className="d-flex gap-3">
                   <button
@@ -94,7 +92,7 @@ const OrderTable = ({
           nextLabel="next >"
           onPageChange={handlePageClick}
           pageRangeDisplayed={5}
-          pageCount={totalPages}
+          pageCount={pageCount}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           marginPagesDisplayed={2}
