@@ -59,29 +59,7 @@ const Report = () => {
 
             setStatusData(statusCount);
 
-            // Lọc doanh thu theo thời gian (quý, tháng, năm)
-            const revenueByTime = deliveredOrders.reduce((acc, order) => {
-                const date = new Date(order.createdAt); // Chuyển đổi createdAt thành đối tượng Date
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1; // Tháng bắt đầu từ 0, cộng thêm 1 để đúng tháng
-                const quarter = Math.floor((month - 1) / 3) + 1; // Tính quý
 
-                // Kiểm tra lọc theo năm, tháng hoặc quý
-                const timeKey = `${quarter}-Q${year}`;
-                if (
-                    (selectedYear && selectedYear === year) ||
-                    (selectedMonth && selectedMonth === month) ||
-                    (selectedQuarter && selectedQuarter === quarter) ||
-                    (!selectedYear && !selectedMonth && !selectedQuarter) // Nếu không có lựa chọn nào thì hiển thị tất cả
-                ) {
-                    acc[timeKey] = (acc[timeKey] || 0) + order.totalAmount;
-                }
-
-                return acc;
-            }, {});
-
-            setRevenueData(Object.values(revenueByTime));
-            setChartLabels(Object.keys(revenueByTime));
 
         } catch (error) {
             console.error("Error fetching orders:", error);
@@ -132,50 +110,7 @@ const Report = () => {
                     </div>
                 </div>
 
-                {/* Lựa chọn lọc (tháng, quý, năm) */}
-                <div className="mb-4">
-                    <select
-                        className="form-select"
-                        value={selectedMonth}
-                        onChange={(e) => setSelectedMonth(e.target.value)}>
-                        <option value="">Tất cả tháng</option>
-                        {Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
-                            <option key={month} value={month}>{`Tháng ${month}`}</option>
-                        ))}
-                    </select>
 
-                    <select
-                        className="form-select mt-2"
-                        value={selectedQuarter}
-                        onChange={(e) => setSelectedQuarter(e.target.value)}>
-                        <option value="">Tất cả quý</option>
-                        {Array.from({ length: 4 }, (_, i) => i + 1).map(quarter => (
-                            <option key={quarter} value={quarter}>{`Quý ${quarter}`}</option>
-                        ))}
-                    </select>
-
-                    <select
-                        className="form-select mt-2"
-                        value={selectedYear}
-                        onChange={(e) => setSelectedYear(e.target.value)}>
-                        <option value="">Tất cả năm</option>
-                        {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map(year => (
-                            <option key={year} value={year}>{year}</option>
-                        ))}
-                    </select>
-                </div>
-
-                {/* Biểu đồ doanh thu */}
-                <div className="chart-container">
-                    <div className="chart-card">
-                        <div className="card shadow mb-4">
-                            <div className="card-body">
-                                <h5 className="card-title text-center fw-bold">📈 Biểu đồ doanh thu</h5>
-                                <Line data={revenueChartData} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Biểu đồ trạng thái đơn hàng */}
                 <div className="chart-container">
