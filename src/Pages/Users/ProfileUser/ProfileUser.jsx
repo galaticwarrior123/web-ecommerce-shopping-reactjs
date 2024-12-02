@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const ProfileUser = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
+    const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const navigate = useNavigate();
@@ -78,7 +79,7 @@ const ProfileUser = () => {
             return;
         }
 
-        AuthAPI.changePassword({ newPassword: newPassword, confirmPassword: confirmPassword , token: token})
+        AuthAPI.changePassword({ oldPassword: oldPassword, newPassword: newPassword, confirmPassword: confirmPassword, token: token })
             .then(response => {
                 toast.success('Đổi mật khẩu thành công.');
                 setNewPassword('');
@@ -86,7 +87,7 @@ const ProfileUser = () => {
             })
             .catch(error => {
                 console.error('Error changing password:', error);
-                alert('Có lỗi xảy ra, vui lòng thử lại sau.');
+                toast.error('Lỗi: ' + error.response.data.error);
             });
     };
 
@@ -248,15 +249,17 @@ const ProfileUser = () => {
                     {currentTab === "password" && (
                         <div className="tab-pane active">
                             <form onSubmit={handlePasswordChange}>
-                                {/* <div className="form-group mb-3">
-                                    <label htmlFor="currentPassword" className="form-label">Mật khẩu hiện tại</label>
+                                <div className="form-group mb-3">
+                                    <label htmlFor="oldPassword" className="form-label">Mật khẩu hiện tại</label>
                                     <input
                                         type="password"
                                         className="form-control"
-                                        id="currentPassword"
-                                        placeholder="Enter current password"
+                                        id="oldPassword"
+                                        value={oldPassword}
+                                        onChange={(e) => setOldPassword(e.target.value)}
+                                        placeholder="Nhập mật khẩu hiện tại"
                                     />
-                                </div> */}
+                                </div>
                                 <div className="form-group mb-3">
                                     <label htmlFor="newPassword" className="form-label">Mật khẩu mới</label>
                                     <input
