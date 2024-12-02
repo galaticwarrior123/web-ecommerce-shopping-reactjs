@@ -84,6 +84,7 @@ const Header = () => {
         navigate('/');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('recentlyViewed');
         window.location.reload();
     };
 

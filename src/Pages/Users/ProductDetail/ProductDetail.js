@@ -15,11 +15,11 @@ import ReviewAPI from '../../../API/ReviewAPI';
 import Review from '../ReviewPage/Review';
 const ProductDetail = () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const [isUser, setIsUser] = useState(false);
     const location = useLocation();
     const [quantity, setQuantity] = useState(1);
     const [product, setProduct] = useState({});
     const [reviews, setReviews] = useState([]);
+    const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
     const [similarProducts, setSimilarProducts] = useState([]);
     const product_id = location.pathname.split('/').pop();
     const { fetchShoppingCartQuantity } = useCart();
@@ -30,11 +30,19 @@ const ProductDetail = () => {
         }
     };
 
-    useEffect(() => {
-        if (user) {
-            setIsUser(true);
+    const addToRecentlyViewed = (product) => {
+        const recentlyViewed =
+            JSON.parse(localStorage.getItem("recentlyViewed")) || [];
+
+        if (product._id && !recentlyViewed.some((item) => item._id === product._id)) {
+            recentlyViewed.unshift(product);
+            if (recentlyViewed.length > 4) {
+                recentlyViewed.pop();
+            }
+            localStorage.setItem("recentlyViewed", JSON.stringify(recentlyViewed));
         }
-    }, [user]);
+        setRecentlyViewedProducts(recentlyViewed);
+    };
 
     const handleAddToCart = async () => {
         try {
@@ -92,7 +100,9 @@ const ProductDetail = () => {
         fetchSimilarProducts();
     }, [product_id]);
 
-
+    useEffect(() => {
+        addToRecentlyViewed(product);
+    }, [product]);
 
     return (
         <DefaultLayoutUserHomePage>
@@ -193,6 +203,33 @@ const ProductDetail = () => {
             </div>
 
 
+            <div className="similar-products mt-5">
+                <h3>Sản phẩm đã xem</h3>
+                <div className="row">
+                    {recentlyViewedProducts.length > 0 ? recentlyViewedProducts
+                        .map((recentlyViewedProduct) => (
+                            <div key={recentlyViewedProduct._id} className="col-md-3 mb-4" onClick={() => window.location.href = `/product/${recentlyViewedProduct._id}`}>
+                                <div className="card">
+                                    <img src={recentlyViewedProduct.images[0] || "https://via.placeholder.com/150"} alt={recentlyViewedProduct.productName} className="img-similar-product" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{recentlyViewedProduct.productName}</h5>
+                                        <p className="card-text-similar-product" style={{ fontSize: '1.2rem' }}>
+                                            {recentlyViewedProduct.sale_price ? (
+                                                <>
+                                                    <span className="text-decoration-line-through">Giá bán: {recentlyViewedProduct.origin_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
+                                                    <span className="text-danger">Giá khuyến mãi: {recentlyViewedProduct.sale_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
+                                                </>
+                                            ) : (
+                                                <span>Giá bán: {recentlyViewedProduct.origin_price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}đ</span>
+                                            )}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        )) : <p>Không có sản phẩm đã xem</p>
+                    }
+                </div>
+            </div>
         </DefaultLayoutUserHomePage>
     );
 }
