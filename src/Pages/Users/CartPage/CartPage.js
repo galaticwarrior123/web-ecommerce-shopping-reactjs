@@ -112,6 +112,7 @@ const CartPage = () => {
                                     Mã đơn hàng: ${response.data.DT.order._id}`,
                         type: 'order',
                         recipient: 'admin',
+                        link: `/admin/manager-orders`,
                     };
 
                    
@@ -275,7 +276,7 @@ const CartPage = () => {
                             <div className="box-body">
                                 <h5 className="card-title">Phương thức thanh toán</h5>
                                 <div className="form-check mb-3">
-                                    <input className="form-check-input" type="radio" name="payment" id="paypal" />
+                                    <input className="form-check-input" type="radio" name="payment" id="paypal" checked={paymentMethod === 'PayPal'} />
                                     <label className="form-check-label" htmlFor="paypal" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
                                         PayPal
                                     </label>

@@ -186,8 +186,8 @@ const ProductCard_2 = ({ product, showViewCount, showProductCount, updateShoppin
                     <p className="price ">
                         {product.sale_price ? (
                             <>
-                                <div><del>{product.origin_price.toLocaleString()}đ</del></div>
-                                <div><span className="discounted-price">{product.sale_price.toLocaleString()}đ</span></div>
+                                <><del>{product.origin_price.toLocaleString()}đ</del></>
+                                <><span className="discounted-price">{product.sale_price.toLocaleString()}đ</span></>
                             </>
                         ) : (
                             <span className="origin-price">{product.origin_price.toLocaleString()}đ</span>

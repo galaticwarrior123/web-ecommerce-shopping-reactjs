@@ -4,11 +4,13 @@ import { faBell, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../../../context/SocketContext";
 import NotificationAPI from "../../../API/NotificationAPI";
+import { useNavigate } from "react-router-dom";
 
 const AdminHeader = ({ tabName }) => {
   const { notifications } = useContext(SocketContext); // Real-time notifications từ SocketContext
   const [showNotifications, setShowNotifications] = useState(false);
   const [listNotifications, setListNotifications] = useState([]); // Danh sách thông báo tổng hợp
+  const navigate = useNavigate();
 
   // Lấy danh sách thông báo từ server khi component mount
   useEffect(() => {
@@ -39,7 +41,7 @@ const AdminHeader = ({ tabName }) => {
   }, [notifications]);
 
   // Xử lý đánh dấu đã đọc
-  const handleMarkAsRead = async (notificationId) => {
+  const handleMarkAsRead = async (notificationId, link) => {
     try {
       await NotificationAPI.markAsRead(notificationId); // Gửi API cập nhật trạng thái
       setListNotifications((prev) =>
@@ -47,6 +49,9 @@ const AdminHeader = ({ tabName }) => {
           n._id === notificationId ? { ...n, isRead: true } : n
         )
       );
+      setShowNotifications(false); // Ẩn dropdown
+      if (link) navigate(link); // Chuyển hướng đến link n
+      
     } catch (error) {
       console.error("Failed to mark notification as read:", error);
     }
@@ -58,7 +63,9 @@ const AdminHeader = ({ tabName }) => {
   // Xử lý đăng xuất
   const handleLogout = () => {
     localStorage.removeItem("user");
-    window.location.href = "/login";
+    localStorage.removeItem("token");
+    localStorage.removeItem("Role");
+    navigate("/login");
   };
 
   return (
@@ -86,7 +93,7 @@ const AdminHeader = ({ tabName }) => {
                   <li
                     key={notification._id || index}
                     className={notification.isRead ? "read" : "unread"}
-                    onClick={() => handleMarkAsRead(notification._id)}
+                    onClick={() => handleMarkAsRead(notification._id, notification.link)}
                   >
                     {notification.content}
                   </li>

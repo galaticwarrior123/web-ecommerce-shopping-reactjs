@@ -92,8 +92,17 @@
 .notifications-dropdown ul li {
   display: flex;
   align-items: center;
-  padding: 10px;
   cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.notifications-dropdown ul li:hover {
+  background: #f1f1f1;
+}
+
+.notifications-dropdown ul li:last-child {
+  margin-bottom: 0;
+
 }
 
 .notifications-dropdown ul li.unread {

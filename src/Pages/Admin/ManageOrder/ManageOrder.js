@@ -33,7 +33,7 @@ const ManageOrder = () => {
     setShowViewOrder(true);
   };
 
-  const UpdateOrderStatus = async (id, status, userId) => {
+  const UpdateOrderStatus = async (id, status, userId, image) => {
     try {
       const data = {
         status: status,
@@ -44,9 +44,10 @@ const ManageOrder = () => {
             fetchDataOrders();
             await NotificationAPI.createNotification({
               recipient: userId,
-              content: `Đơn hàng ${id} đã được cập nhật trạng thái thành ${status}`,
+              content: `Đơn hàng ${id} đã được cập nhật trạng thái thành ${status === "CANCELLED" ? "Đã hủy" : status === "DELIVERED" ? "Đã giao" : status === "SHIPPED" ? "Đang giao" : status === "CONFIRMED" ? "Đã xác nhận" : "Đang xử lý"}`,
               type: "ORDER",
               link: `/order/${id}`,
+              image: image,
             });
           }
         }

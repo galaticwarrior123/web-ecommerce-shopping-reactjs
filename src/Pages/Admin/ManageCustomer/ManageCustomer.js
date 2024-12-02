@@ -40,15 +40,15 @@ const ManageCustomer = () => {
                             <div className="col-lg-3 col-md-4 col-sm-6 d-flex justify-content-center mt-3" key={index}>
                                 <div className="customer-card">
                                     <div className="customer-avatar">
-                                        <img src={customer.avatar || "https://via.placeholder.com/150"} alt="avatar" />
+                                        <img src={customer.avatar || "/images/icon-avatar.png"} alt="avatar" />
                                     </div>
                                     <div className="customer-info">
                                         <h5>{customer.username || "No Name"}</h5>
                                         <p>{customer.email}</p>
                                     </div>
                                     <div className="customer-action">
-                                        <button className="btn btn-primary btn-view-history" onClick={()=>handleClickShowShoppingHistory(customer._id)}>Xem lịch sử mua hàng</button>
-                                        <button className="btn btn-danger btn-delete"> Xóa</button>
+                                        <button className="btn btn-view-history" onClick={()=>handleClickShowShoppingHistory(customer._id)}>Xem lịch sử mua hàng</button>
+                                        <button className="btn btn-danger "> Xóa</button>
                                     </div>
                                 </div>
                             </div>

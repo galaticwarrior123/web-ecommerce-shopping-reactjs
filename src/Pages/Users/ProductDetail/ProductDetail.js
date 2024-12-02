@@ -43,7 +43,6 @@ const ProductDetail = () => {
                 return;
             }
             const response = await ShoppingCartAPI.AddProductToCart(product._id, quantity);
-            console.log("Product added to cart:", response);
             toast.success("Sản phẩm đã được thêm vào giỏ hàng.");
             fetchShoppingCartQuantity();
         } catch (error) {
@@ -76,7 +75,6 @@ const ProductDetail = () => {
         const increaseViewCount = async () => {
             try {
                 const response = await ProductAPI.increaseViewCount(product_id);
-                console.log("View count increased:", response);
             } catch (error) {
                 console.error("Error increasing view count:", error);
             }
