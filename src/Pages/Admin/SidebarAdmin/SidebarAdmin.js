@@ -31,7 +31,7 @@ const SidebarAdmin = ({ onMenuClick, activeMenu }) => {
                 <Link to="/admin/manager-orders" className={`menu-item ${activeMenu === 'Quản lý đơn hàng' ? 'activeItem' : ''}`} onClick={() => onMenuClick('Quản lý đơn hàng')}>Quản lý đơn hàng</Link>
                 <Link to="/admin/manager-customer" className={`menu-item ${activeMenu === 'Quản lý khách hàng' ? 'activeItem' : ''}`} onClick={() => onMenuClick('Quản lý khách hàng')}>Quản lý khách hàng</Link>
                 <Link to="/admin/report" className={`menu-item ${activeMenu === 'Báo cáo doanh thu' ? 'activeItem' : ''}`} onClick={() => onMenuClick('Báo cáo doanh thu')}>Báo cáo doanh thu</Link>
-
+                <Link to="/" className="menu-item">Trở về trang chủ</Link>
             </div>
         </div>
     )

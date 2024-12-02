@@ -7,6 +7,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrash, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { toast, } from 'react-toastify';
 
 const Wishlist = () => {
     const [wishlistItems, setWishlistItems] = useState([]);
@@ -18,8 +19,8 @@ const Wishlist = () => {
     const handleRemoveFromWishlist = async (itemId) => {
         try {
             const response = await WishlistAPI.DeleteProduct(wishlistId, String(itemId));
-            console.log("Product removed from wishlist:", response);
-            alert("Sản phẩm đã được xóa khỏi danh sách yêu thích!");
+            // console.log("Product removed from wishlist:", response);
+            toast.success("Sản phẩm đã được xóa khỏi danh sách yêu thích!");
 
             // Update the wishlist items by filtering out the removed item
             setWishlistItems((prevItems) =>
@@ -27,7 +28,7 @@ const Wishlist = () => {
             );
         } catch (error) {
             console.error("Error removing product from wishlist:", error);
-            alert("Có lỗi xảy ra khi xóa sản phẩm khỏi danh sách yêu thích.");
+            toast.error("Có lỗi xảy ra khi xóa sản phẩm khỏi danh sách yêu thích.");
         }
     };
 
@@ -35,16 +36,15 @@ const Wishlist = () => {
         const fetchWishlist = async () => {
             try {
                 const data = await WishlistAPI.GetWishlist();
-                console.log("DATA: ", data);
                 if (data.data.success && data.data.wishlist) {
                     const products = data.data.wishlist.products || [];
-                    console.log("Wishlist: ", data);
+                    // console.log("Products: ", products);
                     setWishlistItems(products);
 
                     const createdAtDates = products.map((item) =>
                         item.createdAt ? item.createdAt.split('T')[0] : "No date available"
                     );
-                    console.log("Created At Dates: ", createdAtDates);
+                    // console.log("Created At Dates: ", createdAtDates);
 
                     setWishlistItemCreatedAt(createdAtDates);
                     setWishlistId(data.data.wishlist._id); // Lưu _id của giỏ hàng

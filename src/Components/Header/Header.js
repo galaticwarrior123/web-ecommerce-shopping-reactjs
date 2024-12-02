@@ -89,7 +89,7 @@ const Header = () => {
             );
 
             navigate(`${link}`); // Chuyển hướng đến trang thông báo
-            
+
         } catch (error) {
             console.error('Error marking notification as read:', error);
         }
@@ -137,11 +137,14 @@ const Header = () => {
     const handleLogin = () => navigate('/login');
     const handleRegister = () => navigate('/register');
     const handleLogout = () => {
-        navigate('/');
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('recentlyViewed');
-        window.location.reload();
+        const isConfirmed = window.confirm("Bạn có chắc chắn muốn đăng xuất?");
+        if (isConfirmed) {
+            navigate('/');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('recentlyViewed');
+            window.location.reload();
+        }
     };
 
     const handleShoppingCartClick = () => {

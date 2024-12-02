@@ -51,7 +51,7 @@ const AdminHeader = ({ tabName }) => {
       );
       setShowNotifications(false); // Ẩn dropdown
       if (link) navigate(link); // Chuyển hướng đến link n
-      
+
     } catch (error) {
       console.error("Failed to mark notification as read:", error);
     }
@@ -62,10 +62,14 @@ const AdminHeader = ({ tabName }) => {
 
   // Xử lý đăng xuất
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    localStorage.removeItem("Role");
-    navigate("/login");
+    const isConfirmed = window.confirm("Bạn có chắc chắn muốn đăng xuất?");
+    if (isConfirmed) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      localStorage.removeItem("Role");
+      localStorage.removeItem('recentlyViewed');
+      navigate("/login");
+    }
   };
 
   return (
