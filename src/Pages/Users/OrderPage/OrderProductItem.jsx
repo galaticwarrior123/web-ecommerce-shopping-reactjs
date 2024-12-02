@@ -14,8 +14,6 @@ const OrderProductItem = ({ product, quantity, priceAtOrder }) => {
         <p className="fw-bold mb-0 ms-3">{product.productName}</p>{" "}
       </div>
 
-      <p className="mb-0">Phân loại: {product.category.name}</p>
-
       <div className="d-flex flex-row gap-5 align-items-center pe-5">
         <p className="mb-0">Số lượng: {quantity}</p>
         <p className="mb-0">

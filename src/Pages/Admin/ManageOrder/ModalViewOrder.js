@@ -9,7 +9,7 @@ const ModalViewOrder = ({ show, setShowView, order }) => {
   const [products, setProducts] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
-  const [discountCode, setDiscountCode] = useState({});
+  const [createdAt, setCreatedAt] = useState({});
 
   const handleClose = () => {
     setShowView(false);
@@ -23,7 +23,7 @@ const ModalViewOrder = ({ show, setShowView, order }) => {
       setProducts(order.shoppingCart?.products);
       setTotalAmount(order.totalAmount);
       setPaymentMethod(order.paymentMethod);
-      setDiscountCode(order.discountCode);
+      setCreatedAt(order.createdAt);
     }
   }, [order]);
   return (
@@ -66,11 +66,11 @@ const ModalViewOrder = ({ show, setShowView, order }) => {
                 })}
             </div>
             <div className="col-md-4">
-              <label className="form-label">Mã giảm giá: </label>
+              <label className="form-label">Ngày tạo đơn: </label>
               <input
                 type="text"
                 className="form-control"
-                value={discountCode?.discountCode}
+                value={new Date(order.createdAt).toLocaleString()}
                 disabled
               />
             </div>

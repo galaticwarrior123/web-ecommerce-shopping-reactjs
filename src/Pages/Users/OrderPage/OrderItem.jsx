@@ -1,11 +1,17 @@
 import OrderProductItem from "./OrderProductItem";
 
 const OrderItem = ({ order, handleOnClickOrder }) => {
-
+  const statusLabels = {
+    PENDING: "Chờ xác nhận",
+    CONFIRMED: "Đã xác nhận",
+    CANCELLED: "Đã hủy",
+    SHIPPED: "Đang vận chuyển",
+    DELIVERED: "Đã giao",
+  };
   return (
     <div
       className="bg-white w-100 border border-2 border-primary d-flex flex-column justify-content-center mb-2"
-      style={{ height: "auto", margin: "0 auto" }}
+      style={{ height: "auto", margin: "0 auto", cursor: "pointer" }}
       onClick={() => handleOnClickOrder(order._id)}
     >
       <div
@@ -13,7 +19,8 @@ const OrderItem = ({ order, handleOnClickOrder }) => {
         style={{ height: "60px" }}
       >
         <p className="fw-bold mb-0 ms-3">Mã đơn hàng: {order._id}</p>
-        <p className="fw-bold mb-0 me-3 text-primary">{order.status}</p>
+        <p className="fw-bold mb-0 me-3 text-primary"> {statusLabels[order.status] || order.status}
+        </p>
       </div>
       <div>
         {order.shoppingCart.products.map((product) => (

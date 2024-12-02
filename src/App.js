@@ -18,6 +18,7 @@ import ProductCard_2 from './Components/ProductCard/ProductCard_2';
 import CartPage from './Pages/Users/CartPage/CartPage';
 import ShoppingCartPage from './Pages/Users/ShoppingCartPage/ShoppingCartPage'
 import OrderPage from './Pages/Users/OrderPage/OrderPage';
+import OrderDetail from './Pages/Users/OrderPage/OrderDetail';
 import PurchasedProducts from './Pages/Users/ReviewPage/PurchasedProducts';
 import ProductDetail from './Pages/Users/ProductDetail/ProductDetail';
 import Wishlist from './Pages/Users/Wishlist/Wishlist';
@@ -66,6 +67,7 @@ function App() {
               <Route path="/shopping-cart" element={<ShoppingCartPage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/order" element={<OrderPage />} />
+              <Route path="/order/:orderId" element={<OrderDetail />} />
               <Route path="/purchased-products" element={<PurchasedProducts />} />
               <Route path="/profile" element={<ProfileUser />} />
               <Route path="/wishlist" element={<Wishlist />} />

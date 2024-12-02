@@ -324,7 +324,7 @@ const Header = () => {
                     <Nav className="ml-auto d-flex align-items-center ">
                         {currentUser && currentUser.isAdmin && (
                             <Nav.Link href="/admin" className="admin-link">
-                                <FontAwesomeIcon icon={faUserTie} />
+                                <FontAwesomeIcon icon={faUserTie} className="icon-admin-page" />
                             </Nav.Link>
                         )}
                         {/* Notifications */}
