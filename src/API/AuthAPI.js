@@ -32,11 +32,6 @@ class AuthAPI {
         return axiosClient.post(url, data);
     }
 
-    static async resetPassword(data) {
-        const url = '/user/change-password'; 
-        return axiosPrivate.post(url, data); // Gửi config vào đây
-    }
-
 
     static async getAllCustomers() {
         const url = '/user/all';
@@ -53,8 +48,13 @@ class AuthAPI {
     }
 
     static async changePassword(data) {
-        const url = '/user/change-password/';
+        const url = '/user/change-password';
         return axiosPrivate.put(url, data);
+    }
+
+    static async resetPassword(data) {
+        const url = '/user/reset-password';
+        return axiosPrivate.post(url, data);
     }
 
 

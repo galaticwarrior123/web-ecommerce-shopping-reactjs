@@ -2,12 +2,15 @@ import DefaultLayoutUserHomePage from "../../../Layouts/DefaultLayoutUserHomePag
 import { useState } from "react";
 import "./ProfileUser.css";
 import AuthAPI from "../../../API/AuthAPI";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ProfileUser = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('token');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         username: user.username || '',
@@ -57,9 +60,9 @@ const ProfileUser = () => {
 
         AuthAPI.updateProfile(user._id, data)
             .then(response => {
-                alert('Cập nhật thông tin thành công.');
+                toast.success('Cập nhật thông tin thành công.');
                 localStorage.setItem('user', JSON.stringify(response.data));
-                window.location.reload();
+                navigate('/profile');
             })
             .catch(error => {
                 console.error('Error updating profile:', error);
@@ -71,13 +74,13 @@ const ProfileUser = () => {
     const handlePasswordChange = (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            alert('Mật khẩu xác nhận không khớp.');
+            toast.error('Mật khẩu mới và xác nhận mật khẩu không khớp.');
             return;
         }
 
         AuthAPI.changePassword({ newPassword: newPassword, confirmPassword: confirmPassword , token: token})
             .then(response => {
-                alert('Đổi mật khẩu thành công.');
+                toast.success('Đổi mật khẩu thành công.');
                 setNewPassword('');
                 setConfirmPassword('');
             })
