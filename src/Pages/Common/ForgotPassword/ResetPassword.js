@@ -4,6 +4,7 @@ import AuthAPI from '../../../API/AuthAPI';
 import { useNavigate, Link } from 'react-router-dom';
 
 import DefaultLayoutLogReg from '../../../Layouts/DefaultLayoutLogReg';
+import { toast } from 'react-toastify';
 
 
 
@@ -29,26 +30,29 @@ const ResetPassword = () => {
         }
 
         // Tạo dữ liệu cho body mà không có token
-        const data = { newPassword, confirmPassword };
+        const data = { newPassword, confirmPassword , token};
+
+        console.log(data);
 
         // Gọi tới api của reset password với token trong headers
         try {
-            const response = await AuthAPI.resetPassword(data, { headers: { 'x-token': token } });
-            const body = response.data;
+            AuthAPI.resetPassword(data)
+                .then(response => {
 
-            setMessage(body.message); // Hiển thị thông báo thành công
-            localStorage.removeItem('token');
+                    //setMessage(response.data.message);
+                    toast.success("Password changed successfully. Please login with your new password.");
+                    localStorage.removeItem('token'); // Xóa token sau khi thay đổi mật khẩu thành công
+                    navigate('/login');
 
-            setTimeout(() => {
-                navigate("/login");
-            }, 2000);
+                });
+
 
         } catch (error) {
             console.log({ newPassword, confirmPassword, token });
 
-            const body = error.response?.data;
-            console.log(body);
-            setMessage(body.error || 'Error resetting password. Please try again later.'); // Hiển thị thông báo lỗi
+            // const body = error.response?.data;
+            // console.log(body);
+            // setMessage(body.error || 'Error resetting password. Please try again later.'); // Hiển thị thông báo lỗi
         }
 
         // fetch('http://localhost:3000/api/v1/user/change-password', {
