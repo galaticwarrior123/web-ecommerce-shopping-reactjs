@@ -16,11 +16,6 @@ const OTPInput = () => {
         if (isNaN(element.value)) return; // Chỉ cho phép nhập số
 
         setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-
-        // Tự động chuyển qua ô input tiếp theo khi nhập xong
-        if (element.nextSibling && element.value) {
-            element.nextSibling.focus();
-        }
     };
 
     const handleSubmit = async (e) => {

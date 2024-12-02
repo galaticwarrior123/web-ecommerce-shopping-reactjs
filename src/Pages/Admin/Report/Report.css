@@ -1,0 +1,20 @@
+.chart-container {
+    display: block;
+    width: 100%;
+    margin-bottom: 30px;
+    /* Khoảng cách giữa các biểu đồ */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+}
+
+.chart-card {
+    width: 100%;
+    display: block;
+    /* Chắc chắn mỗi biểu đồ sẽ chiếm 1 dòng */
+}
